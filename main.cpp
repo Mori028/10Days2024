@@ -41,7 +41,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 
-
 	// 最新のキーボード情報用
 	char keys[256] = {0};
 
