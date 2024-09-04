@@ -3,8 +3,6 @@
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "10Days2024";
 
-//test
-
 // ウィンドウ横幅
 const int WIN_WIDTH = 600;
 
@@ -42,7 +40,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
-
 
 	// 最新のキーボード情報用
 	char keys[256] = {0};
