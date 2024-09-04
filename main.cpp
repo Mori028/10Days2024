@@ -3,6 +3,8 @@
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "10Days2024";
 
+//test
+
 // ウィンドウ横幅
 const int WIN_WIDTH = 600;
 
