@@ -2,6 +2,8 @@
 
 #include "DxLib.h"
 #include <memory>
+#include <math.h>
+#include <DirectXMath.h>
 
 class Map 
 {
@@ -20,4 +22,9 @@ public:
 	/// •`‰æ
 	/// </summary>
 	void Draw();
+
+private:
+	DirectX::XMFLOAT2 floor = { 100,500 };
+	bool isFloorMove_ = false;
+	int floorMoveTime_ = 0;
 };
