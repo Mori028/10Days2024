@@ -8,7 +8,9 @@
 class Map 
 {
 public:
+	// コンストラクタ
 	Map();
+	// デストラクタ
 	~Map();
 
 public:
@@ -34,7 +36,7 @@ public:
 
 private:
 	// 床のフラグやタイマーetc.
-	DirectX::XMFLOAT2 floor = { 100,500 };
+	DirectX::XMFLOAT2 floor[2] = { { 100, 500 },{ 900, 500 } };
 	bool isFloorMove_ = false;
 	int floorMoveTime_ = 0;
 };
