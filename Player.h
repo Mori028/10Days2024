@@ -28,6 +28,23 @@ public:
 
 private:
 
+	/// <summary>
+	/// 移動
+	/// </summary>
+	void Move();
+
+	/// <summary>
+	/// ジャンプ
+	/// </summary>
+	void Jump();
+
+	//画面内に収まるように
+	void FlameIn();
+
+	//重力フラグ
+	bool gravityFlag;
+	size_t gravityPower;
+
 	//位置
 	Vector2 pos_;
 
