@@ -1,4 +1,7 @@
 #include "DxLib.h"
+#include "Math.h"
+#include "Player.h"
+#include "Input.h"
 #include "Map.h"
 
 // ウィンドウのタイトルに表示する文字列
@@ -39,32 +42,35 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// 画像などのリソースデータの変数宣言と読み込み
 
-
 	// ゲームループで使う変数の宣言
+
+	//player
+	std::unique_ptr<Player> player_;
+	player_ = std::make_unique<Player>();
+	player_->Initialize();
 	std::unique_ptr<Map> map = std::make_unique<Map>();
 	map->Initialize();
 
-	// 最新のキーボード情報用
-	char keys[256] = {0};
-
-	// 1ループ(フレーム)前のキーボード情報
-	char oldkeys[256] = {0};
-
 	// ゲームループ
-	while (true) {
+	while (true) 
+	{
 		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
 		// 最新のキーボード情報を取得
-		GetHitKeyStateAll(keys);
+		Input::GetInstance()->Update();
 
 		// 画面クリア
 		ClearDrawScreen();
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
+
+		player_->Update();
 		map->Update();
 
 		// 描画処理
 		map->Draw();
+
+		player_->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
@@ -83,6 +89,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 	}
+
+	//音と画像消去
+	InitGraph();
+	InitSoundMem();
+
 	// Dxライブラリ終了処理
 	DxLib_End();
 
