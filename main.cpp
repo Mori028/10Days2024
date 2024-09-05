@@ -1,13 +1,14 @@
 #include "DxLib.h"
+#include "Math.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "10Days2024";
 
 // ウィンドウ横幅
-const int WIN_WIDTH = 600;
+const int WIN_WIDTH = 1200;
 
 // ウィンドウ縦幅
-const int WIN_HEIGHT = 400;
+const int WIN_HEIGHT = 800;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
                    _In_ int nCmdShow) {
@@ -37,7 +38,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// 画像などのリソースデータの変数宣言と読み込み
-
 
 	// ゲームループで使う変数の宣言
 
@@ -80,6 +80,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 	}
+
+	//音と画像消去
+	InitGraph();
+	InitSoundMem();
+
 	// Dxライブラリ終了処理
 	DxLib_End();
 
