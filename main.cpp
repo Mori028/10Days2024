@@ -1,5 +1,7 @@
 #include "DxLib.h"
 #include "Math.h"
+#include "Player.h"
+#include "Input.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "10Days2024";
@@ -41,17 +43,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 
-	// 最新のキーボード情報用
-	char keys[256] = {0};
-
-	// 1ループ(フレーム)前のキーボード情報
-	char oldkeys[256] = {0};
+	//player
+	std::unique_ptr<Player> player_;
+	player_ = std::make_unique<Player>();
+	player_->Initialize();
 
 	// ゲームループ
-	while (true) {
+	while (true) 
+	{
 		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
 		// 最新のキーボード情報を取得
-		GetHitKeyStateAll(keys);
+		Input::GetInstance()->Update();
 
 		// 画面クリア
 		ClearDrawScreen();
@@ -59,9 +61,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 更新処理
 
-
+		player_->Update();
 
 		// 描画処理
+
+		player_->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

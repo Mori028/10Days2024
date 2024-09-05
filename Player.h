@@ -1,4 +1,6 @@
 #pragma once
+#include "Math.h"
+#include <thread>
 
 class Player
 {
@@ -26,4 +28,12 @@ public:
 
 private:
 
+	//à íu
+	Vector2 pos_;
+
+	//êF
+	Vector3 color_;
+
+	//îºåa
+	size_t size_;
 };
