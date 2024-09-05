@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include "Map.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "10Days2024";
@@ -40,6 +41,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
+	std::unique_ptr<Map> map = std::make_unique<Map>();
+	map->Initialize();
 
 	// 最新のキーボード情報用
 	char keys[256] = {0};
@@ -58,9 +61,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
-
+		map->Update();
 
 		// 描画処理
+		map->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
