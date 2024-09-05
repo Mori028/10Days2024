@@ -4,11 +4,18 @@
 
 void Player::Update()
 {
+	//ˆÚ“®’l
 	Vector2 move = { 0,0 };
+
+	//‘¬“x
+	size_t speed = 3;
 
 	//ˆÚ“®
 	move.x_ += Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A);
 	move.y_ += Input::GetInstance()->KeyPush(KEY_INPUT_S) - Input::GetInstance()->KeyPush(KEY_INPUT_W);
+
+	//‘¬“x‚ðŠ|‚¯‚é
+	move *= speed;
 
 	//ˆÚ“®
 	pos_ += move;
