@@ -42,8 +42,12 @@ private:
 	void FlameIn();
 
 	//重力フラグ
-	bool gravityFlag;
-	size_t gravityPower;
+	bool gravityFlag_;
+	size_t gravityPower_;
+
+	//ジャンプ関係
+	bool jumpFlags_;
+	size_t jumpPower_;
 
 	//位置
 	Vector2 pos_;

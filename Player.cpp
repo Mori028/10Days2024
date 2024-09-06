@@ -28,10 +28,14 @@ void Player::Initialize()
 	size_ = 32;
 
 	//重力あり
-	gravityFlag = true;
+	gravityFlag_ = true;
 
 	//重力
-	gravityPower = 10;
+	gravityPower_ = 10;
+
+	//ジャンプ関係
+	jumpFlags_ = false;
+	jumpPower_ = 0;
 }
 
 void Player::Draw()
@@ -74,16 +78,22 @@ void Player::Move()
 
 void Player::Jump()
 {
+	//仮地面
+	int stageLine = 600;
+
+	//地面にいるか
+	bool earthFlags = pos_.y_ + 1 > stageLine + size_;
+
 	//space押したときどこにいるか
 	if (Input::GetInstance()->KeyPush(KEY_INPUT_SPACE))
 	{
-		switch (1)
+		switch (earthFlags)
 		{
-		case 1:
+		case true:
 
 			break;
 
-		case 2:
+		case false:
 
 			break;
 
@@ -93,7 +103,7 @@ void Player::Jump()
 	}
 
 	//重力
-	pos_.y_ += gravityPower;
+	pos_.y_ += gravityPower_;
 
 }
 
