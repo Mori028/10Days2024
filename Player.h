@@ -29,7 +29,7 @@ public:
 	/// <summary>
 	/// “–‚½‚è”»’è
 	/// </summary>
-	void BoxCollision();
+	bool BoxCollision();
 
 private:
 

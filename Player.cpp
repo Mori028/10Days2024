@@ -60,7 +60,7 @@ void Player::Finalize()
 
 }
 
-void Player::BoxCollision()
+bool Player::BoxCollision()
 {
 
 }
@@ -163,6 +163,12 @@ void Player::Jump()
 
 		//重力
 		pos_.y_ += gravityPower_ * speed;
+
+		//ステージに当たったら壊す
+		if (BoxCollision())
+		{
+
+		}
 	}
 	else
 	{
