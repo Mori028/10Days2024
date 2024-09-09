@@ -246,6 +246,8 @@ void Player::Jump()
 
 				//
 				hipDropF_ = true;
+
+				jumpPower_ = 0;
 			}
 
 			break;
