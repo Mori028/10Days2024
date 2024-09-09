@@ -56,6 +56,9 @@ private:
 	bool jumpFlags_;
 	float jumpPower_;
 
+	//
+	bool blockF_;
+	
 	//’¼‰º‚µ‚Ä‚¢‚é‚©
 	bool hipDropF_;
 
@@ -70,4 +73,9 @@ private:
 
 	//
 	Vector2 move_ = { 0,0 };
+
+	//íœ
+	Vector2 testS = { 600 , 540 };
+	float size = 32;
+	bool ans = false;
 };

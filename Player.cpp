@@ -45,6 +45,9 @@ void Player::Initialize()
 
 	//
 	move_ = { 0,0 };
+
+	//
+	blockF_ = false;
 }
 
 void Player::Draw()
@@ -79,9 +82,7 @@ void Player::Move()
 	move_.x_ *= speed;
 
 	//削除
-	Vector2 testS = { 600 , 540 };
-	float size = 32;
-	bool ans = false;
+	ans = false;
 
 	//移動
 	pos_.x_ += move_.x_;
@@ -91,23 +92,30 @@ void Player::Move()
 	//ステージに当たったら壊す
 	if (CheckHit(testS, size))
 	{
-		//修正
-		while (CheckHit(testS, size))
+		if (hipDropF_)
 		{
-			//横修正
-			if (CheckHitX(testS, size))
+			testS = { -100,-100 };
+		}
+		else
+		{
+			//修正
+			while (CheckHit(testS, size))
 			{
-				while (CheckHitX(testS, size))
+				//横修正
+				if (CheckHitX(testS, size))
 				{
-					bool X = move_.x_ > 0;
+					while (CheckHitX(testS, size))
+					{
+						bool X = move_.x_ > 0;
 
-					if (X)
-					{
-						pos_.x_ -= 0.1f;
-					}
-					else
-					{
-						pos_.x_ += 0.1f;
+						if (X)
+						{
+							pos_.x_ -= 0.1f;
+						}
+						else
+						{
+							pos_.x_ += 0.1f;
+						}
 					}
 				}
 			}
@@ -126,20 +134,28 @@ void Player::Move()
 	//ステージに当たったら壊す
 	if (CheckHit(testS, size))
 	{
-		//縦修正
-		if (CheckHitY(testS, size))
+		if (hipDropF_)
 		{
-			while (CheckHitY(testS, size))
+			testS = { -100,-100 };
+		}
+		else
+		{
+			//縦修正
+			if (CheckHitY(testS, size))
 			{
-				bool  Y = move_.y_ > 0;
+				while (CheckHitY(testS, size))
+				{
+					bool  Y = move_.y_ > 0;
 
-				if (Y)
-				{
-					pos_.y_ -= 0.1f;
-				}
-				else
-				{
-					pos_.y_ += 0.1f;
+					if (Y)
+					{
+						pos_.y_ -= 0.1f;
+						blockF_ = true;
+					}
+					else
+					{
+						pos_.y_ += 0.1f;
+					}
 				}
 			}
 		}
@@ -183,7 +199,7 @@ void Player::Jump()
 	//space押したときどこにいるか
 	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_SPACE))
 	{
-		switch (earthFlags)
+		switch (earthFlags || blockF_)
 		{
 			//地面からのジャンプ
 		case true:
@@ -196,6 +212,9 @@ void Player::Jump()
 
 			//ジャンプフラグ
 			jumpFlags_ = true;
+
+			//ブロックに触れているか
+			blockF_ = false;
 
 			break;
 
@@ -241,12 +260,6 @@ void Player::Jump()
 
 		//重力
 		move_.y_ += gravityPower_ * speed;
-
-		//ステージに当たったら壊す
-		/*if (BoxCollision())
-		{
-
-		}*/
 	}
 	else
 	{
