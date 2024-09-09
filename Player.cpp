@@ -127,6 +127,7 @@ void Player::Move()
 	else
 	{
 		ans = true;
+		blockF_ = false; 
 	}
 
 	//ˆÚ“®
@@ -166,6 +167,7 @@ void Player::Move()
 	else
 	{
 		ans = true;
+		blockF_ = false;
 	}
 
 	//Dubug
