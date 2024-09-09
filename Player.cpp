@@ -28,7 +28,8 @@ void Player::Initialize()
 	color_ = { 200,0,0 };
 
 	//直径
-	size_ = 32;
+	size_.x_ = 20;
+	size_.y_ = 40;
 
 	//重力あり
 	gravityFlag_ = true;
@@ -48,6 +49,9 @@ void Player::Initialize()
 
 	//
 	blockF_ = false;
+
+	//画像読み込み
+	playerPng_ = LoadGraph("Resource//player.png");
 }
 
 void Player::Draw()
@@ -60,11 +64,18 @@ void Player::Draw()
 
 	//描画
 	DrawBox(
-		(int)pos_.x_,
-		(int)pos_.y_ + 1,
-		(int)(pos_.x_ + size_),
-		(int)(pos_.y_ + 1 + size_),
+		(int)pos_.x_ - size_.x_,
+		(int)pos_.y_ - size_.y_ + 1,
+		(int)(pos_.x_ + size_.x_),
+		(int)(pos_.y_ + 1 + size_.y_),
 		color, true);
+
+	DrawExtendGraph(
+		(int)pos_.x_ - size_.x_,
+		(int)pos_.y_ - size_.y_ + 1,
+		(int)(pos_.x_ + size_.x_),
+		(int)(pos_.y_ + 1 + size_.y_),
+		playerPng_, true);
 }
 
 void Player::Finalize()
@@ -159,6 +170,7 @@ void Player::Move()
 					else
 					{
 						pos_.y_ += 1.0f;
+						jumpPower_ = 0;
 					}
 				}
 			}
@@ -172,7 +184,7 @@ void Player::Move()
 
 	//Dubug
 	DrawFormatString(0, 32, GetColor(100, 100, 100), "ans %d", ans, true);
-	DrawBox(testS.x_, testS.y_, testS.x_ + size, testS.y_ + size, GetColor(0, 0, 255), ans);
+	DrawBox(testS.x_ - size, testS.y_ - size, testS.x_ + size, testS.y_ + size, GetColor(0, 0, 255), ans);
 }
 
 void Player::Jump()
@@ -184,7 +196,7 @@ void Player::Jump()
 	int stageLine = 600;
 
 	//地面にいるか
-	bool earthFlags = pos_.y_ + 1 > stageLine + size_;
+	bool earthFlags = pos_.y_ + 1 > stageLine + size_.y_;
 
 	//地面にいたらtrueに
 	if (earthFlags)
@@ -292,19 +304,19 @@ void Player::FlameIn()
 	int RightMax = 1200;
 
 	//画面外にいかないように
-	pos_.x_ = min(pos_.x_, RightMax - size_);
+	pos_.x_ = min(pos_.x_, RightMax - size_.x_);
 	pos_.x_ = max(pos_.x_, LeftMax);
 
 	//画面外にいかないように
-	pos_.y_ = min(pos_.y_, stageLine + size_);
-	pos_.y_ = max(pos_.y_, size_);
+	pos_.y_ = min(pos_.y_, stageLine + size_.y_);
+	pos_.y_ = max(pos_.y_, size_.y_);
 }
 
 bool Player::CheckHit(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool X = std::abs(pos.x_ - pos_.x_) - (size / 2 + size_ / 2) < 0;
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size / 2 + size_ / 2) < 0;
+	bool X = std::abs(pos.x_ - pos_.x_) - (size + size_.x_) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
 
 	return X && Y;
 }
@@ -312,7 +324,7 @@ bool Player::CheckHit(Vector2 pos, float size)
 bool Player::CheckHitX(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool X = std::abs(pos.x_ - pos_.x_) - (size / 2 + size_ / 2) < 0;
+	bool X = std::abs(pos.x_ - pos_.x_) - (size + size_.x_) < 0;
 
 	return X;
 }
@@ -320,7 +332,7 @@ bool Player::CheckHitX(Vector2 pos, float size)
 bool Player::CheckHitY(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size / 2 + size_ / 2) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
 
 	return Y;
 }
