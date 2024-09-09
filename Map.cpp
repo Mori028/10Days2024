@@ -16,6 +16,31 @@ void Map::Initialize()
 
 void Map::Update()
 {
+	Map::Move();
+}
+
+void Map::Draw()
+{	
+	// マップチップの描画
+	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
+		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+			blockX = static_cast<float>(x * blockSize);
+			blockY = static_cast<float>(y * blockSize);
+
+			blockPosition[y][x] = { blockX,blockY };
+
+			if (map[y][x] == BLOCK) {
+				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
+			}
+			if (map[y][x] == MOVE_BLOCK) {
+				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
+			}
+		}
+	}
+}
+
+void Map::Move()
+{
 	const float floorSpeed_ = 0.5f;
 	const int returnTime_ = 100;
 
@@ -33,26 +58,4 @@ void Map::Update()
 		isFloorMove_ = false;
 		floorMoveTime_ = 0;
 	}
-}
-
-void Map::Draw()
-{	
-	// マップチップの描画
-	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
-		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
-			blockX = static_cast<float>(x * blockSize);
-			blockY = static_cast<float>(y * blockSize);
-
-			if (map[y][x] == BLOCK) {
-				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
-			}
-			if (map[y][x] == MOVE_BLOCK) {
-				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
-			}
-		}
-	}
-}
-
-void Map::Move()
-{
 }

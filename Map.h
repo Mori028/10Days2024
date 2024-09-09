@@ -43,6 +43,9 @@ public:
 	/// </summary>
 	void Move();
 
+public:
+	const DirectX::XMFLOAT2& GetBlockPosition(int y,int x) const { return blockPosition[y][x]; }
+
 private:
 	// 床のフラグやタイマーetc.
 	bool isFloorMove_ = false;
@@ -54,6 +57,7 @@ private:
 	// マップチップ
 	static const int MAP_SIZE_HEIGHT = 20;
 	static const int MAP_SIZE_WIDTH = 20;
+	DirectX::XMFLOAT2 blockPosition[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH];
 	const int blockSize = 60;
 	float blockX,blockY;
 	float addSpeed = 0.0f;
