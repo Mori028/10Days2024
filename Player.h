@@ -74,13 +74,16 @@ private:
 	Vector3 color_;
 
 	//”¼Œa
-	int32_t size_;
+	Vector2 size_;
 
 	//
 	Vector2 move_ = { 0,0 };
 
 	//íœ
 	Vector2 testS = { 600 , 540 };
-	float size = 32;
+	float size = 40;
 	bool ans = false;
+
+	//‰æ‘œ
+	size_t playerPng_;
 };
