@@ -44,7 +44,15 @@ public:
 	void Move();
 
 public:
+	/// <summary>
+	/// ブロックの座標の取得
+	/// </summary>
 	const DirectX::XMFLOAT2& GetBlockPosition(int y,int x) const { return blockPosition[y][x]; }
+
+	/// <summary>
+	/// マップチップの番号の取得
+	/// </summary>
+	const int GetBlockNum(int y, int x) const { return map[y][x]; }
 
 private:
 	// 床のフラグやタイマーetc.
