@@ -1,35 +1,58 @@
 #include "Map.h"
 
+Map::Map(){}
+
+Map::~Map(){}
+
 void Map::Initialize()
 {
-	
+	// マップの数
+	int mapCountX = sizeof(map[0]) / sizeof(map[0][0]);
+	int mapCountY = sizeof(map) / sizeof(map[0]);
+
+	// 画像の割り当て
+	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 }
 
 void Map::Update()
 {
+	const float floorSpeed_ = 0.5f;
+	const int returnTime_ = 100;
+
 	floorMoveTime_++;
 	if (!isFloorMove_) {
-		floor.y += 0.5f;
+		addSpeed += floorSpeed_;
 	}
-	if (floorMoveTime_ >= 50 && floorMoveTime_ < 100) {
+	if (floorMoveTime_ >= returnTime_ / 2 && floorMoveTime_ < returnTime_) {
 		isFloorMove_ = true;
 	}
 	if (isFloorMove_) {
-		floor.y -= 0.5f;
+		addSpeed -= floorSpeed_;
 	}
-	if (floorMoveTime_ >= 100) {
+	if (floorMoveTime_ >= returnTime_) {
 		isFloorMove_ = false;
 		floorMoveTime_ = 0;
 	}
-
-	//DrawFormatString(500, 10, GetColor(255, 255, 255), "%d", floorMoveTime_);
 }
 
 void Map::Draw()
+{	
+	// マップチップの描画
+	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
+		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+			blockX = static_cast<float>(x * blockSize);
+			blockY = static_cast<float>(y * blockSize);
+
+			if (map[y][x] == BLOCK) {
+				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
+			}
+			if (map[y][x] == MOVE_BLOCK) {
+				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
+			}
+		}
+	}
+}
+
+void Map::Move()
 {
-	DrawBox(50, 0, 100, 1000, GetColor(255, 255, 255), TRUE);
-	DrawBox(1150, 0, 1100, 1000, GetColor(255, 255, 255), TRUE);
-	DrawBox(400, 400, 800, 420, GetColor(255, 255, 255), TRUE);
-	DrawBox(900, 500, 1100, 520, GetColor(255, 255, 255), TRUE);
-	DrawBox(floor.x, floor.y, floor.x + 200, floor.y + 20, GetColor(255, 255, 255), TRUE);
 }
