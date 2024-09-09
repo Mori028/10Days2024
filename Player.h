@@ -45,6 +45,11 @@ private:
 	/// </summary>
 	void Jump();
 
+	/// <summary>
+	/// パーティクル
+	/// </summary>
+	void Particle();
+
 	//画面内に収まるように
 	void FlameIn();
 

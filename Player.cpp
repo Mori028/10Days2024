@@ -55,11 +55,14 @@ void Player::Draw()
 	//代入
 	int color = GetColor((int)color_.x_, (int)color_.y_, (int)color_.z_);
 
+	//Dubug
+	DrawFormatString(0, 48, GetColor(100, 100, 100), "pos %f,%f", pos_.x_, pos_.y_, true);
+
 	//描画
 	DrawBox(
-		(int)pos_.x_ + 1,
+		(int)pos_.x_,
 		(int)pos_.y_ + 1,
-		(int)(pos_.x_ + 1 + size_),
+		(int)(pos_.x_ + size_),
 		(int)(pos_.y_ + 1 + size_),
 		color, true);
 }
@@ -110,11 +113,11 @@ void Player::Move()
 
 						if (X)
 						{
-							pos_.x_ -= 0.1f;
+							pos_.x_ -= 1.0f;
 						}
 						else
 						{
-							pos_.x_ += 0.1f;
+							pos_.x_ += 1.0f;
 						}
 					}
 				}
@@ -149,12 +152,12 @@ void Player::Move()
 
 					if (Y)
 					{
-						pos_.y_ -= 0.1f;
+						pos_.y_ -= 1.0f;
 						blockF_ = true;
 					}
 					else
 					{
-						pos_.y_ += 0.1f;
+						pos_.y_ += 1.0f;
 					}
 				}
 			}
@@ -191,10 +194,10 @@ void Player::Jump()
 	DrawFormatString(0, 0, GetColor(100, 100, 100), "earthFlags %d", earthFlags, true);
 
 	//重力の最大値 
-	const float MaxGravity = 7;
+	const float MaxGravity = 5;
 
 	//ジャンプの最大値
-	const float MaxJump = 12;
+	const float MaxJump = 30;
 
 	//space押したときどこにいるか
 	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_SPACE))
@@ -238,13 +241,13 @@ void Player::Jump()
 	//重力加算
 	if (gravityPower_ < MaxGravity)
 	{
-		gravityPower_ += 0.2f;
+		gravityPower_ += 1.0f;
 	}
 
 	//浮力減算
 	if (jumpPower_ > 0)
 	{
-		jumpPower_ -= 0.2f;
+		jumpPower_ -= 1.0f;
 	}
 	else
 	{
@@ -256,7 +259,7 @@ void Player::Jump()
 	if (hipDropF_)
 	{
 		//落下速度
-		size_t speed = 5;
+		size_t speed = 10;
 
 		//重力
 		move_.y_ += gravityPower_ * speed;
@@ -269,6 +272,11 @@ void Player::Jump()
 
 	//Dubug
 	DrawFormatString(0, 16, GetColor(100, 100, 100), "hipDropF_ %d", hipDropF_, true);
+
+}
+
+void Player::Particle()
+{
 
 }
 
