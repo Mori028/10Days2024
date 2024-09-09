@@ -17,8 +17,9 @@ public:
 	// マップの定義
 	enum MapInfo 
 	{
-		NONE, // 0
-		BLOCK // 1
+		NONE,      // 0
+		BLOCK,     // 1
+		MOVE_BLOCK // 2
 	};
 
 public:
@@ -44,16 +45,18 @@ public:
 
 private:
 	// 床のフラグやタイマーetc.
-	DirectX::XMFLOAT2 floor[2] = { { 240.0f, 540.0f },{ 900.0f, 540.0f } };
 	bool isFloorMove_ = false;
 	int floorMoveTime_ = 0;
+
+	// 画像
+	int BLOCK_TEXTURE;
 
 	// マップチップ
 	static const int MAP_SIZE_HEIGHT = 20;
 	static const int MAP_SIZE_WIDTH = 20;
 	const int blockSize = 60;
-	int blockX,blockY;
-	int block;
+	float blockX,blockY;
+	float addSpeed = 0.0f;
 	int map[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH] = {
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
@@ -63,7 +66,7 @@ private:
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+		{0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
