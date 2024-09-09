@@ -6,11 +6,14 @@
 
 void Player::Update()
 {
+	//ジャンプ処理
+	Jump();
+
 	//移動処理
 	Move();
 
-	//ジャンプ処理
-	Jump();
+	//ブロック判定
+	//Collision();
 
 	//画面内に収まる処理
 	FlameIn();
@@ -39,6 +42,9 @@ void Player::Initialize()
 
 	//ヒップドロップフラグoff
 	hipDropF_ = false;
+
+	//
+	move_ = { 0,0 };
 }
 
 void Player::Draw()
@@ -48,10 +54,10 @@ void Player::Draw()
 
 	//描画
 	DrawBox(
-		(int)pos_.x_,
-		(int)pos_.y_,
-		(int)(pos_.x_ + size_),
-		(int)(pos_.y_ + size_),
+		(int)pos_.x_ + 1,
+		(int)pos_.y_ + 1,
+		(int)(pos_.x_ + 1 + size_),
+		(int)(pos_.y_ + 1 + size_),
 		color, true);
 }
 
@@ -60,32 +66,99 @@ void Player::Finalize()
 
 }
 
-bool Player::BoxCollision()
-{
-
-}
-
 void Player::Move()
 {
-	//移動値
-	Vector2 move = { 0,0 };
-
 	//速度
-	float speed = 3;
+	float speed = 5;
 
 	//移動
-	move.x_ += Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A);
-	move.y_ += Input::GetInstance()->KeyPush(KEY_INPUT_S) - Input::GetInstance()->KeyPush(KEY_INPUT_W);
+	move_.x_ += Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A);
+	//move_.y_ += Input::GetInstance()->KeyPush(KEY_INPUT_S) - Input::GetInstance()->KeyPush(KEY_INPUT_W);
 
 	//速度を掛ける
-	move *= speed;
+	move_.x_ *= speed;
+
+	//削除
+	Vector2 testS = { 600 , 540 };
+	float size = 32;
+	bool ans = false;
 
 	//移動
-	pos_ += move;
+	pos_.x_ += move_.x_;
+
+	//判定
+	//test
+	//ステージに当たったら壊す
+	if (CheckHit(testS, size))
+	{
+		//修正
+		while (CheckHit(testS, size))
+		{
+			//横修正
+			if (CheckHitX(testS, size))
+			{
+				while (CheckHitX(testS, size))
+				{
+					bool X = move_.x_ > 0;
+
+					if (X)
+					{
+						pos_.x_ -= 0.1f;
+					}
+					else
+					{
+						pos_.x_ += 0.1f;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		ans = true;
+	}
+
+	//移動
+	pos_.y_ += move_.y_;
+
+	//判定
+	//test
+	//ステージに当たったら壊す
+	if (CheckHit(testS, size))
+	{
+		//縦修正
+		if (CheckHitY(testS, size))
+		{
+			while (CheckHitY(testS, size))
+			{
+				bool  Y = move_.y_ > 0;
+
+				if (Y)
+				{
+					pos_.y_ -= 0.1f;
+				}
+				else
+				{
+					pos_.y_ += 0.1f;
+				}
+			}
+		}
+	}
+	else
+	{
+		ans = true;
+	}
+
+	//Dubug
+	DrawFormatString(0, 32, GetColor(100, 100, 100), "ans %d", ans, true);
+	DrawBox(testS.x_, testS.y_, testS.x_ + size, testS.y_ + size, GetColor(0, 0, 255), ans);
 }
 
 void Player::Jump()
 {
+	//移動値
+	move_ = { 0,0 };
+
 	//仮地面
 	int stageLine = 600;
 
@@ -102,15 +175,15 @@ void Player::Jump()
 	DrawFormatString(0, 0, GetColor(100, 100, 100), "earthFlags %d", earthFlags, true);
 
 	//重力の最大値 
-	const float MaxGravity = 15;
+	const float MaxGravity = 7;
 
 	//ジャンプの最大値
-	const float MaxJump = 10;
+	const float MaxJump = 12;
 
 	//space押したときどこにいるか
 	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_SPACE))
 	{
- 		switch (earthFlags)
+		switch (earthFlags)
 		{
 			//地面からのジャンプ
 		case true:
@@ -154,6 +227,11 @@ void Player::Jump()
 	{
 		jumpPower_ -= 0.2f;
 	}
+	else
+	{
+		jumpFlags_ = false;
+		jumpPower_ = 0;
+	}
 
 	//
 	if (hipDropF_)
@@ -162,18 +240,18 @@ void Player::Jump()
 		size_t speed = 5;
 
 		//重力
-		pos_.y_ += gravityPower_ * speed;
+		move_.y_ += gravityPower_ * speed;
 
 		//ステージに当たったら壊す
-		if (BoxCollision())
+		/*if (BoxCollision())
 		{
 
-		}
+		}*/
 	}
 	else
 	{
 		//重力
-		pos_.y_ += gravityPower_ - jumpPower_;
+		move_.y_ += gravityPower_ - jumpPower_;
 	}
 
 	//Dubug
@@ -197,4 +275,29 @@ void Player::FlameIn()
 	//画面外にいかないように
 	pos_.y_ = min(pos_.y_, stageLine + size_);
 	pos_.y_ = max(pos_.y_, size_);
+}
+
+bool Player::CheckHit(Vector2 pos, float size)
+{
+	// 値が0未満ならめり込んでる。
+	bool X = std::abs(pos.x_ - pos_.x_) - (size / 2 + size_ / 2) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_) - (size / 2 + size_ / 2) < 0;
+
+	return X && Y;
+}
+
+bool Player::CheckHitX(Vector2 pos, float size)
+{
+	// 値が0未満ならめり込んでる。
+	bool X = std::abs(pos.x_ - pos_.x_) - (size / 2 + size_ / 2) < 0;
+
+	return X;
+}
+
+bool Player::CheckHitY(Vector2 pos, float size)
+{
+	// 値が0未満ならめり込んでる。
+	bool Y = std::abs(pos.y_ - pos_.y_) - (size / 2 + size_ / 2) < 0;
+
+	return Y;
 }

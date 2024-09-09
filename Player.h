@@ -29,7 +29,9 @@ public:
 	/// <summary>
 	/// “–‚½‚è”»’è
 	/// </summary>
-	bool BoxCollision();
+	bool CheckHit(Vector2 pos, float size);
+	bool CheckHitX(Vector2 pos, float size);
+	bool CheckHitY(Vector2 pos, float size);
 
 private:
 
@@ -65,4 +67,7 @@ private:
 
 	//”¼Œa
 	int32_t size_;
+
+	//
+	Vector2 move_ = { 0,0 };
 };
