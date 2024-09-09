@@ -2,6 +2,7 @@
 #include "Math.h"
 #include "Player.h"
 #include "Input.h"
+#include "Map.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "10Days2024";
@@ -47,6 +48,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	std::unique_ptr<Player> player_;
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
+	std::unique_ptr<Map> map = std::make_unique<Map>();
+	map->Initialize();
 
 	// ゲームループ
 	while (true) 
@@ -62,8 +65,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// 更新処理
 
 		player_->Update();
+		map->Update();
 
 		// 描画処理
+		map->Draw();
 
 		player_->Draw();
 
@@ -94,5 +99,4 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// 正常終了
 	return 0;
-
 }
