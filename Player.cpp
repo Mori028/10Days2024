@@ -36,23 +36,31 @@ void Player::Initialize()
 	//ジャンプ関係
 	jumpFlags_ = false;
 	jumpPower_ = 0;
+
+	//ヒップドロップフラグoff
+	hipDropF_ = false;
 }
 
 void Player::Draw()
 {
 	//代入
-	int color = GetColor(color_.x_, color_.y_, color_.z_);
+	int color = GetColor((int)color_.x_, (int)color_.y_, (int)color_.z_);
 
 	//描画
 	DrawBox(
-		pos_.x_,
-		pos_.y_,
-		pos_.x_ + size_,
-		pos_.y_ + size_,
+		(int)pos_.x_,
+		(int)pos_.y_,
+		(int)(pos_.x_ + size_),
+		(int)(pos_.y_ + size_),
 		color, true);
 }
 
 void Player::Finalize()
+{
+
+}
+
+void Player::BoxCollision()
 {
 
 }
@@ -63,7 +71,7 @@ void Player::Move()
 	Vector2 move = { 0,0 };
 
 	//速度
-	size_t speed = 3;
+	float speed = 3;
 
 	//移動
 	move.x_ += Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A);
@@ -84,26 +92,86 @@ void Player::Jump()
 	//地面にいるか
 	bool earthFlags = pos_.y_ + 1 > stageLine + size_;
 
-	//space押したときどこにいるか
-	if (Input::GetInstance()->KeyPush(KEY_INPUT_SPACE))
+	//地面にいたらtrueに
+	if (earthFlags)
 	{
-		switch (earthFlags)
+		hipDropF_ = false;
+	}
+
+	//Dubug
+	DrawFormatString(0, 0, GetColor(100, 100, 100), "earthFlags %d", earthFlags, true);
+
+	//重力の最大値 
+	const float MaxGravity = 15;
+
+	//ジャンプの最大値
+	const float MaxJump = 10;
+
+	//space押したときどこにいるか
+	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_SPACE))
+	{
+ 		switch (earthFlags)
 		{
+			//地面からのジャンプ
 		case true:
 
+			//重力を0に
+			gravityPower_ = 0;
+
+			//ジャンプ力を最大に
+			jumpPower_ = MaxJump;
+
+			//ジャンプフラグ
+			jumpFlags_ = true;
+
 			break;
 
+			//空中にいるとき
 		case false:
 
-			break;
+			//一度ジャンプしているか
+			if (jumpFlags_)
+			{
+				//2回以上でないように
+				jumpFlags_ = false;
 
-		default:
+				//
+				hipDropF_ = true;
+			}
+
 			break;
 		}
 	}
 
-	//重力
-	pos_.y_ += gravityPower_;
+	//重力加算
+	if (gravityPower_ < MaxGravity)
+	{
+		gravityPower_ += 0.2f;
+	}
+
+	//浮力減算
+	if (jumpPower_ > 0)
+	{
+		jumpPower_ -= 0.2f;
+	}
+
+	//
+	if (hipDropF_)
+	{
+		//落下速度
+		size_t speed = 5;
+
+		//重力
+		pos_.y_ += gravityPower_ * speed;
+	}
+	else
+	{
+		//重力
+		pos_.y_ += gravityPower_ - jumpPower_;
+	}
+
+	//Dubug
+	DrawFormatString(0, 16, GetColor(100, 100, 100), "hipDropF_ %d", hipDropF_, true);
 
 }
 

@@ -26,6 +26,11 @@ public:
 	/// </summary>
 	void Finalize();
 
+	/// <summary>
+	/// 当たり判定
+	/// </summary>
+	void BoxCollision();
+
 private:
 
 	/// <summary>
@@ -43,11 +48,14 @@ private:
 
 	//重力フラグ
 	bool gravityFlag_;
-	size_t gravityPower_;
+	float gravityPower_;
 
 	//ジャンプ関係
 	bool jumpFlags_;
-	size_t jumpPower_;
+	float jumpPower_;
+
+	//直下しているか
+	bool hipDropF_;
 
 	//位置
 	Vector2 pos_;
@@ -56,5 +64,5 @@ private:
 	Vector3 color_;
 
 	//半径
-	size_t size_;
+	int32_t size_;
 };

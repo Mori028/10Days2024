@@ -20,7 +20,7 @@ bool Input::KeyPush(size_t key)
 
 bool Input::KeyTrigger(size_t key)
 {
-	return keys[key] && oldkeys[key];
+	return keys[key] && !oldkeys[key];
 }
 
 bool Input::KeyRelease(size_t key)
