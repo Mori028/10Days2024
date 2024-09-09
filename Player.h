@@ -81,7 +81,7 @@ private:
 
 	//íœ
 	Vector2 testS = { 600 , 540 };
-	float size = 40;
+	float size = 20;
 	bool ans = false;
 
 	//‰æ‘œ

@@ -28,8 +28,8 @@ void Player::Initialize()
 	color_ = { 200,0,0 };
 
 	//直径
-	size_.x_ = 32;
-	size_.y_ = 32;
+	size_.x_ = 20;
+	size_.y_ = 40;
 
 	//重力あり
 	gravityFlag_ = true;
@@ -64,15 +64,17 @@ void Player::Draw()
 
 	//描画
 	DrawBox(
-		(int)pos_.x_,
-		(int)pos_.y_ + 1,
+		(int)pos_.x_ - size_.x_,
+		(int)pos_.y_ - size_.y_ + 1,
 		(int)(pos_.x_ + size_.x_),
 		(int)(pos_.y_ + 1 + size_.y_),
 		color, true);
 
-	DrawGraph(
-		(int)pos_.x_,
-		(int)pos_.y_ + 1,
+	DrawExtendGraph(
+		(int)pos_.x_ - size_.x_,
+		(int)pos_.y_ - size_.y_ + 1,
+		(int)(pos_.x_ + size_.x_),
+		(int)(pos_.y_ + 1 + size_.y_),
 		playerPng_, true);
 }
 
@@ -182,7 +184,7 @@ void Player::Move()
 
 	//Dubug
 	DrawFormatString(0, 32, GetColor(100, 100, 100), "ans %d", ans, true);
-	DrawBox(testS.x_, testS.y_, testS.x_ + size, testS.y_ + size, GetColor(0, 0, 255), ans);
+	DrawBox(testS.x_ - size, testS.y_ - size, testS.x_ + size, testS.y_ + size, GetColor(0, 0, 255), ans);
 }
 
 void Player::Jump()
@@ -313,8 +315,8 @@ void Player::FlameIn()
 bool Player::CheckHit(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool X = std::abs(pos.x_ - pos_.x_) - (size / 2 + size_.x_ / 2) < 0;
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size / 2 + size_.y_ / 2) < 0;
+	bool X = std::abs(pos.x_ - pos_.x_) - (size + size_.x_) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
 
 	return X && Y;
 }
@@ -322,7 +324,7 @@ bool Player::CheckHit(Vector2 pos, float size)
 bool Player::CheckHitX(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool X = std::abs(pos.x_ - pos_.x_) - (size / 2 + size_.x_ / 2) < 0;
+	bool X = std::abs(pos.x_ - pos_.x_) - (size + size_.x_) < 0;
 
 	return X;
 }
@@ -330,7 +332,7 @@ bool Player::CheckHitX(Vector2 pos, float size)
 bool Player::CheckHitY(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size / 2 + size_.y_ / 2) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
 
 	return Y;
 }
