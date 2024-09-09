@@ -9,6 +9,9 @@ void Map::Initialize()
 	// マップの数
 	int mapCountX = sizeof(map[0]) / sizeof(map[0][0]);
 	int mapCountY = sizeof(map) / sizeof(map[0]);
+
+	// 画像の割り当て
+	block = LoadGraph("Resources/1.png", TRUE);
 }
 
 void Map::Update()
@@ -19,32 +22,35 @@ void Map::Update()
 	floorMoveTime_++;
 	if (!isFloorMove_) {
 		floor[0].y += floorSpeed_;
-		floor[1].y -= floorSpeed_;
+		floor[1].y += floorSpeed_;
 	}
 	if (floorMoveTime_ >= returnTime_ / 2 && floorMoveTime_ < returnTime_) {
 		isFloorMove_ = true;
 	}
 	if (isFloorMove_) {
 		floor[0].y -= floorSpeed_;
-		floor[1].y += floorSpeed_;
+		floor[1].y -= floorSpeed_;
 	}
 	if (floorMoveTime_ >= returnTime_) {
 		isFloorMove_ = false;
 		floorMoveTime_ = 0;
 	}
-
-	DrawFormatString(600, 10, GetColor(255, 255, 255), "%d", floorMoveTime_);
 }
 
 void Map::Draw()
 {
-	LoadGraphScreen(floor[0].x, floor[0].y, "Resources/1.png", TRUE);
-	LoadGraphScreen(floor[1].x, floor[1].y, "Resources/1.png", TRUE);
+	for (int i = 0; i < 2; i++) {
+		DrawGraph(floor[i].x, floor[i].y, block, TRUE);
+	}
 	
+	// マップチップの描画
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
-			if (map[y][x] == 1) {
-				LoadGraphScreen(x * blockSize, y * blockSize, "Resources/1.png", TRUE);
+			blockX = x * blockSize;
+			blockY = y * blockSize;
+
+			if (map[y][x] == BLOCK) {
+				DrawGraph(blockX, blockY, block, TRUE);
 			}
 		}
 	}
