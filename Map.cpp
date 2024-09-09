@@ -6,7 +6,9 @@ Map::~Map(){}
 
 void Map::Initialize()
 {
-	
+	// É}ÉbÉvÇÃêî
+	int mapCountX = sizeof(map[0]) / sizeof(map[0][0]);
+	int mapCountY = sizeof(map) / sizeof(map[0]);
 }
 
 void Map::Update()
@@ -36,11 +38,16 @@ void Map::Update()
 
 void Map::Draw()
 {
-	DrawBox(50, 0, 100, 1000, GetColor(255, 255, 255), TRUE);
-	DrawBox(1150, 0, 1100, 1000, GetColor(255, 255, 255), TRUE);
-	DrawBox(400, 400, 800, 420, GetColor(255, 255, 255), TRUE);
-	DrawBox(floor[1].x, floor[1].y, floor[1].x + 200, floor[1].y + 20, GetColor(255, 255, 255), TRUE);
-	DrawBox(floor[0].x, floor[0].y, floor[0].x + 200, floor[0].y + 20, GetColor(255, 255, 255), TRUE);
+	LoadGraphScreen(floor[0].x, floor[0].y, "Resources/1.png", TRUE);
+	LoadGraphScreen(floor[1].x, floor[1].y, "Resources/1.png", TRUE);
+	
+	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
+		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+			if (map[y][x] == 1) {
+				LoadGraphScreen(x * blockSize, y * blockSize, "Resources/1.png", TRUE);
+			}
+		}
+	}
 }
 
 void Map::Move()
