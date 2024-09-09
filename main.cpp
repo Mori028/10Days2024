@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Input.h"
 #include "Map.h"
+#include "TitleScene.h"
+#include "GameScene.h"
+#include "ClearScene.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "10Days2024";
@@ -50,6 +53,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	player_->Initialize();
 	std::unique_ptr<Map> map = std::make_unique<Map>();
 	map->Initialize();
+
+	std::unique_ptr<TitleScene> titleScene_;
+	titleScene_ = std::make_unique<TitleScene>();
+	titleScene_->Initialize();
 
 	// ゲームループ
 	while (true) 
