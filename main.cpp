@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "Math.h"
-#include "Player.h"
 #include "Input.h"
+#include "Player.h"
 #include "Map.h"
 #include "TitleScene.h"
 #include "GameScene.h"
@@ -16,8 +16,15 @@ const int WIN_WIDTH = 1200;
 // ウィンドウ縦幅
 const int WIN_HEIGHT = 800;
 
+enum
+{
+	Title,
+	Game,
+	Clear,
+};
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
-                   _In_ int nCmdShow) {
+	_In_ int nCmdShow) {
 	// ウィンドウモードに設定
 	ChangeWindowMode(TRUE);
 
@@ -47,19 +54,26 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 
-	//player
-	std::unique_ptr<Player> player_;
-	player_ = std::make_unique<Player>();
-	player_->Initialize();
-	std::unique_ptr<Map> map = std::make_unique<Map>();
-	map->Initialize();
-
+	//タイトル
 	std::unique_ptr<TitleScene> titleScene_;
 	titleScene_ = std::make_unique<TitleScene>();
 	titleScene_->Initialize();
 
+	//ゲーム
+	std::unique_ptr<GameScene> gameScene_;
+	gameScene_ = std::make_unique<GameScene>();
+	gameScene_->Initialize();
+
+	//クリア
+	std::unique_ptr<ClearScene> clearScene_;
+	clearScene_ = std::make_unique<ClearScene>();
+	clearScene_->Initialize();
+
+	//現在のシーン
+	size_t nowScene_ = Title;
+
 	// ゲームループ
-	while (true) 
+	while (true)
 	{
 		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
 		// 最新のキーボード情報を取得
@@ -71,13 +85,81 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 更新処理
 
-		player_->Update();
-		map->Update();
+		//scene判別
+		switch (nowScene_)
+		{
+		case Title:
+
+			//
+			titleScene_->Update();
+
+			//次のシーンへ
+			if (titleScene_->IsNextScene())
+			{
+				nowScene_ = Game;
+			}
+
+			break;
+
+		case Game:
+
+			//
+			gameScene_->Update();
+
+			//次のシーンへ
+			if (gameScene_->IsNextScene())
+			{
+				nowScene_ = Clear;
+			}
+
+			break;
+
+		case Clear:
+
+			//
+			clearScene_->Update();
+
+			//次のシーンへ
+			if (clearScene_->IsNextScene())
+			{
+				nowScene_ = Title;
+			}
+
+			break;
+
+		default:
+			break;
+		}
 
 		// 描画処理
-		map->Draw();
 
-		player_->Draw();
+		//scene判別
+		switch (nowScene_)
+		{
+		case Title:
+
+			//
+			titleScene_->Draw();
+
+			break;
+
+		case Game:
+
+			//
+			gameScene_->Draw();
+
+			break;
+
+		case Clear:
+
+			//
+			clearScene_->Draw();
+
+			break;
+
+		default:
+			break;
+		}
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

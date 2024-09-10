@@ -184,7 +184,7 @@ void Player::Move()
 
 	//Dubug
 	DrawFormatString(0, 32, GetColor(100, 100, 100), "ans %d", ans, true);
-	DrawBox(testS.x_ - size, testS.y_ - size, testS.x_ + size, testS.y_ + size, GetColor(0, 0, 255), ans);
+	DrawBox(testS.x_ - size, testS.y_ - size, testS.x_ + size, testS.y_ + size, GetColor(200, 0, 255), ans);
 }
 
 void Player::Jump()
