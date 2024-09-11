@@ -140,6 +140,7 @@ void Player::Move()
 	//â°îªíË
 	for (size_t i = 0; i < blocks_.size(); i++)
 	{
+		//
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
 			//â°èCê≥

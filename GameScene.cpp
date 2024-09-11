@@ -63,7 +63,7 @@ void GameScene::Draw()
 	int height = 800;
 
 	//”wŒi•`‰æ
-	//DrawExtendGraph(0, 0, width, height, backGround_, true);
+	DrawExtendGraph(0, 0, width, height, backGround_, true);
 
 	//•`‰æ
 	//map->Draw();
