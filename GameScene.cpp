@@ -32,6 +32,9 @@ void GameScene::Initialize()
 			}
 		}
 	}
+
+	//ƒXƒNƒ[ƒ‹‚ÌÅ‘å’lŠi”[
+	float scllor = map->GetMapChipMoveMax();
 }
 
 void GameScene::Update()

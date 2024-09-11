@@ -130,6 +130,11 @@ void Player::Move()
 		move_.x_ = -MaxSpeed;
 	}
 
+	if (hipDropF_)
+	{
+		move_.x_ = 0;
+	}
+
 	//ˆÚ“®
 	pos_.x_ += move_.x_;
 
