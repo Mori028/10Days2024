@@ -13,6 +13,12 @@ void TitleScene::Initialize()
 	//スペース
 	space_ = LoadGraph("Resource//Space.png");
 
+	//シーン遷移暗転
+	sceneChange1Png_ = LoadGraph("Resource//Black2.png");
+	sceneChange2Png_ = LoadGraph("Resource//Black3.png");
+	sceneChange3Png_ = LoadGraph("Resource//Black4.png");
+
+
 	//
 	isNextScene_ = false;
 }
@@ -25,8 +31,31 @@ void TitleScene::Update()
 	//スペース押したらゲームシーンに
 	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_SPACE))
 	{
-		isNextScene_ = true;
+		isSceneChange_ = true;
+
 	}
+	if (isSceneChange_ == true) {
+		sceneChangeTimer++;
+		if (sceneChangeTimer >= 1 && sceneChangeTimer <= 20) {
+			sceneChangeCount = 1;
+		}
+		if (sceneChangeTimer >= 21 && sceneChangeTimer <= 40) {
+			sceneChangeCount = 2;
+		}
+		if (sceneChangeTimer >= 41 && sceneChangeTimer <= 60) {
+			sceneChangeCount = 3;
+		}
+		if (sceneChangeTimer >= 61) {
+			sceneChangeCount = 4;
+		}
+
+		if (sceneChangeCount == 4) {
+			sceneChangeTimer = 0;
+			isNextScene_ = true;
+			sceneChangeCount = 0;
+		}
+	}
+
 
 	//タイトルに動き
 
@@ -46,6 +75,17 @@ void TitleScene::Draw()
 
 	//スペース
 	DrawGraph(425, 600, space_, true);
+
+	if (sceneChangeCount == 1) {
+		DrawGraph(0, 0, sceneChange1Png_, true);
+	}
+	else if (sceneChangeCount == 2) {
+		DrawGraph(0, 0, sceneChange2Png_, true);
+	}
+	else if (sceneChangeCount == 3) {
+		DrawGraph(0, 0, sceneChange3Png_, true);
+	}
+
 }
 
 void TitleScene::Finalize()
