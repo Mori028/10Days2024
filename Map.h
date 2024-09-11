@@ -51,6 +51,11 @@ public:
 	/// </summary>
 	void Shake();
 
+	/// <summary>
+	/// マップチップの当たり判定
+	/// </summary>
+	void MapChipHitCheck();
+
 public:
 	/// <summary>
 	/// ブロックの座標の取得
@@ -69,11 +74,13 @@ public:
 	void SetIsShake(bool isShake) { isShake_ = isShake; }
 
 	/// <summary>
-	/// マップチップのスクロール変数の取得・設定
+	/// マップチップのスクロール変数と最大値の取得・設定
 	/// </summary>
 	/// <returns></returns>
 	float GetMapChipMove() { return mapChipMoveY_; }
 	void SetMapChipMove(float mapChipMove) { mapChipMoveY_ = mapChipMove; }
+	float GetMapChipMoveMax() { return mapChipMoveMax_; }
+	void SetMapChipMoveMax(float mapChipMoveMax) { mapChipMoveMax_ = mapChipMoveMax; }
 
 private:
 	// 床のフラグやタイマーetc.
@@ -103,12 +110,13 @@ private:
 	int GOAL_BLOCK_TEXTURE;
 
 	// マップチップ
-	static const int MAP_SIZE_HEIGHT = 40;
+	static const int MAP_SIZE_HEIGHT = 27;
 	static const int MAP_SIZE_WIDTH = 20;
 	Vector2 blockPosition[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH];
 	Vector2 block;
 	const int blockSize = 60;
 	float mapChipMoveY_ = 0.0f;
+	float mapChipMoveMax_ = 1600.0f;
 	float addSpeed = 0.0f;
 	float screenY_ = 0.0f;
 
@@ -128,19 +136,6 @@ private:
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},

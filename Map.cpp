@@ -110,3 +110,8 @@ void Map::Shake()
 		}
 	}
 }
+
+void Map::MapChipHitCheck()
+{
+
+}
