@@ -2,6 +2,7 @@
 
 #include "DxLib.h"
 #include "Math.h"
+#include "Vector2.h"
 #include <memory>
 #include <DirectXMath.h>
 
@@ -17,10 +18,11 @@ public:
 	// マップの定義
 	enum MapInfo 
 	{
-		NONE,        // 0
-		BLOCK,       // 1
-		MOVE_BLOCK,  // 2
-		DAMAGE_BLOCK // 3
+		NONE,         // 0
+		BLOCK,        // 1
+		MOVE_BLOCK,   // 2
+		DAMAGE_BLOCK, // 3
+		GOAL_BLOCK    // 4 
 	};
 
 public:
@@ -53,18 +55,25 @@ public:
 	/// <summary>
 	/// ブロックの座標の取得
 	/// </summary>
-	const DirectX::XMFLOAT2& GetBlockPosition(int y,int x) const { return blockPosition[y][x]; }
+	const Vector2& GetBlockPosition(int y,int x) const { return blockPosition[y][x]; }
 
 	/// <summary>
 	/// マップチップの番号の取得
 	/// </summary>
-	const int GetBlockNum(int y, int x) const { return map[y][x]; }
+	int GetBlockNum(int y, int x) { return map[y][x]; }
 
 	/// <summary>
 	/// ブロックのシェイクフラグの取得と設定
 	/// </summary>
-	const bool GetIsShake() { return isShake_; }
+	bool GetIsShake() { return isShake_; }
 	void SetIsShake(bool isShake) { isShake_ = isShake; }
+
+	/// <summary>
+	/// マップチップのスクロール変数の取得・設定
+	/// </summary>
+	/// <returns></returns>
+	float GetMapChipMove() { return mapChipMoveY_; }
+	void SetMapChipMove(float mapChipMove) { mapChipMoveY_ = mapChipMove; }
 
 private:
 	// 床のフラグやタイマーetc.
@@ -93,10 +102,12 @@ private:
 	// マップチップ
 	static const int MAP_SIZE_HEIGHT = 40;
 	static const int MAP_SIZE_WIDTH = 20;
-	DirectX::XMFLOAT2 blockPosition[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH];
+	Vector2 blockPosition[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH];
+	Vector2 block;
 	const int blockSize = 60;
-	float blockX,blockY;
+	float mapChipMoveY_ = 0.0f;
 	float addSpeed = 0.0f;
+	float screenY_ = 0.0f;
 
 	int map[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH] = 
 	{
@@ -108,7 +119,7 @@ private:
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,2,2,0,0,0,0,0,0,0,0,0,0,2,2,0,1,0},
+		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
