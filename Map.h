@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DxLib.h"
+#include "Math.h"
 #include <memory>
 #include <math.h>
 #include <DirectXMath.h>
@@ -19,7 +20,8 @@ public:
 	{
 		NONE,      // 0
 		BLOCK,     // 1
-		MOVE_BLOCK // 2
+		MOVE_BLOCK, // 2
+		GOAL, // 3
 	};
 
 public:
@@ -44,7 +46,8 @@ public:
 	void Move();
 
 public:
-	const DirectX::XMFLOAT2& GetBlockPosition(int y,int x) const { return blockPosition[y][x]; }
+	const Vector2& GetBlockPosition(int y,int x) const { return blockPosition[y][x]; }
+	const int& GetMapkind(int y,int x) const { return map[y][x]; }
 
 private:
 	// 床のフラグやタイマーetc.
@@ -57,7 +60,7 @@ private:
 	// マップチップ
 	static const int MAP_SIZE_HEIGHT = 20;
 	static const int MAP_SIZE_WIDTH = 20;
-	DirectX::XMFLOAT2 blockPosition[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH];
+	Vector2 blockPosition[MAP_SIZE_HEIGHT][MAP_SIZE_WIDTH];
 	const int blockSize = 60;
 	float blockX,blockY;
 	float addSpeed = 0.0f;
@@ -71,7 +74,7 @@ private:
 		{0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},

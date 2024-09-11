@@ -72,6 +72,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//現在のシーン
 	size_t nowScene_ = Title;
 
+	//BGM
+	int sound_ = LoadSoundMem("Resource//Sound//BT.wav");
+
+	//音量調整
+	int Volume = 75;
+	ChangeVolumeSoundMem(Volume, sound_);
+	//ループBGM
+	PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
+
 	// ゲームループ
 	while (true)
 	{

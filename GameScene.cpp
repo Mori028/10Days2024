@@ -15,6 +15,23 @@ void GameScene::Initialize()
 
 	//
 	isNextScene_ = false;
+
+	// マップチップ
+	static const int MAP_SIZE_HEIGHT = 20;
+	static const int MAP_SIZE_WIDTH = 20;
+	const int blockSize = 60;
+
+	//ブロック情報
+	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
+		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+
+			if (map->GetMapkind(y,x) != 0)
+			{
+				//位置、サイズ、種類を格納
+				player_->SetBlockPos(map->GetBlockPosition(y, x), Vector2{ (float)blockSize ,(float)blockSize }, map->GetMapkind(y, x));
+			}
+		}
+	}
 }
 
 void GameScene::Update()
@@ -49,7 +66,7 @@ void GameScene::Draw()
 	//DrawExtendGraph(0, 0, width, height, backGround_, true);
 
 	//描画
-	map->Draw();
+	//map->Draw();
 
 	player_->Draw();
 }
