@@ -22,7 +22,7 @@ void Player::Update()
 void Player::Initialize()
 {
 	//初期位置
-	pos_ = { 50,50 };
+	pos_ = { 250,50 };
 
 	//初期カラー
 	color_ = { 200,0,0 };
@@ -52,6 +52,9 @@ void Player::Initialize()
 
 	//画像読み込み
 	playerPng_ = LoadGraph("Resource//player.png");
+
+	// 画像の割り当て
+	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 }
 
 void Player::Draw()
@@ -60,22 +63,38 @@ void Player::Draw()
 	int color = GetColor((int)color_.x_, (int)color_.y_, (int)color_.z_);
 
 	//Dubug
-	DrawFormatString(0, 48, GetColor(100, 100, 100), "pos %f,%f", pos_.x_, pos_.y_, true);
+	DrawFormatString(200, 48, GetColor(100, 100, 100), "pos %f,%f", pos_.x_, pos_.y_, true);
+
+	//Dubug
+	DrawFormatString(200, 32, GetColor(100, 100, 100), "blockF %d", blockF_, true);
+
+	int zure = 10;
 
 	//描画
 	DrawBox(
-		(int)pos_.x_ - size_.x_,
-		(int)pos_.y_ - size_.y_ + 1,
-		(int)(pos_.x_ + size_.x_),
-		(int)(pos_.y_ + 1 + size_.y_),
+		(int)pos_.x_+ zure,
+		(int)pos_.y_ + 1 - zure,
+		(int)(pos_.x_ + (2 * size_.x_) + zure),
+		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
 		color, true);
 
 	DrawExtendGraph(
-		(int)pos_.x_ - size_.x_,
-		(int)pos_.y_ - size_.y_ + 1,
-		(int)(pos_.x_ + size_.x_),
-		(int)(pos_.y_ + 1 + size_.y_),
+		(int)pos_.x_ + zure,
+		(int)pos_.y_ + 1 - zure,
+		(int)(pos_.x_ + (2 * size_.x_) + zure),
+		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
 		playerPng_, true);
+
+	for (size_t i = 0; i < blocks_.size(); i++)
+	{
+		//描画
+		DrawExtendGraph(
+			(int)blocks_[i]->GetPos().x_,
+			(int)blocks_[i]->GetPos().y_,
+			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+			(int)(blocks_[i]->GetPos().y_  + (blocks_[i]->GetSize().y_ * 2)),
+			BLOCK_TEXTURE, true);
+	}
 }
 
 void Player::Finalize()
@@ -95,30 +114,28 @@ void Player::Move()
 	//速度を掛ける
 	move_.x_ *= speed;
 
-	//削除
-	ans = false;
-
 	//移動
 	pos_.x_ += move_.x_;
 
 	//判定
 	//test
 	//ステージに当たったら壊す
-	if (CheckHit(testS, size))
+
+	//横判定
+	for (size_t i = 0; i < blocks_.size(); i++)
 	{
-		if (hipDropF_)
+		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
-			testS = { -100,-100 };
-		}
-		else
-		{
-			//修正
-			while (CheckHit(testS, size))
+			if (hipDropF_)
+			{
+				blocks_[i]->SetPos({ -100, -100 });
+			}
+			else
 			{
 				//横修正
-				if (CheckHitX(testS, size))
+				if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
 				{
-					while (CheckHitX(testS, size))
+					while (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 					{
 						bool X = move_.x_ > 0;
 
@@ -134,57 +151,50 @@ void Player::Move()
 				}
 			}
 		}
-	}
-	else
-	{
-		ans = true;
-		blockF_ = false; 
+		else
+		{
+			blockF_ = false;
+		}
 	}
 
 	//移動
 	pos_.y_ += move_.y_;
 
 	//判定
-	//test
-	//ステージに当たったら壊す
-	if (CheckHit(testS, size))
+	//縦判定
+	for (size_t i = 0; i < blocks_.size(); i++)
 	{
-		if (hipDropF_)
+		//ステージに当たったら壊す
+		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
-			testS = { -100,-100 };
-		}
-		else
-		{
-			//縦修正
-			if (CheckHitY(testS, size))
+			if (hipDropF_)
 			{
-				while (CheckHitY(testS, size))
+				blocks_[i]->SetPos({ -100, -100 });
+			}
+			else
+			{
+				//縦修正
+				if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 				{
-					bool  Y = move_.y_ > 0;
+					while (CheckHitY(blocks_[i]->GetPos(), blocks_[i]->GetSize().y_))
+					{
+						bool  Y = move_.y_ > 0;
 
-					if (Y)
-					{
-						pos_.y_ -= 1.0f;
-						blockF_ = true;
-					}
-					else
-					{
-						pos_.y_ += 1.0f;
-						jumpPower_ = 0;
+						if (Y)
+						{
+							pos_.y_ -= 1.0f;
+							blockF_ = true;
+						}
+						else
+						{
+							pos_.y_ += 1.0f;
+							jumpPower_ = 0;
+						}
 					}
 				}
 			}
 		}
 	}
-	else
-	{
-		ans = true;
-		blockF_ = false;
-	}
-
-	//Dubug
-	DrawFormatString(0, 32, GetColor(100, 100, 100), "ans %d", ans, true);
-	DrawBox(testS.x_ - size, testS.y_ - size, testS.x_ + size, testS.y_ + size, GetColor(0, 0, 255), ans);
 }
 
 void Player::Jump()
@@ -202,10 +212,11 @@ void Player::Jump()
 	if (earthFlags)
 	{
 		hipDropF_ = false;
+		jumpFlags_ = false;
 	}
 
 	//Dubug
-	DrawFormatString(0, 0, GetColor(100, 100, 100), "earthFlags %d", earthFlags, true);
+	DrawFormatString(200, 0, GetColor(100, 100, 100), "earthFlags %d", earthFlags, true);
 
 	//重力の最大値 
 	const float MaxGravity = 5;
@@ -246,6 +257,9 @@ void Player::Jump()
 
 				//
 				hipDropF_ = true;
+
+				//
+				jumpPower_ = 0;
 			}
 
 			break;
@@ -265,7 +279,6 @@ void Player::Jump()
 	}
 	else
 	{
-		jumpFlags_ = false;
 		jumpPower_ = 0;
 	}
 
@@ -285,7 +298,9 @@ void Player::Jump()
 	}
 
 	//Dubug
-	DrawFormatString(0, 16, GetColor(100, 100, 100), "hipDropF_ %d", hipDropF_, true);
+	DrawFormatString(200, 16, GetColor(100, 100, 100), "hipDropF_ %d", hipDropF_, true);
+
+	blockF_ = false;
 
 }
 
@@ -312,11 +327,11 @@ void Player::FlameIn()
 	pos_.y_ = max(pos_.y_, size_.y_);
 }
 
-bool Player::CheckHit(Vector2 pos, float size)
+bool Player::CheckHit(Vector2 pos, Vector2 size)
 {
 	// 値が0未満ならめり込んでる。
-	bool X = std::abs(pos.x_ - pos_.x_) - (size + size_.x_) < 0;
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
+	bool X = std::abs(pos.x_ - pos_.x_) - (size.x_ + size_.x_) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_) - (size.y_ + size_.y_) < 0;
 
 	return X && Y;
 }
@@ -335,4 +350,20 @@ bool Player::CheckHitY(Vector2 pos, float size)
 	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
 
 	return Y;
+}
+
+void Player::SetBlockPos(Vector2 pos, Vector2 size, int kind)
+{
+	//モデルを指定して3Dオブジェクトを生成
+	Block* newBlock_ = new Block();
+
+	size /= 2;
+
+	//情報格納
+	newBlock_->SetPos(pos);
+	newBlock_->SetSize(size);
+	newBlock_->SetKind(kind);
+
+	//格納
+	blocks_.push_back(newBlock_);
 }

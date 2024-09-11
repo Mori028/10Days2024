@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DxLib.h"
+#include "Math.h"
 #include <memory>
 #include <DirectXMath.h>
 

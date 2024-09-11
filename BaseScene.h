@@ -7,22 +7,22 @@ public:
 	/// <summary>
 	/// XV
 	/// </summary>
-	static void Update();
+	virtual void Update() = 0;
 
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
-	static void Initialze();
+	virtual void Initialize() = 0;
 
 	/// <summary>
 	/// •`‰æ
 	/// </summary>
-	static void Draw();
+	virtual void Draw() = 0;
 
 	/// <summary>
 	/// ”jŠü
 	/// </summary>
-	static void Finalize();
+	virtual void Finalize() = 0;
 
 
 private:

@@ -2,6 +2,31 @@
 #include "Math.h"
 #include <thread>
 
+class Block
+{
+private:
+
+	//位置
+	Vector2 pos_;
+
+	//サイズ
+	Vector2 size_;
+
+	//種類
+	int kind_;
+
+public:
+
+	void SetPos(Vector2 pos) { pos_ = pos; };
+	Vector2 GetPos() { return pos_; };
+
+	void SetSize(Vector2 size) { size_ = size; };
+	Vector2 GetSize() { return size_; };
+
+	void SetKind(int kind) { kind_ = kind; };
+	int GetKind() { return kind_; };
+};
+
 class Player
 {
 public:
@@ -29,11 +54,24 @@ public:
 	/// <summary>
 	/// 当たり判定
 	/// </summary>
-	bool CheckHit(Vector2 pos, float size);
+	bool CheckHit(Vector2 pos, Vector2 size);
 	bool CheckHitX(Vector2 pos, float size);
 	bool CheckHitY(Vector2 pos, float size);
 
+	/// <summary>
+	/// ブロックの情報を得る
+	/// </summary>
+	void SetBlockPos(Vector2 pos, Vector2 size, int kind);
+
+	/// <summary>
+	/// ブロック情報リセット
+	/// </summary>
+	void ResetBlock() { blocks_.clear(); };
+
 private:
+
+	//ブロック情報
+	std::vector<Block*> blocks_;
 
 	/// <summary>
 	/// 移動
@@ -63,7 +101,7 @@ private:
 
 	//
 	bool blockF_;
-	
+
 	//直下しているか
 	bool hipDropF_;
 
@@ -86,4 +124,5 @@ private:
 
 	//画像
 	size_t playerPng_;
+	size_t BLOCK_TEXTURE;
 };

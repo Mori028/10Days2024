@@ -2,9 +2,9 @@
 #include "Input.h"
 #include <random>
 
-Map::Map(){}
+Map::Map() {}
 
-Map::~Map(){}
+Map::~Map() {}
 
 void Map::Initialize()
 {
@@ -14,6 +14,16 @@ void Map::Initialize()
 
 	// 画像の割り当て
 	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+
+	// マップチップの描画
+	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
+		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+			blockX = static_cast<float>(x * blockSize);
+			blockY = static_cast<float>(y * blockSize);
+
+			blockPosition[y][x] = { blockX,blockY };
+		}
+	}
 }
 
 void Map::Update()
@@ -24,7 +34,7 @@ void Map::Update()
 }
 
 void Map::Draw()
-{	
+{
 	// マップチップの描画
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
@@ -38,6 +48,13 @@ void Map::Draw()
 			}
 			if (map[y][x] == MOVE_BLOCK) {
 				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
+			}
+			if (map[y][x] == GOAL) {
+				//blend加算
+				SetDrawBlendMode(DX_BLENDMODE_ADD, 150);
+				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
+				//blend戻し
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 			}
 		}
 	}
