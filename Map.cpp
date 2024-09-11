@@ -1,4 +1,6 @@
 #include "Map.h"
+#include "Input.h"
+#include <random>
 
 Map::Map(){}
 
@@ -17,6 +19,8 @@ void Map::Initialize()
 void Map::Update()
 {
 	Map::Move();
+	
+	Map::Shake();
 }
 
 void Map::Draw()
@@ -30,7 +34,7 @@ void Map::Draw()
 			blockPosition[y][x] = { blockX,blockY };
 
 			if (map[y][x] == BLOCK) {
-				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
+				DrawGraph(blockX + addShakeX_, blockY, BLOCK_TEXTURE, TRUE);
 			}
 			if (map[y][x] == MOVE_BLOCK) {
 				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
@@ -57,5 +61,35 @@ void Map::Move()
 	if (floorMoveTime_ >= returnTime_) {
 		isFloorMove_ = false;
 		floorMoveTime_ = 0;
+	}
+}
+
+void Map::Shake()
+{
+	if (isShake_) {
+		// —”‚Ìæ“¾
+		std::random_device rnd;
+		std::mt19937 mt(rnd());
+		std::uniform_int_distribution<> rand(shakeMin_, shakeMax_);
+		std::uniform_int_distribution<> rand1(shakeMin_, shakeMax_);
+
+		shakePosX_ = rand(mt) / shakeMdX_;
+		shakePosY_ = rand1(mt) / shakeMdY_;
+
+		shakeTime_++;
+
+		if (shakeTime_ >= defaultShakeTimer_) {
+			addShakeX_ -= shakePosX_;
+			addShakeY_ -= shakePosY_;
+		}
+		if (shakeTime_ >= shakeTimer10_) {
+			addShakeX_ -= shakePosX_;
+			addShakeY_ -= shakePosY_;
+		}
+		if (shakeTime_ >= shakeTimer20_) {
+			addShakeX_ = shakeDefaultPos_;
+			shakeTime_ = defaultShakeTimer_;
+			isShake_ = false;
+		}
 	}
 }
