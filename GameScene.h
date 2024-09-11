@@ -41,7 +41,6 @@ private:
 
 	//‰æ‘œ
 	size_t backGround_;
-
 	//player
 	std::unique_ptr<Player> player_;
 

@@ -12,7 +12,6 @@ void GameScene::Initialize()
 
 	//”wŒi
 	backGround_ = LoadGraph("Resource//BackGround1.png");
-
 	//
 	isNextScene_ = false;
 
@@ -64,7 +63,6 @@ void GameScene::Draw()
 
 	//”wŒi•`‰æ
 	//DrawExtendGraph(0, 0, width, height, backGround_, true);
-
 	//•`‰æ
 	map->Draw();
 
