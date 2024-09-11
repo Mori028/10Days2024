@@ -36,20 +36,11 @@ void TitleScene::Update()
 	}
 	if (isSceneChange_ == true) {
 		sceneChangeTimer++;
-		if (sceneChangeTimer >= 1 && sceneChangeTimer <= 20) {
+		if (sceneChangeTimer >= 61) {
 			sceneChangeCount = 1;
 		}
-		if (sceneChangeTimer >= 21 && sceneChangeTimer <= 40) {
-			sceneChangeCount = 2;
-		}
-		if (sceneChangeTimer >= 41 && sceneChangeTimer <= 60) {
-			sceneChangeCount = 3;
-		}
-		if (sceneChangeTimer >= 61) {
-			sceneChangeCount = 4;
-		}
 
-		if (sceneChangeCount == 4) {
+		if (sceneChangeCount == 1) {
 			sceneChangeTimer = 0;
 			isNextScene_ = true;
 			sceneChangeCount = 0;
@@ -76,13 +67,13 @@ void TitleScene::Draw()
 	//スペース
 	DrawGraph(425, 600, space_, true);
 
-	if (sceneChangeCount == 1) {
+	if (sceneChangeTimer >= 1 && sceneChangeTimer <= 20) {
 		DrawGraph(0, 0, sceneChange1Png_, true);
 	}
-	else if (sceneChangeCount == 2) {
+	else if (sceneChangeTimer >= 21 && sceneChangeTimer <= 40) {
 		DrawGraph(0, 0, sceneChange2Png_, true);
 	}
-	else if (sceneChangeCount == 3) {
+	else if (sceneChangeTimer >= 41 && sceneChangeTimer <= 60) {
 		DrawGraph(0, 0, sceneChange3Png_, true);
 	}
 
