@@ -16,9 +16,10 @@ public:
 	// マップの定義
 	enum MapInfo 
 	{
-		NONE,      // 0
-		BLOCK,     // 1
-		MOVE_BLOCK // 2
+		NONE,        // 0
+		BLOCK,       // 1
+		MOVE_BLOCK,  // 2
+		DAMAGE_BLOCK // 3
 	};
 
 public:
