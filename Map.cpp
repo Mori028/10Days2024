@@ -18,10 +18,9 @@ void Map::Initialize()
 	// マップチップの描画
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
-			blockX = static_cast<float>(x * blockSize);
-			blockY = static_cast<float>(y * blockSize);
+			block = { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) };
 
-			blockPosition[y][x] = { blockX,blockY };
+			blockPosition[y][x] = { block.x_, block.y_ };
 		}
 	}
 }
@@ -38,19 +37,18 @@ void Map::Draw()
 	// マップチップの描画
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
-			blockX = static_cast<float>(x * blockSize);
-			blockY = static_cast<float>(y * blockSize);
+			block = { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) };
 
-			blockPosition[y][x] = { blockX,blockY };
+			blockPosition[y][x] = { block.x_, block.y_ };
 
 			if (map[y][x] == BLOCK) {
-				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
+				DrawGraph(block.x_, block.y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 			}
 			if (map[y][x] == MOVE_BLOCK) {
-				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
+				DrawGraph(block.x_, block.y_ + addSpeed + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 			}
 			if (map[y][x] == DAMAGE_BLOCK) {
-				DrawGraph(blockX + addShakeX_, blockY + addShakeY_, BLOCK_TEXTURE, TRUE);
+				DrawGraph(block.x_ + addShakeX_, block.y_ + addShakeY_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 			}
 		}
 	}
