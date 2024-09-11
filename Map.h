@@ -98,6 +98,9 @@ private:
 
 	// 画像
 	int BLOCK_TEXTURE;
+	int MOVE_BLOCK_TEXTURE;
+	int DAMAGE_BLOCK_TEXTURE;
+	int GOAL_BLOCK_TEXTURE;
 
 	// マップチップ
 	static const int MAP_SIZE_HEIGHT = 40;
