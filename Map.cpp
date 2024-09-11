@@ -44,10 +44,13 @@ void Map::Draw()
 			blockPosition[y][x] = { blockX,blockY };
 
 			if (map[y][x] == BLOCK) {
-				DrawGraph(blockX + addShakeX_, blockY, BLOCK_TEXTURE, TRUE);
+				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
 			}
 			if (map[y][x] == MOVE_BLOCK) {
 				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
+			}
+			if (map[y][x] == DAMAGE_BLOCK) {
+				DrawGraph(blockX + addShakeX_, blockY + addShakeY_, BLOCK_TEXTURE, TRUE);
 			}
 		}
 	}
