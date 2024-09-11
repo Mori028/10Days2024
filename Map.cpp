@@ -49,13 +49,6 @@ void Map::Draw()
 			if (map[y][x] == MOVE_BLOCK) {
 				DrawGraph(blockX, blockY + addSpeed, BLOCK_TEXTURE, TRUE);
 			}
-			if (map[y][x] == GOAL) {
-				//blend‰ÁŽZ
-				SetDrawBlendMode(DX_BLENDMODE_ADD, 150);
-				DrawGraph(blockX, blockY, BLOCK_TEXTURE, TRUE);
-				//blend–ß‚µ
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-			}
 		}
 	}
 }

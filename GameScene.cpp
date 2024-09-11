@@ -25,10 +25,10 @@ void GameScene::Initialize()
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
 
-			if (map->GetMapkind(y,x) != 0)
+			if (map->GetBlockNum(y, x) != 0)
 			{
 				//ˆÊ’uAƒTƒCƒYAŽí—Þ‚ðŠi”[
-				player_->SetBlockPos(map->GetBlockPosition(y, x), Vector2{ (float)blockSize ,(float)blockSize }, map->GetMapkind(y, x));
+				player_->SetBlockPos(Vector2{ map->GetBlockPosition(y, x).x,map->GetBlockPosition(y, x).y }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(y, x));
 			}
 		}
 	}
@@ -66,7 +66,7 @@ void GameScene::Draw()
 	//DrawExtendGraph(0, 0, width, height, backGround_, true);
 
 	//•`‰æ
-	//map->Draw();
+	map->Draw();
 
 	player_->Draw();
 }

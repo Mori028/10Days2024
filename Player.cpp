@@ -85,16 +85,16 @@ void Player::Draw()
 		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
 		playerPng_, true);
 
-	for (size_t i = 0; i < blocks_.size(); i++)
-	{
-		//•`‰æ
-		DrawExtendGraph(
-			(int)blocks_[i]->GetPos().x_,
-			(int)blocks_[i]->GetPos().y_,
-			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-			(int)(blocks_[i]->GetPos().y_  + (blocks_[i]->GetSize().y_ * 2)),
-			BLOCK_TEXTURE, true);
-	}
+	//for (size_t i = 0; i < blocks_.size(); i++)
+	//{
+	//	//•`‰æ
+	//	DrawExtendGraph(
+	//		(int)blocks_[i]->GetPos().x_,
+	//		(int)blocks_[i]->GetPos().y_,
+	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+	//		(int)(blocks_[i]->GetPos().y_  + (blocks_[i]->GetSize().y_ * 2)),
+	//		BLOCK_TEXTURE, true);
+	//}
 }
 
 void Player::Finalize()
