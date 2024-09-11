@@ -62,17 +62,20 @@ void Player::Draw()
 	//‘ã“ü
 	int color = GetColor((int)color_.x_, (int)color_.y_, (int)color_.z_);
 
-	//Dubug
+	//Debug
 	DrawFormatString(200, 48, GetColor(100, 100, 100), "pos %f,%f", pos_.x_, pos_.y_, true);
 
-	//Dubug
+	//Debug
 	DrawFormatString(200, 32, GetColor(100, 100, 100), "blockF %d", blockF_, true);
+
+	//Debug
+	DrawFormatString(200, 64, GetColor(100, 100, 100), "MoveXXX %f", move_.x_, true);
 
 	int zure = 10;
 
 	//•`‰æ
 	DrawBox(
-		(int)pos_.x_+ zure,
+		(int)pos_.x_ + zure,
 		(int)pos_.y_ + 1 - zure,
 		(int)(pos_.x_ + (2 * size_.x_) + zure),
 		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
@@ -92,7 +95,7 @@ void Player::Draw()
 			(int)blocks_[i]->GetPos().x_,
 			(int)blocks_[i]->GetPos().y_,
 			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-			(int)(blocks_[i]->GetPos().y_  + (blocks_[i]->GetSize().y_ * 2)),
+			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2)),
 			BLOCK_TEXTURE, true);
 	}
 }
@@ -105,14 +108,27 @@ void Player::Finalize()
 void Player::Move()
 {
 	//‘¬“x
-	float speed = 5;
+	const float speed = 2;
+	const float MaxSpeed = 14;
 
 	//ˆÚ“®
-	move_.x_ += Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A);
-	//move_.y_ += Input::GetInstance()->KeyPush(KEY_INPUT_S) - Input::GetInstance()->KeyPush(KEY_INPUT_W);
+	move_.x_ += (Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A)) * speed;
 
-	//‘¬“x‚ðŠ|‚¯‚é
-	move_.x_ *= speed;
+	//
+	if (!Input::GetInstance()->KeyPush(KEY_INPUT_D) && !Input::GetInstance()->KeyPush(KEY_INPUT_A))
+	{
+		move_.x_ = 0;
+	}
+
+	if (move_.x_ > MaxSpeed)
+	{
+		move_.x_ = MaxSpeed;
+	}
+
+	if (-MaxSpeed > move_.x_)
+	{
+		move_.x_ = -MaxSpeed;
+	}
 
 	//ˆÚ“®
 	pos_.x_ += move_.x_;
@@ -126,27 +142,20 @@ void Player::Move()
 	{
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
-			if (hipDropF_)
+			//‰¡C³
+			if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
 			{
-				blocks_[i]->SetPos({ -100, -100 });
-			}
-			else
-			{
-				//‰¡C³
-				if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
+				while (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 				{
-					while (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
-					{
-						bool X = move_.x_ > 0;
+					bool X = move_.x_ > 0;
 
-						if (X)
-						{
-							pos_.x_ -= 1.0f;
-						}
-						else
-						{
-							pos_.x_ += 1.0f;
-						}
+					if (X)
+					{
+						pos_.x_ -= 1.0f;
+					}
+					else
+					{
+						pos_.x_ += 1.0f;
 					}
 				}
 			}
@@ -200,7 +209,7 @@ void Player::Move()
 void Player::Jump()
 {
 	//ˆÚ“®’l
-	move_ = { 0,0 };
+	move_.y_ = 0;
 
 	//‰¼’n–Ê
 	int stageLine = 600;
