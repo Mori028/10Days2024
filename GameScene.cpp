@@ -55,10 +55,9 @@ void GameScene::Update()
 		isNextScene_ = true;
 	}
 
-	SetFontSize(24);
 	//Dubug
+	SetFontSize(24);
 	DrawFormatString(500, 128, GetColor(200, 200, 200), "Nキーで次のシーンへ", true);
-
 	SetFontSize(16);
 }
 
