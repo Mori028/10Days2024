@@ -68,6 +68,13 @@ public:
 	/// </summary>
 	void ResetBlock() { blocks_.clear(); };
 
+	/// <summary>
+	/// マップチップのスクロール変数と最大値の取得・設定
+	/// </summary>
+	/// <returns></returns>
+	float GetMapChipMove() { return mapChipMoveY_; }
+	void SetMapChipMoveMax(float mapChipMoveMax) { mapChipMoveMax_ = mapChipMoveMax; }
+
 private:
 
 	//ブロック情報
@@ -125,4 +132,8 @@ private:
 	//画像
 	size_t playerPng_;
 	size_t BLOCK_TEXTURE;
+
+	//スクロール値
+	float mapChipMoveY_ = 0;
+	float mapChipMoveMax_ = 0;
 };

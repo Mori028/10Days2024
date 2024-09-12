@@ -17,7 +17,7 @@ void GameScene::Initialize()
 	isNextScene_ = false;
 
 	// マップチップ
-	static const int MAP_SIZE_HEIGHT = 20;
+	static const int MAP_SIZE_HEIGHT = 27;
 	static const int MAP_SIZE_WIDTH = 20;
 	const int blockSize = 60;
 
@@ -34,13 +34,16 @@ void GameScene::Initialize()
 	}
 
 	//スクロールの最大値格納
-	float scllor = map->GetMapChipMoveMax();
+	player_->SetMapChipMoveMax(map->GetMapChipMoveMax());
 }
 
 void GameScene::Update()
 {
 	//2回目用
 	isNextScene_ = false;
+
+	//スクロール値渡
+	map->SetMapChipMove(player_->GetMapChipMove());
 
 	//更新
 	player_->Update();

@@ -17,6 +17,20 @@ void Player::Update()
 
 	//画面内に収まる処理
 	FlameIn();
+
+	//debug
+	if (mapChipMoveY_ <= mapChipMoveMax_ && mapChipMoveY_ >= 0)
+	{
+		mapChipMoveY_ += (Input::GetInstance()->KeyPush(KEY_INPUT_R) - Input::GetInstance()->KeyPush(KEY_INPUT_T));
+	}
+	else if (mapChipMoveY_ > mapChipMoveMax_)
+	{
+		mapChipMoveY_ = mapChipMoveMax_;
+	}
+	else if (mapChipMoveY_ < 0)
+	{
+		mapChipMoveY_ = 0;
+	}
 }
 
 void Player::Initialize()
@@ -55,6 +69,10 @@ void Player::Initialize()
 
 	// 画像の割り当て
 	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+
+	//スクロール値
+	mapChipMoveY_ = 0;
+	mapChipMoveMax_ = 0;
 }
 
 void Player::Draw()
@@ -88,16 +106,16 @@ void Player::Draw()
 		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
 		playerPng_, true);
 
-	for (size_t i = 0; i < blocks_.size(); i++)
-	{
-		//描画
-		DrawExtendGraph(
-			(int)blocks_[i]->GetPos().x_,
-			(int)blocks_[i]->GetPos().y_,
-			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2)),
-			BLOCK_TEXTURE, true);
-	}
+	//for (size_t i = 0; i < blocks_.size(); i++)
+	//{
+	//	//描画
+	//	DrawExtendGraph(
+	//		(int)blocks_[i]->GetPos().x_,
+	//		(int)blocks_[i]->GetPos().y_,
+	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+	//		(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2)),
+	//		BLOCK_TEXTURE, true);
+	//}
 }
 
 void Player::Finalize()
