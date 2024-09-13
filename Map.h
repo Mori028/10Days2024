@@ -138,7 +138,7 @@ private:
 	Vector2 block[5];
 	const int blockSize = 60;
 	float mapChipMoveY_ = 0.0f;
-	float mapChipMoveMax_ = static_cast<float>(stageSize * 60.0f);
+	float mapChipMoveMax_ = static_cast<float>(stageSize * 60.0f) - 60.0f;
 	float addSpeed = 0.0f;
 	float screenY_ = 0.0f;
 	int stage_ = 1;
