@@ -184,4 +184,8 @@ private:
 	//ダメージブロックに触れたか
 	bool hitFlag_;
 	size_t hitEffect_ = 0;
+
+	//BGM
+	int jumpSound_;
+	int breakSound_;
 };

@@ -90,21 +90,24 @@ void Player::Initialize()
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
 	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block3.png", TRUE);
+
+	//BGM
+	jumpSound_ = LoadSoundMem("Resource//Sound//Jump.wav");
+	breakSound_ = LoadSoundMem("Resource//Sound//break.wav");
+
+	//音量調整
+	int Volume = 75;
+	ChangeVolumeSoundMem(Volume, jumpSound_);
+	ChangeVolumeSoundMem(Volume, breakSound_);
+
+	//ループBGM
+	//PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
 }
 
 void Player::Draw()
 {
 	//代入
 	int color = GetColor((int)color_.x_, (int)color_.y_, (int)color_.z_);
-
-	//Debug
-	DrawFormatString(200, 48, GetColor(100, 100, 100), "pos %f,%f", pos_.x_, pos_.y_, true);
-
-	//Debug
-	DrawFormatString(200, 32, GetColor(100, 100, 100), "blockF %d", blockF_, true);
-
-	//Debug
-	DrawFormatString(200, 64, GetColor(100, 100, 100), "MoveXXX %f", move_.x_, true);
 
 	int zure = 10;
 
@@ -121,13 +124,13 @@ void Player::Draw()
 
 	if (hitEffect_ % 2 == 0)
 	{
-		//描画
-		DrawBox(
-			(int)pos_.x_ + zure,
-			(int)pos_.y_ + 1 - zure,
-			(int)(pos_.x_ + (2 * size_.x_) + zure),
-			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-			color, true);
+		////描画
+		//DrawBox(
+		//	(int)pos_.x_ + zure,
+		//	(int)pos_.y_ + 1 - zure,
+		//	(int)(pos_.x_ + (2 * size_.x_) + zure),
+		//	(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
+		//	color, true);
 
 		DrawExtendGraph(
 			(int)pos_.x_ + zure,
@@ -336,6 +339,8 @@ void Player::Move()
 			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_ && !(blocks_[i]->GetKind() == DAMAGE_BLOCK))
 			{
 				blocks_[i]->SetPos({ -100, -100 });
+				//ブレイク
+				PlaySoundMem(breakSound_, DX_PLAYTYPE_NORMAL);
 			}
 			else
 			{
@@ -381,6 +386,9 @@ void Player::Jump()
 		{
 			//地面からのジャンプ
 		case true:
+
+			//ブレイク
+			PlaySoundMem(jumpSound_, DX_PLAYTYPE_NORMAL);
 
 			//重力を0に
 			gravityPower_ = 0;
@@ -463,9 +471,6 @@ void Player::Jump()
 		//重力
 		move_.y_ += gravityPower_ - jumpPower_;
 	}
-
-	//Dubug
-	DrawFormatString(200, 16, GetColor(100, 100, 100), "hipDropF_ %d", hipDropF_, true);
 
 	blockF_ = false;
 
