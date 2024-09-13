@@ -49,9 +49,6 @@ void GameScene::Update()
 	time_->Update();
 	map->Update();
 
-
-
-
 	//”»’è
 	if (player_->GetNextSceneFlag())
 	{
@@ -76,7 +73,7 @@ void GameScene::Draw()
 	DrawExtendGraph(0, 0, width, height, backGround_, true);
 
 	//•`‰æ
-	map->Draw();
+	//map->Draw();
 
 	player_->Draw();
 	time_->Draw();

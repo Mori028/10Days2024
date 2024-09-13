@@ -83,6 +83,13 @@ void Player::Initialize()
 	//hitä÷åW
 	hitFlag_;
 	hitEffect_ = 0;
+
+	// âÊëúÇÃäÑÇËìñÇƒ
+	BLOCK_TEXTURE = LoadGraph("Resource/Block3_1.png", TRUE);
+	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
+	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
+	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block3.png", TRUE);
 }
 
 void Player::Draw()
@@ -131,16 +138,30 @@ void Player::Draw()
 	}
 
 	//âºÉuÉçÉbÉNï`âÊ
-	//for (size_t i = 0; i < blocks_.size(); i++)
-	//{
-	//	//ï`âÊ
-	//	DrawExtendGraph(
-	//		(int)blocks_[i]->GetPos().x_,
-	//		(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
-	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-	//		(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
-	//		BLOCK_TEXTURE, true);
-	//}
+	for (size_t i = 0; i < blocks_.size(); i++)
+	{
+		size_t graph;
+
+		if (blocks_[i]->GetKind() == BLOCK)
+			graph = BLOCK_TEXTURE;
+
+		if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
+			graph = DAMAGE_BLOCK_TEXTURE;
+
+		if (blocks_[i]->GetKind() == GOAL_BLOCK)
+			graph = GOAL_BLOCK_TEXTURE;
+
+		if (blocks_[i]->GetKind() == NONBREAK_BLOCK)
+			graph = NONBREAK_BLOCK_TEXTURE;
+
+		//ï`âÊ
+		DrawExtendGraph(
+			(int)blocks_[i]->GetPos().x_,
+			(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+			graph, true);
+	}
 }
 
 void Player::Finalize()

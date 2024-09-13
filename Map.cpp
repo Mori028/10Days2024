@@ -16,7 +16,7 @@ void Map::Initialize()
 	BLOCK_TEXTURE = LoadGraph("Resource/Block3_1.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
-	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
 	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block3.png", TRUE);
 
 	// マップチップの描画

@@ -165,6 +165,10 @@ private:
 	//画像
 	size_t playerPng_;
 	size_t BLOCK_TEXTURE;
+	size_t MOVE_BLOCK_TEXTURE;
+	size_t DAMAGE_BLOCK_TEXTURE;
+	size_t GOAL_BLOCK_TEXTURE;
+	size_t NONBREAK_BLOCK_TEXTURE;
 
 	//スクロール値
 	float mapChipMoveY_ = 0;
