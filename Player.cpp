@@ -203,6 +203,16 @@ void Player::OnCollision()
 	}
 }
 
+bool Player::AddTime()
+{
+	if (hitEffect_ == 1)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void Player::Move()
 {
 	//‘¬“x

@@ -102,6 +102,12 @@ public:
 	/// </summary>
 	void OnCollision();
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	bool AddTime();
+
 private:
 
 	//ƒuƒƒbƒNî•ñ

@@ -54,6 +54,13 @@ void GameScene::Update()
 	{
 		isNextScene_ = true;
 	}
+
+	//‚Æ‚°‚Ìã‚És‚Á‚½‚çƒ^ƒCƒ€‰ÁŽZ
+	if (player_->AddTime())
+	{
+		size_t addTime = 5;
+		time_->AddTime(addTime);
+	}
 }
 
 void GameScene::Draw()

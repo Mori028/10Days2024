@@ -30,7 +30,7 @@ void Time::Update()
 	{
 		time_++;
 
-		if (time_ == 6)
+		if (time_ == 60)
 		{
 			drawTime_++;
 			time_ = 0;
