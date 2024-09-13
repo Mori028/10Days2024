@@ -92,6 +92,18 @@ void Player::Initialize()
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
 	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block3.png", TRUE);
+
+	//BGM
+	jumpSound_ = LoadSoundMem("Resource//Sound//Jump.wav");
+	breakSound_ = LoadSoundMem("Resource//Sound//break.wav");
+
+	//音量調整
+	int Volume = 75;
+	ChangeVolumeSoundMem(Volume, jumpSound_);
+	ChangeVolumeSoundMem(Volume, breakSound_);
+
+	//ループBGM
+	//PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
 }
 
 void Player::Draw()
@@ -329,6 +341,8 @@ void Player::Move()
 			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_)
 			{
 				blocks_[i]->SetPos({ -100, -100 });
+				//ブレイク
+				PlaySoundMem(breakSound_, DX_PLAYTYPE_BACK);
 			}
 			else
 			{
@@ -374,6 +388,9 @@ void Player::Jump()
 		{
 			//地面からのジャンプ
 		case true:
+
+			//ジャンプ
+			PlaySoundMem(jumpSound_, DX_PLAYTYPE_BACK);
 
 			//重力を0に
 			gravityPower_ = 0;
