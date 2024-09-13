@@ -12,7 +12,7 @@ void Map::Initialize()
 	BLOCK_TEXTURE = LoadGraph("Resource/Block.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
-	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
 	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block4.png", TRUE);
 
 	// マップの数
