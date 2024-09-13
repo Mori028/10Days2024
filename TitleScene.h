@@ -42,7 +42,7 @@ private:
 	//シーン遷移
 	int sceneChangeTimer = 0;
 	int sceneChangeCount = 0; //4カウントで暗転する
-
+	int titleTimer = 0;
 
 	//次のシーンへ
 	bool isSceneChange_;
