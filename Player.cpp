@@ -108,6 +108,7 @@ void Player::Draw()
 		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
 		playerPng_, true);
 
+	//仮ブロック描画
 	//for (size_t i = 0; i < blocks_.size(); i++)
 	//{
 	//	//描画
@@ -234,8 +235,16 @@ void Player::Move()
 		}
 	}
 
-	//移動
-	pos_.y_ += move_.y_;
+	//スクロール
+	if (pos_.y_ > 400 && mapChipMoveY_ < mapChipMoveMax_)
+	{
+		mapChipMoveY_ += move_.y_;
+	}
+	else
+	{
+		//移動
+		pos_.y_ += move_.y_;
+	}
 
 	//判定
 	//縦判定

@@ -34,7 +34,7 @@ void GameScene::Initialize()
 	}
 
 	//ƒXƒNƒ[ƒ‹‚ÌÅ‘å’lŠi”[
-	player_->SetMapChipMoveMax(map->GetMapChipMoveMax());
+	player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 600);
 }
 
 void GameScene::Update()

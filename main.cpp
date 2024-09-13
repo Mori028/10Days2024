@@ -8,7 +8,7 @@
 #include "ClearScene.h"
 
 // ウィンドウのタイトルに表示する文字列
-const char TITLE[] = "10Days2024";
+const char TITLE[] = "4027_CRush";
 
 // ウィンドウ横幅
 const int WIN_WIDTH = 1200;
