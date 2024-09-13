@@ -45,14 +45,16 @@ public:
 
 private:
 
+	int colorTimer = 0;
 	//Ÿ‚ÌƒV[ƒ“‚Ö
 	bool isNextScene_;
 
 	//‰æ‘œ
 	size_t backGround_;
 	size_t clear_;
+	size_t clear1_;
 	size_t space_;
-
+	size_t space1_;
 	//Œ‹‰Ê
 	size_t result_;
 	size_t resultGraph_[10];

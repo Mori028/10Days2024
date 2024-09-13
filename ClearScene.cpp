@@ -9,9 +9,11 @@ void ClearScene::Initialize()
 
 	//タイトル
 	clear_ = LoadGraph("Resource//Clear.png");
+	clear1_ = LoadGraph("Resource//Clear1.png");
 
 	//スペース
 	space_ = LoadGraph("Resource//Space.png");
+	space1_ = LoadGraph("Resource//buleSpace.png");
 
 	//
 	isNextScene_ = false;
@@ -37,10 +39,16 @@ void ClearScene::Update()
 	//2回目用
 	isNextScene_ = false;
 
+	colorTimer++;
+	if (colorTimer >= 100) {
+		colorTimer = 0;
+	}
+
 	//スペース押したらゲームシーンに
 	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_SPACE))
 	{
 		isNextScene_ = true;
+		colorTimer = 0;
 	}
 
 	//動き
@@ -103,11 +111,22 @@ void ClearScene::Draw()
 	DrawExtendGraph(x + size + size, y, x + size + size + size, y + size, resultGraph_[a], true);
 
 
-	//タイトル
-	DrawGraph(300, 200, clear_, true);
+	if (colorTimer <= 50) {
+		//タイトル
+		DrawGraph(300, 200, clear_, true);
 
-	//スペース
-	DrawGraph(425, 600, space_, true);
+		//スペース
+		DrawGraph(425, 600, space_, true);
+	}
+	//カラーチェンジ
+	else {
+		//タイトル
+		DrawGraph(300, 200, clear1_, true);
+
+		//スペース
+		DrawGraph(425, 600, space1_, true);
+	}
+
 }
 
 void ClearScene::Finalize()
