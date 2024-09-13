@@ -340,7 +340,7 @@ void Player::Move()
 			{
 				blocks_[i]->SetPos({ -100, -100 });
 				//ブレイク
-				PlaySoundMem(breakSound_, DX_PLAYTYPE_NORMAL);
+				PlaySoundMem(breakSound_, DX_PLAYTYPE_BACK);
 			}
 			else
 			{
@@ -388,7 +388,7 @@ void Player::Jump()
 		case true:
 
 			//ブレイク
-			PlaySoundMem(jumpSound_, DX_PLAYTYPE_NORMAL);
+			PlaySoundMem(jumpSound_, DX_PLAYTYPE_BACK);
 
 			//重力を0に
 			gravityPower_ = 0;
