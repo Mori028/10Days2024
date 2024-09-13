@@ -22,7 +22,7 @@ void GameScene::Initialize()
 			if (map->GetBlockNum(y, x) != 0)
 			{
 				//位置、サイズ、種類を格納
-				player_->SetBlockPos(Vector2{ map->GetBlockPosition(y, x).x_,map->GetBlockPosition(y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(y, x));
+				player_->SetBlockPos(Vector2{ map->GetBlockPosition(0,y, x).x_,map->GetBlockPosition(0,y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(y, x));
 			}
 		}
 	}
