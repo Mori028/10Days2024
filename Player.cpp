@@ -79,6 +79,10 @@ void Player::Initialize()
 
 	//回数
 	MaxHipDrop_ = 3;
+
+	//hit関係
+	hitFlag_;
+	hitEffect_ = 0;
 }
 
 void Player::Draw()
@@ -97,20 +101,34 @@ void Player::Draw()
 
 	int zure = 10;
 
-	//描画
-	DrawBox(
-		(int)pos_.x_ + zure,
-		(int)pos_.y_ + 1 - zure,
-		(int)(pos_.x_ + (2 * size_.x_) + zure),
-		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-		color, true);
+	if (hitFlag_)
+	{
+		hitEffect_++;
 
-	DrawExtendGraph(
-		(int)pos_.x_ + zure,
-		(int)pos_.y_ + 1 - zure,
-		(int)(pos_.x_ + (2 * size_.x_) + zure),
-		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-		playerPng_, true);
+		if (hitEffect_ == 60)
+		{
+			hitFlag_ = false;
+			hitEffect_ = 0;
+		}
+	}
+
+	if (hitEffect_ % 2 == 0)
+	{
+		//描画
+		DrawBox(
+			(int)pos_.x_ + zure,
+			(int)pos_.y_ + 1 - zure,
+			(int)(pos_.x_ + (2 * size_.x_) + zure),
+			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
+			color, true);
+
+		DrawExtendGraph(
+			(int)pos_.x_ + zure,
+			(int)pos_.y_ + 1 - zure,
+			(int)(pos_.x_ + (2 * size_.x_) + zure),
+			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
+			playerPng_, true);
+	}
 
 	//仮ブロック描画
 	for (size_t i = 0; i < blocks_.size(); i++)
@@ -170,6 +188,19 @@ void Player::Reset()
 
 	//回数
 	MaxHipDrop_ = 3;
+
+	//hit関係
+	hitFlag_;
+	hitEffect_ = 0;
+}
+
+void Player::OnCollision()
+{
+	if (!hitFlag_)
+	{
+		hitFlag_ = true;
+		hitEffect_ = 0;
+	}
 }
 
 void Player::Move()
@@ -261,6 +292,12 @@ void Player::Move()
 		//ステージに当たったら壊す
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
+			//ダメージブロックだった場合
+			if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
+			{
+				OnCollision();
+			}
+
 			if (blocks_[i]->GetKind() == GOAL_BLOCK)
 			{
 				nextFlag_ = true;

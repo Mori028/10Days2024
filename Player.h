@@ -97,6 +97,11 @@ public:
 	/// </summary>
 	void Reset();
 
+	/// <summary>
+	/// 当たった処理
+	/// </summary>
+	void OnCollision();
+
 private:
 
 	//ブロック情報
@@ -165,4 +170,8 @@ private:
 
 	//次のシーンに行く用
 	bool nextFlag_ = false;
+
+	//ダメージブロックに触れたか
+	bool hitFlag_;
+	size_t hitEffect_ = 0;
 };
