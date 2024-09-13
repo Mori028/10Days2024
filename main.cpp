@@ -74,12 +74,26 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	//BGM
 	int sound_ = LoadSoundMem("Resource//Sound//BT.wav");
+	int damagesound_ = LoadSoundMem("Resource//Sound//damege.wav");
+	int jumpsound_ = LoadSoundMem("Resource//Sound//Jump.wav");
+	int clearsound_ = LoadSoundMem("Resource//Sound//gameClear.wav");
+	int oversound_ = LoadSoundMem("Resource//Sound//gameOver.wav");
+	int titlesound_ = LoadSoundMem("Resource//Sound//gameTitle.wav");
 
+	int standTimer = 0;
 	//音量調整
 	int Volume = 75;
 	ChangeVolumeSoundMem(Volume, sound_);
-	//ループBGM
-	PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
+	ChangeVolumeSoundMem(Volume, titlesound_);
+	ChangeVolumeSoundMem(Volume, clearsound_);
+	ChangeVolumeSoundMem(Volume, oversound_);
+	ChangeVolumeSoundMem(Volume, damagesound_);
+	//タイトルBGM
+	PlaySoundMem(titlesound_, DX_PLAYTYPE_LOOP);
+	//ダメージSE
+	//PlaySoundMem(damagesound_, DX_PLAYTYPE_LOOP);
+	// ゲームオーバーBGM
+	//PlaySoundMem(oversound_, DX_PLAYTYPE_LOOP);
 
 	// ゲームループ
 	while (true)
@@ -98,39 +112,57 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		switch (nowScene_)
 		{
 		case Title:
-
-			//
-			titleScene_->Update();
-
-			//次のシーンへ
-			if (titleScene_->IsNextScene())
-			{
-				nowScene_ = Game;
+			standTimer++;
+			if (standTimer >= 60) {
+				//
+				titleScene_->Update();
+				StopSoundMem(oversound_);
+				//StopSoundMem(clearsound_);
+				//次のシーンへ
+				if (titleScene_->IsNextScene())
+				{
+					PlaySoundMem(jumpsound_, DX_PLAYTYPE_NORMAL);
+					nowScene_ = Game;
+					//ゲームBGM
+					PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
+				}
 			}
-
 			break;
 
 		case Game:
-
+			standTimer = 0;
+			StopSoundMem(titlesound_);
 			//
 			gameScene_->Update();
-
-			//次のシーンへ
+			//クリア次のシーンへ
 			if (gameScene_->IsNextScene())
 			{
+
 				nowScene_ = Clear;
 			}
 
 			break;
 
 		case Clear:
-
+			standTimer++;
+			//クリアBGM
+				if (standTimer >= 0 && standTimer <= 155) {
+					StopSoundMem(sound_);
+						if (CheckSoundMem(clearsound_) == 0) {
+							PlaySoundMem(clearsound_, DX_PLAYTYPE_BACK, true);
+						}
+				}
+				else {
+					StopSoundMem(clearsound_);
+				}
 			//
 			clearScene_->Update();
-
 			//次のシーンへ
 			if (clearScene_->IsNextScene())
 			{
+				StopSoundMem(clearsound_);
+				standTimer = 0;
+				PlaySoundMem(titlesound_, DX_PLAYTYPE_LOOP);
 				nowScene_ = Title;
 			}
 
