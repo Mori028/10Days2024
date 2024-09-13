@@ -16,7 +16,7 @@ void Player::Update()
 	//Collision();
 
 	//画面内に収まる処理
-	FlameIn();
+	//FlameIn();
 
 	//debug
 	if (mapChipMoveY_ <= mapChipMoveMax_ && mapChipMoveY_ >= 0)
@@ -109,16 +109,16 @@ void Player::Draw()
 		playerPng_, true);
 
 	//仮ブロック描画
-	//for (size_t i = 0; i < blocks_.size(); i++)
-	//{
-	//	//描画
-	//	DrawExtendGraph(
-	//		(int)blocks_[i]->GetPos().x_,
-	//		(int)blocks_[i]->GetPos().y_,
-	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-	//		(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2)),
-	//		BLOCK_TEXTURE, true);
-	//}
+	for (size_t i = 0; i < blocks_.size(); i++)
+	{
+		//描画
+		DrawExtendGraph(
+			(int)blocks_[i]->GetPos().x_,
+			(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+			BLOCK_TEXTURE, true);
+	}
 }
 
 void Player::Finalize()
@@ -159,7 +159,7 @@ void Player::Reset()
 
 	//スクロール値
 	mapChipMoveY_ = 0;
-	mapChipMoveMax_ = 0;
+	//mapChipMoveMax_ = 0;
 
 	nextFlag = false;
 }

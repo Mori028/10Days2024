@@ -16,11 +16,6 @@ void GameScene::Initialize()
 	//
 	isNextScene_ = false;
 
-	// マップチップ
-	static const int MAP_SIZE_HEIGHT = 27;
-	static const int MAP_SIZE_WIDTH = 20;
-	const int blockSize = 60;
-
 	//ブロック情報
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
@@ -34,7 +29,7 @@ void GameScene::Initialize()
 	}
 
 	//スクロールの最大値格納
-	player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 600);
+	player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 800);
 }
 
 void GameScene::Update()
@@ -66,7 +61,7 @@ void GameScene::Draw()
 	DrawExtendGraph(0, 0, width, height, backGround_, true);
 
 	//描画
-	map->Draw();
+	//map->Draw();
 
 	player_->Draw();
 }
@@ -78,5 +73,22 @@ void GameScene::Finalize()
 
 void GameScene::Reset()
 {
+	//プレイヤー関係初期化
 	player_->Reset();
+	player_->ResetBlock();
+
+	//ブロック情報
+	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
+		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+
+			if (map->GetBlockNum(y, x) != 0)
+			{
+				//位置、サイズ、種類を格納
+				player_->SetBlockPos(Vector2{ map->GetBlockPosition(y, x).x_,map->GetBlockPosition(y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(y, x));
+			}
+		}
+	}
+
+	//スクロールの最大値格納
+	player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 800);
 }
