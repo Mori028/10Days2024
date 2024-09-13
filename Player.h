@@ -188,4 +188,5 @@ private:
 	//BGM
 	int jumpSound_;
 	int breakSound_;
+	int damageSound_;
 };

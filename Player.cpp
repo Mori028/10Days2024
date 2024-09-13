@@ -78,7 +78,7 @@ void Player::Initialize()
 	nextFlag_ = false;
 
 	//âÒêî
-	MaxHipDrop_ = 3;
+	MaxHipDrop_ = 5;
 
 	//hitä÷åW
 	hitFlag_;
@@ -94,11 +94,15 @@ void Player::Initialize()
 	//BGM
 	jumpSound_ = LoadSoundMem("Resource//Sound//Jump.wav");
 	breakSound_ = LoadSoundMem("Resource//Sound//break.wav");
+	damageSound_ = LoadSoundMem("Resource//Sound//damege.wav");
 
 	//âπó í≤êÆ
 	int Volume = 75;
 	ChangeVolumeSoundMem(Volume, jumpSound_);
 	ChangeVolumeSoundMem(Volume, breakSound_);
+
+	Volume = 120;
+	ChangeVolumeSoundMem(Volume, damageSound_);
 }
 
 void Player::Draw()
@@ -177,14 +181,6 @@ void Player::Draw()
 				(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
 				NONBREAK_BLOCK_TEXTURE, true);
 		}
-
-		////ï`âÊ
-		//DrawExtendGraph(
-		//	(int)blocks_[i]->GetPos().x_,
-		//	(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
-		//	(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-		//	(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
-		//	graph, true);
 	}
 }
 
@@ -231,7 +227,7 @@ void Player::Reset()
 	nextFlag_ = false;
 
 	//âÒêî
-	MaxHipDrop_ = 3;
+	MaxHipDrop_ = 5;
 
 	//hitä÷åW
 	hitFlag_;
@@ -244,6 +240,7 @@ void Player::OnCollision()
 	{
 		hitFlag_ = true;
 		hitEffect_ = 0;
+		PlaySoundMem(damageSound_, DX_PLAYTYPE_BACK);
 	}
 }
 
