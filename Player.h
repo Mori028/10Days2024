@@ -9,7 +9,8 @@ enum MapInfo
 	BLOCK,        // 1
 	MOVE_BLOCK,   // 2
 	DAMAGE_BLOCK, // 3
-	GOAL_BLOCK    // 4 
+	GOAL_BLOCK,    // 4 
+	NONBREAK_BLOCK,	//5
 };
 
 class Block

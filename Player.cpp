@@ -265,8 +265,7 @@ void Player::Move()
 			{
 				nextFlag_ = true;
 			}
-			//‰¡C³
-			else if (hipDropF_)
+			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_)
 			{
 				blocks_[i]->SetPos({ -100, -100 });
 			}
