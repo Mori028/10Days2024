@@ -68,7 +68,7 @@ void Player::Initialize()
 	playerPng_ = LoadGraph("Resource//player.png");
 
 	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
 	//スクロール値
 	mapChipMoveY_ = 0;

@@ -13,10 +13,10 @@ void Map::Initialize()
 	int mapCountY = sizeof(map) / sizeof(map[0]);
 
 	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	MOVE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	GOAL_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
 	// マップチップの描画
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
