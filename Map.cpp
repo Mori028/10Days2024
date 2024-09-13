@@ -194,9 +194,6 @@ void Map::Draw()
 					DrawGraph(block[4].x_, block[4].y_ - mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
-			if (map[y][x] == NONBREAK_BLOCK) {
-				DrawGraph(block.x_, block.y_ - mapChipMoveY_, NONBREAK_BLOCK_TEXTURE, TRUE);
-			}
 		}
 
 		break;

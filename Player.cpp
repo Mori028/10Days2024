@@ -137,31 +137,31 @@ void Player::Draw()
 			playerPng_, true);
 	}
 
-	//仮ブロック描画
-	for (size_t i = 0; i < blocks_.size(); i++)
-	{
-		size_t graph;
+	////仮ブロック描画
+	//for (size_t i = 0; i < blocks_.size(); i++)
+	//{
+	//	size_t graph;
 
-		if (blocks_[i]->GetKind() == BLOCK)
-			graph = BLOCK_TEXTURE;
+	//	if (blocks_[i]->GetKind() == BLOCK)
+	//		graph = BLOCK_TEXTURE;
 
-		if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
-			graph = DAMAGE_BLOCK_TEXTURE;
+	//	if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
+	//		graph = DAMAGE_BLOCK_TEXTURE;
 
-		if (blocks_[i]->GetKind() == GOAL_BLOCK)
-			graph = GOAL_BLOCK_TEXTURE;
+	//	if (blocks_[i]->GetKind() == GOAL_BLOCK)
+	//		graph = GOAL_BLOCK_TEXTURE;
 
-		if (blocks_[i]->GetKind() == NONBREAK_BLOCK)
-			graph = NONBREAK_BLOCK_TEXTURE;
+	//	if (blocks_[i]->GetKind() == NONBREAK_BLOCK)
+	//		graph = NONBREAK_BLOCK_TEXTURE;
 
-		//描画
-		DrawExtendGraph(
-			(int)blocks_[i]->GetPos().x_,
-			(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
-			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
-			graph, true);
-	}
+	//	//描画
+	//	DrawExtendGraph(
+	//		(int)blocks_[i]->GetPos().x_,
+	//		(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+	//		(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+	//		graph, true);
+	//}
 }
 
 void Player::Finalize()

@@ -7,13 +7,13 @@
 #include "GameScene.h"
 #include "ClearScene.h"
 
-// ウィンドウのタイトルに表示する文字列
+// ウィンドウのタイトルに表示する斁E���E
 const char TITLE[] = "4027_CRush";
 
-// ウィンドウ横幅
+// ウィンドウ横幁E
 const int WIN_WIDTH = 1200;
 
-// ウィンドウ縦幅
+// ウィンドウ縦幁E
 const int WIN_HEIGHT = 800;
 
 enum
@@ -25,34 +25,34 @@ enum
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
 	_In_ int nCmdShow) {
-	// ウィンドウモードに設定
+	// ウィンドウモードに設宁E
 	ChangeWindowMode(TRUE);
 
-	// ウィンドウサイズを手動では変更させず、
-	// かつウィンドウサイズに合わせて拡大できないようにする
+	// ウィンドウサイズを手動では変更させず、E
+	// かつウィンドウサイズに合わせて拡大できなぁE��ぁE��する
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 
 	// タイトルを変更
 	SetMainWindowText(TITLE);
 
-	// 画面サイズの最大サイズ、カラービット数を設定(モニターの解像度に合わせる)
+	// 画面サイズの最大サイズ、カラービット数を設宁Eモニターの解像度に合わせる)
 	SetGraphMode(WIN_WIDTH, WIN_HEIGHT, 32);
 
-	// 画面サイズを設定(解像度との比率で設定)
+	// 画面サイズを設宁E解像度との比率で設宁E
 	SetWindowSizeExtendRate(1.0);
 
-	// 画面の背景色を設定する
+	// 画面の背景色を設定すめE
 	SetBackgroundColor(0x00, 0x00, 0x00);
 
-	// DXlibの初期化
+	// DXlibの初期匁E
 	if (DxLib_Init() == -1) { return -1; }
 
-	// (ダブルバッファ)描画先グラフィック領域は裏面を指定
+	// (ダブルバッファ)描画先グラフィチE��領域は裏面を指宁E
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	// 画像などのリソースデータの変数宣言と読み込み
+	// 画像などのリソースチE�Eタの変数宣言と読み込み
 
-	// ゲームループで使う変数の宣言
+	// ゲームループで使ぁE��数の宣言
 
 	//タイトル
 	std::unique_ptr<TitleScene> titleScene_;
@@ -93,21 +93,21 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	PlaySoundMem(titlesound_, DX_PLAYTYPE_LOOP);
 	//ダメージSE
 	//PlaySoundMem(damagesound_, DX_PLAYTYPE_LOOP);
-	// ゲームオーバーBGM
+	// ゲームオーバ�EBGM
 	//PlaySoundMem(oversound_, DX_PLAYTYPE_LOOP);
 
-	// ゲームループ
+	// ゲームルーチE
 	while (true)
 	{
-		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
-		// 最新のキーボード情報を取得
+		// 最新のキーボ�Eド情報だったものは1フレーム前�Eキーボ�Eド情報として保孁E
+		// 最新のキーボ�Eド情報を取征E
 		Input::GetInstance()->Update();
 
 		// 画面クリア
 		ClearDrawScreen();
 		//---------  ここからプログラムを記述  ----------//
 
-		// 更新処理
+		// 更新処琁E
 
 		//scene判別
 		switch (nowScene_)
@@ -181,7 +181,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 
-		// 描画処理
+		// 描画処琁E
 
 		//scene判別
 		switch (nowScene_)
@@ -215,10 +215,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// (ダブルバッファ)裏面
 		ScreenFlip();
 
-		// 20ミリ秒待機(疑似60FPS)
+		// 20ミリ秒征E��E疑似60FPS)
 		WaitTimer(20);
 
-		// Windowsシステムからくる情報を処理する
+		// WindowsシスチE��からくる惁E��を�E琁E��めE
 		if (ProcessMessage() == -1) {
 			break;
 		}
@@ -233,9 +233,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	InitGraph();
 	InitSoundMem();
 
-	// Dxライブラリ終了処理
+	// Dxライブラリ終亁E�E琁E
 	DxLib_End();
 
-	// 正常終了
+	// 正常終亁E
 	return 0;
 }
