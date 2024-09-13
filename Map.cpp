@@ -59,7 +59,7 @@ void Map::Draw()
 	// マップチップの描画
 	switch (stage_) {
 	case STAGE_1:
-
+		
 		for (int y = 0; y < mapCount[0].y_; y++) {
 			for (int x = 0; x < mapCount[0].x_; x++) {
 				block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
@@ -67,19 +67,19 @@ void Map::Draw()
 				blockPosition[0][y][x] = { block[0].x_, block[0].y_};
 
 				if (map[0][y][x] == BLOCK) {
-					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[0].x_, block[0].y_ - mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 				}
 				if (map[0][y][x] == MOVE_BLOCK) {
-					DrawGraph(block[0].x_, block[0].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[0].x_, block[0].y_ + addSpeed - mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[0][y][x] == DAMAGE_BLOCK) {
-					DrawGraph(block[0].x_ + addShakeX_, block[0].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[0].x_ + addShakeX_, block[0].y_ + addShakeY_ - mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[0][y][x] == GOAL_BLOCK) {
-					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[0].x_, block[0].y_ - mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[0][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[0].x_, block[0].y_ - mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -87,7 +87,7 @@ void Map::Draw()
 		break;
 
 	case STAGE_2:
-
+		
 		for (int y = 0; y < mapCount[1].y_; y++) {
 			for (int x = 0; x < mapCount[1].x_; x++) {
 				block[1] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
@@ -95,19 +95,19 @@ void Map::Draw()
 				blockPosition[1][y][x] = { block[1].x_, block[1].y_};
 
 				if (map[1][y][x] == BLOCK) {
-					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[1].x_, block[1].y_ - mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 				}
 				if (map[1][y][x] == MOVE_BLOCK) {
-					DrawGraph(block[1].x_, block[1].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[1].x_, block[1].y_ + addSpeed - mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[1][y][x] == DAMAGE_BLOCK) {
-					DrawGraph(block[1].x_ + addShakeX_, block[1].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[1].x_ + addShakeX_, block[1].y_ + addShakeY_ - mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[1][y][x] == GOAL_BLOCK) {
-					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[1].x_, block[1].y_ - mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[1][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[1].x_, block[1].y_ - mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -123,19 +123,19 @@ void Map::Draw()
 				blockPosition[2][y][x] = { block[2].x_, block[2].y_};
 
 				if (map[2][y][x] == BLOCK) {
-					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[2].x_, block[2].y_ - mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 				}
 				if (map[2][y][x] == MOVE_BLOCK) {
-					DrawGraph(block[2].x_, block[2].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[2].x_, block[2].y_ + addSpeed - mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[2][y][x] == DAMAGE_BLOCK) {
-					DrawGraph(block[2].x_ + addShakeX_, block[2].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[2].x_ + addShakeX_, block[2].y_ + addShakeY_ - mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[2][y][x] == GOAL_BLOCK) {
-					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[2].x_, block[2].y_ - mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[2][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[2].x_, block[2].y_ - mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -151,19 +151,19 @@ void Map::Draw()
 				blockPosition[3][y][x] = { block[3].x_, block[3].y_};
 
 				if (map[3][y][x] == BLOCK) {
-					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[3].x_, block[3].y_ - mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 				}
 				if (map[3][y][x] == MOVE_BLOCK) {
-					DrawGraph(block[3].x_, block[3].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[3].x_, block[3].y_ + addSpeed - mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[3][y][x] == DAMAGE_BLOCK) {
-					DrawGraph(block[3].x_ + addShakeX_, block[3].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[3].x_ + addShakeX_, block[3].y_ + addShakeY_ - mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[3][y][x] == GOAL_BLOCK) {
-					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[3].x_, block[3].y_ - mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[3][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[3].x_, block[3].y_ - mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -179,19 +179,19 @@ void Map::Draw()
 				blockPosition[4][y][x] = { block[4].x_, block[4].y_};
 
 				if (map[4][y][x] == BLOCK) {
-					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[4].x_, block[4].y_ - mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 				}
 				if (map[4][y][x] == MOVE_BLOCK) {
-					DrawGraph(block[4].x_, block[4].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[4].x_, block[4].y_ + addSpeed - mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[4][y][x] == DAMAGE_BLOCK) {
-					DrawGraph(block[4].x_ + addShakeX_, block[4].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[4].x_ + addShakeX_, block[4].y_ + addShakeY_ - mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[4][y][x] == GOAL_BLOCK) {
-					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[4].x_, block[4].y_ - mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[4][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[4].x_, block[4].y_ - mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
