@@ -74,7 +74,7 @@ void Player::Initialize()
 	mapChipMoveY_ = 0;
 	mapChipMoveMax_ = 0;
 
-	nextFlag = false;
+	nextFlag_ = false;
 }
 
 void Player::Draw()
@@ -161,7 +161,7 @@ void Player::Reset()
 	mapChipMoveY_ = 0;
 	//mapChipMoveMax_ = 0;
 
-	nextFlag = false;
+	nextFlag_ = false;
 }
 
 void Player::Move()
@@ -209,7 +209,7 @@ void Player::Move()
 		{
 			if (blocks_[i]->GetKind() == GOAL_BLOCK)
 			{
-				nextFlag = true;
+				nextFlag_ = true;
 			}
 			//横修正
 			else if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
@@ -255,7 +255,7 @@ void Player::Move()
 		{
 			if (blocks_[i]->GetKind() == GOAL_BLOCK)
 			{
-				nextFlag = true;
+				nextFlag_ = true;
 			}
 			//横修正
 			else if (hipDropF_)
@@ -294,7 +294,7 @@ void Player::Jump()
 	move_.y_ = 0;
 
 	//重力の最大値 
-	const float MaxGravity = 5;
+	const float MaxGravity = 10;
 
 	//ジャンプの最大値
 	const float MaxJump = 30;
@@ -327,14 +327,24 @@ void Player::Jump()
 			//一度ジャンプしているか
 			if (jumpFlags_)
 			{
-				//2回以上でないように
-				jumpFlags_ = false;
+				//回数が残っているか
+				if (MaxHipDrop_ > 0)
+				{
+					//2回以上でないように
+					jumpFlags_ = false;
 
-				//
-				hipDropF_ = true;
+					//
+					hipDropF_ = true;
 
-				//
-				jumpPower_ = 0;
+					//
+					jumpPower_ = 0;
+
+					//回数を引く
+					MaxHipDrop_--;
+
+					//
+					hipDrop_ = 0;
+				}
 			}
 
 			break;
@@ -365,6 +375,14 @@ void Player::Jump()
 
 		//重力
 		move_.y_ += gravityPower_ * speed;
+
+		//
+		hipDrop_++;
+
+		if (hipDrop_ > 10)
+		{
+			hipDropF_ = false;
+		}
 	}
 	else
 	{

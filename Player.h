@@ -89,7 +89,7 @@ public:
 	/// 次のシーンへ行くか
 	/// </summary>
 	/// <returns></returns>
-	bool GetNextSceneFlag() { return nextFlag; };
+	bool GetNextSceneFlag() { return nextFlag_; };
 
 	/// <summary>
 	/// リセット
@@ -159,8 +159,9 @@ private:
 	float mapChipMoveMax_ = 0;
 
 	//最大落下回数
-	size_t MaxHipDrop = 5;
+	size_t MaxHipDrop_ = 5;
+	float hipDrop_ = 5;
 
 	//次のシーンに行く用
-	bool nextFlag = false;
+	bool nextFlag_ = false;
 };
