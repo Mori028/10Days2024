@@ -58,10 +58,10 @@ void Player::Initialize()
 	//ヒップドロップフラグoff
 	hipDropF_ = false;
 
-	//
+	//移動値格納用変数
 	move_ = { 0,0 };
 
-	//
+	//ブロックに触れているか
 	blockF_ = false;
 
 	//画像読み込み
@@ -74,7 +74,11 @@ void Player::Initialize()
 	mapChipMoveY_ = 0;
 	mapChipMoveMax_ = 0;
 
+	//次のシーンに行くフラグ
 	nextFlag_ = false;
+
+	//回数
+	hipDrop_ = 5;
 }
 
 void Player::Draw()
@@ -367,11 +371,11 @@ void Player::Jump()
 		jumpPower_ = 0;
 	}
 
-	//
+	//直下
 	if (hipDropF_)
 	{
 		//落下速度
-		size_t speed = 10;
+		size_t speed = 5;
 
 		//重力
 		move_.y_ += gravityPower_ * speed;
