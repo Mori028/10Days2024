@@ -17,20 +17,6 @@ void Player::Update()
 
 	//‰æ–Ê“à‚Éû‚Ü‚éˆ—
 	//FlameIn();
-
-	//debug
-	if (mapChipMoveY_ <= mapChipMoveMax_ && mapChipMoveY_ >= 0)
-	{
-		mapChipMoveY_ += (Input::GetInstance()->KeyPush(KEY_INPUT_R) - Input::GetInstance()->KeyPush(KEY_INPUT_T));
-	}
-	else if (mapChipMoveY_ > mapChipMoveMax_)
-	{
-		mapChipMoveY_ = mapChipMoveMax_;
-	}
-	else if (mapChipMoveY_ < 0)
-	{
-		mapChipMoveY_ = 0;
-	}
 }
 
 void Player::Initialize()
