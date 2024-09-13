@@ -88,6 +88,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	ChangeVolumeSoundMem(Volume, clearsound_);
 	ChangeVolumeSoundMem(Volume, oversound_);
 	ChangeVolumeSoundMem(Volume, damagesound_);
+	ChangeVolumeSoundMem(Volume, jumpsound_);
 	//タイトルBGM
 	PlaySoundMem(titlesound_, DX_PLAYTYPE_LOOP);
 	//ダメージSE
