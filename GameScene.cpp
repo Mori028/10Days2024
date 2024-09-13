@@ -7,6 +7,10 @@ void GameScene::Initialize()
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
 
+	//タイム関数
+	time_ = std::make_unique<Time>();
+	time_->Initialize();
+
 	//map初期化
 	map->Initialize();
 
@@ -42,6 +46,7 @@ void GameScene::Update()
 
 	//更新
 	player_->Update();
+	time_->Update();
 	map->Update();
 
 	//判定
@@ -64,6 +69,7 @@ void GameScene::Draw()
 	//map->Draw();
 
 	player_->Draw();
+	time_->Draw();
 }
 
 void GameScene::Finalize()
@@ -73,6 +79,9 @@ void GameScene::Finalize()
 
 void GameScene::Reset()
 {
+	//時間リセット
+	time_->Reset();
+
 	//プレイヤー関係初期化
 	player_->Reset();
 	player_->ResetBlock();

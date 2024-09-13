@@ -37,6 +37,12 @@ public:
 	/// </summary>
 	void Reset();
 
+	/// <summary>
+	/// Œ‹‰Ê
+	/// </summary>
+	/// <param name="time"></param>
+	void SetResult(size_t time) { result_ = time; };
+
 private:
 
 	//Ÿ‚ÌƒV[ƒ“‚Ö
@@ -46,4 +52,8 @@ private:
 	size_t backGround_;
 	size_t clear_;
 	size_t space_;
+
+	//Œ‹‰Ê
+	size_t result_;
+	size_t resultGraph_[10];
 };

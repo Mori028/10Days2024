@@ -120,6 +120,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (gameScene_->IsNextScene())
 			{
 				nowScene_ = Clear;
+
+				//Œ‹‰Ê‚ğŠi”[
+				size_t time = gameScene_->GetTime();
+				clearScene_->SetResult(time);
 				gameScene_->Reset();
 			}
 
