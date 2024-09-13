@@ -9,11 +9,11 @@ Map::~Map() {}
 void Map::Initialize()
 {
 	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/Block.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
-	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
-	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block4.png", TRUE);
 
 	// マップの数
 	for (int i = 0; i < 5; i++) {
