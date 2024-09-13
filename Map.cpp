@@ -8,14 +8,14 @@ Map::~Map() {}
 
 void Map::Initialize()
 {
-	// 画像の割り当て
+	// �摜�̊��蓖��
 	BLOCK_TEXTURE = LoadGraph("Resource/Block.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
 	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block4.png", TRUE);
 
-	// マップの数
+	// �}�b�v�̐�
 	for (int i = 0; i < maxStage_; i++) {
 		if (i == 0) {
 			mapCount[i].x_ = sizeof(map[0][0]) / sizeof(map[0][0][0]);
@@ -35,7 +35,7 @@ void Map::Initialize()
 		}
 	}
 
-	// マップチップの描画
+	// �}�b�v�`�b�v�̕`��
 	for (int i = 0; i < maxStage_; i++) {
 		for (int y = 0; y < mapCount[i].y_; y++) {
 			for (int x = 0; x < mapCount[i].x_; x++) {
@@ -56,7 +56,7 @@ void Map::Update()
 
 void Map::Draw()
 {
-	// マップチップの描画
+	// �}�b�v�`�b�v�̕`��
 	switch (stage_) {
 	case STAGE_1:
 		
@@ -194,6 +194,9 @@ void Map::Draw()
 					DrawGraph(block[4].x_, block[4].y_ - mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
+			if (map[y][x] == NONBREAK_BLOCK) {
+				DrawGraph(block.x_, block.y_ - mapChipMoveY_, NONBREAK_BLOCK_TEXTURE, TRUE);
+			}
 		}
 
 		break;
@@ -224,7 +227,7 @@ void Map::Move()
 void Map::Shake()
 {
 	if (isShake_) {
-		// 乱数の取得
+		// �����̎擾
 		std::random_device rnd;
 		std::mt19937 mt(rnd());
 		std::uniform_int_distribution<> rand(shakeMin_, shakeMax_);

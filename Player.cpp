@@ -79,6 +79,17 @@ void Player::Initialize()
 
 	//回数
 	MaxHipDrop_ = 3;
+
+	//hit関係
+	hitFlag_;
+	hitEffect_ = 0;
+
+	// 画像の割り当て
+	BLOCK_TEXTURE = LoadGraph("Resource/Block3_1.png", TRUE);
+	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
+	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
+	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block3.png", TRUE);
 }
 
 void Player::Draw()
@@ -97,32 +108,60 @@ void Player::Draw()
 
 	int zure = 10;
 
-	//描画
-	DrawBox(
-		(int)pos_.x_ + zure,
-		(int)pos_.y_ + 1 - zure,
-		(int)(pos_.x_ + (2 * size_.x_) + zure),
-		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-		color, true);
+	if (hitFlag_)
+	{
+		hitEffect_++;
 
-	DrawExtendGraph(
-		(int)pos_.x_ + zure,
-		(int)pos_.y_ + 1 - zure,
-		(int)(pos_.x_ + (2 * size_.x_) + zure),
-		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-		playerPng_, true);
+		if (hitEffect_ == 60)
+		{
+			hitFlag_ = false;
+			hitEffect_ = 0;
+		}
+	}
+
+	if (hitEffect_ % 2 == 0)
+	{
+		//描画
+		DrawBox(
+			(int)pos_.x_ + zure,
+			(int)pos_.y_ + 1 - zure,
+			(int)(pos_.x_ + (2 * size_.x_) + zure),
+			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
+			color, true);
+
+		DrawExtendGraph(
+			(int)pos_.x_ + zure,
+			(int)pos_.y_ + 1 - zure,
+			(int)(pos_.x_ + (2 * size_.x_) + zure),
+			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
+			playerPng_, true);
+	}
 
 	//仮ブロック描画
-	//for (size_t i = 0; i < blocks_.size(); i++)
-	//{
-	//	//描画
-	//	DrawExtendGraph(
-	//		(int)blocks_[i]->GetPos().x_,
-	//		(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
-	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-	//		(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
-	//		BLOCK_TEXTURE, true);
-	//}
+	for (size_t i = 0; i < blocks_.size(); i++)
+	{
+		size_t graph;
+
+		if (blocks_[i]->GetKind() == BLOCK)
+			graph = BLOCK_TEXTURE;
+
+		if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
+			graph = DAMAGE_BLOCK_TEXTURE;
+
+		if (blocks_[i]->GetKind() == GOAL_BLOCK)
+			graph = GOAL_BLOCK_TEXTURE;
+
+		if (blocks_[i]->GetKind() == NONBREAK_BLOCK)
+			graph = NONBREAK_BLOCK_TEXTURE;
+
+		//描画
+		DrawExtendGraph(
+			(int)blocks_[i]->GetPos().x_,
+			(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+			graph, true);
+	}
 }
 
 void Player::Finalize()
@@ -170,6 +209,29 @@ void Player::Reset()
 
 	//回数
 	MaxHipDrop_ = 3;
+
+	//hit関係
+	hitFlag_;
+	hitEffect_ = 0;
+}
+
+void Player::OnCollision()
+{
+	if (!hitFlag_)
+	{
+		hitFlag_ = true;
+		hitEffect_ = 0;
+	}
+}
+
+bool Player::AddTime()
+{
+	if (hitEffect_ == 1)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void Player::Move()
@@ -261,6 +323,12 @@ void Player::Move()
 		//ステージに当たったら壊す
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
+			//ダメージブロックだった場合
+			if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
+			{
+				OnCollision();
+			}
+
 			if (blocks_[i]->GetKind() == GOAL_BLOCK)
 			{
 				nextFlag_ = true;

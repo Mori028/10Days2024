@@ -6,17 +6,17 @@
 #include <memory>
 #include <DirectXMath.h>
 
-class Map 
+class Map
 {
 public:
-	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	Map();
-	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	// ƒfƒXƒgƒ‰ƒNƒ^
 	~Map();
 
 public:
-	// ãƒ–ãƒ­ãƒƒã‚¯ã®ç•ªå·
-	enum MapInfo 
+	// ƒuƒƒbƒN‚Ì”Ô†
+	enum MapInfo
 	{
 		NONE,         // 0
 		BLOCK,        // 1
@@ -26,7 +26,7 @@ public:
 		BREAK_BLOCK   // 5
 	};
 
-	// ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
+	// ƒXƒe[ƒW”Ô†
 	enum Stage
 	{
 		STAGE_1 = 1, // 1
@@ -38,54 +38,54 @@ public:
 
 public:
 	/// <summary>
-	/// åˆæœŸåŒ–
+	/// ‰Šú‰»
 	/// </summary>
 	void Initialize();
 
 	/// <summary>
-	/// æ›´æ–°
+	/// XV
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// æç”»
+	/// •`‰æ
 	/// </summary>
 	void Draw();
 
 	/// <summary>
-	/// ç§»å‹•
+	/// ˆÚ“®
 	/// </summary>
 	void Move();
 
 	/// <summary>
-	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ã‚·ã‚§ã‚¤ã‚¯
+	/// ƒ}ƒbƒvƒ`ƒbƒv‚ÌƒVƒFƒCƒN
 	/// </summary>
 	void Shake();
 
 	/// <summary>
-	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®š
+	/// ƒ}ƒbƒvƒ`ƒbƒv‚Ì“–‚½‚è”»’è
 	/// </summary>
 	void MapChipHitCheck();
 
 public:
 	/// <summary>
-	/// ãƒ–ãƒ­ãƒƒã‚¯ã®åº§æ¨™ã®å–å¾—
+	/// ƒuƒƒbƒN‚ÌÀ•W‚Ìæ“¾
 	/// </summary>
-	const Vector2& GetBlockPosition(int mapNum, int y,int x) const { return blockPosition[mapNum][y][x]; }
+	const Vector2& GetBlockPosition(int mapNum, int y, int x) const { return blockPosition[mapNum][y][x]; }
 
 	/// <summary>
-	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ç•ªå·ã®å–å¾—
+	/// ƒ}ƒbƒvƒ`ƒbƒv‚Ì”Ô†‚Ìæ“¾
 	/// </summary>
 	int GetBlockNum(int mapNum, int y, int x) { return map[mapNum][y][x]; }
 
 	/// <summary>
-	/// ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚·ã‚§ã‚¤ã‚¯ãƒ•ãƒ©ã‚°ã®å–å¾—ã¨è¨­å®š
+	/// ƒuƒƒbƒN‚ÌƒVƒFƒCƒNƒtƒ‰ƒO‚Ìæ“¾‚Æİ’è
 	/// </summary>
 	bool GetIsShake() { return isShake_; }
 	void SetIsShake(bool isShake) { isShake_ = isShake; }
 
 	/// <summary>
-	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¤‰æ•°ã¨æœ€å¤§å€¤ã®å–å¾—ãƒ»è¨­å®š
+	/// ƒ}ƒbƒvƒ`ƒbƒv‚ÌƒXƒNƒ[ƒ‹•Ï”‚ÆÅ‘å’l‚Ìæ“¾Eİ’è
 	/// </summary>
 	/// <returns></returns>
 	float GetMapChipMove() { return mapChipMoveY_; }
@@ -95,18 +95,18 @@ public:
 	float GetMapChipSizeMax() { return stageSize; }
 
 	/// <summary>
-	/// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã®å–å¾—ã¨è¨­å®š
+	/// Œ»İ‚ÌƒXƒe[ƒW”Ô†‚Ìæ“¾‚Æİ’è
 	/// </summary>
 	int GetStageNum() { return stage_; }
 	void SetStageNum(int stage) { stage_ = stage; }
 	int GetStageMaxNum() { return maxStage_; }
 
 private:
-	// åºŠã®ãƒ•ãƒ©ã‚°ã‚„ã‚¿ã‚¤ãƒãƒ¼etc.
+	// °‚Ìƒtƒ‰ƒO‚âƒ^ƒCƒ}[etc.
 	bool isFloorMove_ = false;
 	int floorMoveTime_ = 0;
 
-	// ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚·ã‚§ã‚¤ã‚¯
+	// ƒuƒƒbƒN‚ÌƒVƒFƒCƒN
 	bool isShake_ = false;
 	int shakeTime_ = 0;
 	float addShakeX_ = 0.0f;
@@ -122,14 +122,14 @@ private:
 	const float shakeMdX_ = 2.5f;
 	const float shakeMdY_ = 20.0f;
 
-	// ç”»åƒã®èª­ã¿è¾¼ã¿å¤‰æ•°
+	// ‰æ‘œ‚Ì“Ç‚İ‚İ•Ï”
 	int BLOCK_TEXTURE;
 	int MOVE_BLOCK_TEXTURE;
 	int DAMAGE_BLOCK_TEXTURE;
 	int GOAL_BLOCK_TEXTURE;
 	int BREAK_BLOCK_TEXTURE;
 
-	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—
+	// ƒ}ƒbƒvƒ`ƒbƒv
 	static const int STAGE_MAP_SIZE_HEIGHT = 50;
 	static const int STAGE_MAP_SIZE_WIDTH = 20;
 	float stageSize = 50;
@@ -144,7 +144,7 @@ private:
 	int stage_ = 1;
 	int maxStage_ = 5;
 
-	int map[5][STAGE_MAP_SIZE_HEIGHT][STAGE_MAP_SIZE_WIDTH] = 
+	int map[5][STAGE_MAP_SIZE_HEIGHT][STAGE_MAP_SIZE_WIDTH] =
 	{
 		{
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
