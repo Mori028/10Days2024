@@ -22,7 +22,8 @@ public:
 		BLOCK,        // 1
 		MOVE_BLOCK,   // 2
 		DAMAGE_BLOCK, // 3
-		GOAL_BLOCK    // 4 
+		GOAL_BLOCK,   // 4 
+		BREAK_BLOCK   // 5
 	};
 
 	// ステージ番号
@@ -124,6 +125,7 @@ private:
 	int MOVE_BLOCK_TEXTURE;
 	int DAMAGE_BLOCK_TEXTURE;
 	int GOAL_BLOCK_TEXTURE;
+	int BREAK_BLOCK_TEXTURE;
 
 	// マップチップ
 	static const int STAGE1_MAP_SIZE_HEIGHT = 27;

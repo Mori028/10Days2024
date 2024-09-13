@@ -9,10 +9,11 @@ Map::~Map() {}
 void Map::Initialize()
 {
 	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	MOVE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	GOAL_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
 	// マップの数
 	for (int i = 0; i < 5; i++) {
@@ -35,39 +36,13 @@ void Map::Initialize()
 	}
 
 	// マップチップの描画
-	for (int y = 0; y < mapCount[0].y_; y++) {
-		for (int x = 0; x < mapCount[0].x_; x++) {
-			block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+	for (int i = 0; i < maxStage_; i++) {
+		for (int y = 0; y < mapCount[i].y_; y++) {
+			for (int x = 0; x < mapCount[i].x_; x++) {
+				block[i] = { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) };
 
-			blockPosition[0][y][x] = { block[0].x_, block[0].y_};
-		}
-	}
-	for (int y = 0; y < mapCount[1].y_; y++) {
-		for (int x = 0; x < mapCount[1].x_; x++) {
-			block[1] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
-
-			blockPosition[1][y][x] = { block[1].x_, block[1].y_};
-		}
-	}
-	for (int y = 0; y < mapCount[2].y_; y++) {
-		for (int x = 0; x < mapCount[2].x_; x++) {
-			block[2] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
-
-			blockPosition[2][y][x] = { block[2].x_, block[2].y_};
-		}
-	}
-	for (int y = 0; y < mapCount[3].y_; y++) {
-		for (int x = 0; x < mapCount[3].x_; x++) {
-			block[3] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
-
-			blockPosition[3][y][x] = { block[3].x_, block[3].y_};
-		}
-	}
-	for (int y = 0; y < mapCount[4].y_; y++) {
-		for (int x = 0; x < mapCount[4].x_; x++) {
-			block[4] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
-
-			blockPosition[4][y][x] = { block[4].x_, block[4].y_};
+				blockPosition[i][y][x] = { block[i].x_, block[i].y_ };
+			}
 		}
 	}
 }
