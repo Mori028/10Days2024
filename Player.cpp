@@ -293,22 +293,6 @@ void Player::Jump()
 	//移動値
 	move_.y_ = 0;
 
-	//仮地面
-	int stageLine = 600;
-
-	//地面にいるか
-	bool earthFlags = pos_.y_ + 1 > stageLine + size_.y_;
-
-	//地面にいたらtrueに
-	if (earthFlags)
-	{
-		hipDropF_ = false;
-		jumpFlags_ = false;
-	}
-
-	//Dubug
-	DrawFormatString(200, 0, GetColor(100, 100, 100), "earthFlags %d", earthFlags, true);
-
 	//重力の最大値 
 	const float MaxGravity = 5;
 
@@ -318,7 +302,7 @@ void Player::Jump()
 	//space押したときどこにいるか
 	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_SPACE))
 	{
-		switch (earthFlags || blockF_)
+		switch (blockF_)
 		{
 			//地面からのジャンプ
 		case true:
