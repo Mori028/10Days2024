@@ -9,11 +9,11 @@ Map::~Map() {}
 void Map::Initialize()
 {
 	// �摜�̊��蓖��
-	BLOCK_TEXTURE = LoadGraph("Resource/Block.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/Block4.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
-	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block4.png", TRUE);
+	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block.png", TRUE);
 
 	// �}�b�v�̐�
 	for (int i = 0; i < maxStage_; i++) {
