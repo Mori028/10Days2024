@@ -7,13 +7,13 @@
 #include "GameScene.h"
 #include "ClearScene.h"
 
-// �E�B���h�E�̃^�C�g���ɕ\�����镶����
-const char TITLE[] = "10Days2024";
+// ウィンドウのタイトルに表示する文字列
+const char TITLE[] = "4027_CRush";
 
-// �E�B���h�E����
+// ウィンドウ横幅
 const int WIN_WIDTH = 1200;
 
-// �E�B���h�E�c��
+// ウィンドウ縦幅
 const int WIN_HEIGHT = 800;
 
 enum
@@ -25,51 +25,51 @@ enum
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
 	_In_ int nCmdShow) {
-	// �E�B���h�E���[�h�ɐݒ�
+	// ウィンドウモードに設定
 	ChangeWindowMode(TRUE);
 
-	// �E�B���h�E�T�C�Y���蓮�ł͕ύX�������A
-	// ���E�B���h�E�T�C�Y�ɍ��킹�Ċg��ł��Ȃ��悤�ɂ���
+	// ウィンドウサイズを手動では変更させず、
+	// かつウィンドウサイズに合わせて拡大できないようにする
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 
-	// �^�C�g����ύX
+	// タイトルを変更
 	SetMainWindowText(TITLE);
 
-	// ��ʃT�C�Y�̍ő�T�C�Y�A�J���[�r�b�g����ݒ�(���j�^�[�̉𑜓x�ɍ��킹��)
+	// 画面サイズの最大サイズ、カラービット数を設定(モニターの解像度に合わせる)
 	SetGraphMode(WIN_WIDTH, WIN_HEIGHT, 32);
 
-	// ��ʃT�C�Y��ݒ�(�𑜓x�Ƃ̔䗦�Őݒ�)
+	// 画面サイズを設定(解像度との比率で設定)
 	SetWindowSizeExtendRate(1.0);
 
-	// ��ʂ̔w�i�F��ݒ肷��
+	// 画面の背景色を設定する
 	SetBackgroundColor(0x00, 0x00, 0x00);
 
-	// DXlib�̏�����
+	// DXlibの初期化
 	if (DxLib_Init() == -1) { return -1; }
 
-	// (�_�u���o�b�t�@)�`���O���t�B�b�N�̈�͗��ʂ��w��
+	// (ダブルバッファ)描画先グラフィック領域は裏面を指定
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	// �摜�Ȃǂ̃��\�[�X�f�[�^�̕ϐ��錾�Ɠǂݍ���
+	// 画像などのリソースデータの変数宣言と読み込み
 
-	// �Q�[�����[�v�Ŏg���ϐ��̐錾
+	// ゲームループで使う変数の宣言
 
-	//�^�C�g��
+	//タイトル
 	std::unique_ptr<TitleScene> titleScene_;
 	titleScene_ = std::make_unique<TitleScene>();
 	titleScene_->Initialize();
 
-	//�Q�[��
+	//ゲーム
 	std::unique_ptr<GameScene> gameScene_;
 	gameScene_ = std::make_unique<GameScene>();
 	gameScene_->Initialize();
 
-	//�N���A
+	//クリア
 	std::unique_ptr<ClearScene> clearScene_;
 	clearScene_ = std::make_unique<ClearScene>();
 	clearScene_->Initialize();
 
-	//���݂̃V�[��
+	//現在のシーン
 	size_t nowScene_ = Title;
 
 	//BGM
@@ -81,51 +81,53 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	int titlesound_ = LoadSoundMem("Resource//Sound//gameTitle.wav");
 
 	int standTimer = 0;
-	//���ʒ���
+	//音量調整
 	int Volume = 75;
 	ChangeVolumeSoundMem(Volume, sound_);
 	ChangeVolumeSoundMem(Volume, titlesound_);
 	ChangeVolumeSoundMem(Volume, clearsound_);
 	ChangeVolumeSoundMem(Volume, oversound_);
 	ChangeVolumeSoundMem(Volume, damagesound_);
-	//�^�C�g��BGM
+	//タイトルBGM
 	PlaySoundMem(titlesound_, DX_PLAYTYPE_LOOP);
-	//�_���[�WSE
+	//ダメージSE
 	//PlaySoundMem(damagesound_, DX_PLAYTYPE_LOOP);
-	// �Q�[���I�[�o�[BGM
+	// ゲームオーバーBGM
 	//PlaySoundMem(oversound_, DX_PLAYTYPE_LOOP);
 
-	// �Q�[�����[�v
+	// ゲームループ
 	while (true)
 	{
-		// �ŐV�̃L�[�{�[�h��񂾂������̂�1�t���[���O�̃L�[�{�[�h���Ƃ��ĕۑ�
-		// �ŐV�̃L�[�{�[�h�����擾
+		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
+		// 最新のキーボード情報を取得
 		Input::GetInstance()->Update();
 
-		// ��ʃN���A
+		// 画面クリア
 		ClearDrawScreen();
-		//---------  ��������v���O�������L�q  ----------//
+		//---------  ここからプログラムを記述  ----------//
 
-		// �X�V����
+		// 更新処理
 
-		//scene����
+		//scene判別
 		switch (nowScene_)
 		{
 		case Title:
+
 			standTimer++;
 			if (standTimer >= 60) {
 				//
 				titleScene_->Update();
 				StopSoundMem(oversound_);
 				//StopSoundMem(clearsound_);
-				//���̃V�[����
+				//次のシーンへ
 				if (titleScene_->IsNextScene())
 				{
 					PlaySoundMem(jumpsound_, DX_PLAYTYPE_NORMAL);
 					nowScene_ = Game;
-					//�Q�[��BGM
+					//ゲームBGM
 					PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
-				}
+          titleScene_->Reset();
+				}r
 			}
 			break;
 
@@ -134,18 +136,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			StopSoundMem(titlesound_);
 			//
 			gameScene_->Update();
-			//�N���A���̃V�[����
+			//クリア次のシーンへ
 			if (gameScene_->IsNextScene())
 			{
 
 				nowScene_ = Clear;
+				gameScene_->Reset();
 			}
 
 			break;
 
 		case Clear:
 			standTimer++;
-			//�N���ABGM
+			//クリアBGM
 				if (standTimer >= 0 && standTimer <= 155) {
 					StopSoundMem(sound_);
 						if (CheckSoundMem(clearsound_) == 0) {
@@ -157,13 +160,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				}
 			//
 			clearScene_->Update();
-			//���̃V�[����
+			//次のシーンへ
 			if (clearScene_->IsNextScene())
 			{
 				StopSoundMem(clearsound_);
 				standTimer = 0;
 				PlaySoundMem(titlesound_, DX_PLAYTYPE_LOOP);
 				nowScene_ = Title;
+				clearScene_->Reset();
 			}
 
 			break;
@@ -172,9 +176,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 
-		// �`�揈��
+		// 描画処理
 
-		//scene����
+		//scene判別
 		switch (nowScene_)
 		{
 		case Title:
@@ -202,31 +206,31 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 
-		//---------  �����܂łɃv���O�������L�q  ---------//
-		// (�_�u���o�b�t�@)����
+		//---------  ここまでにプログラムを記述  ---------//
+		// (ダブルバッファ)裏面
 		ScreenFlip();
 
-		// 20�~���b�ҋ@(�^��60FPS)
+		// 20ミリ秒待機(疑似60FPS)
 		WaitTimer(20);
 
-		// Windows�V�X�e�����炭�������������
+		// Windowsシステムからくる情報を処理する
 		if (ProcessMessage() == -1) {
 			break;
 		}
 
-		// ESC�L�[�������ꂽ�烋�[�v���甲����
+		// ESCキーが押されたらループから抜ける
 		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1) {
 			break;
 		}
 	}
 
-	//���Ɖ摜����
+	//音と画像消去
 	InitGraph();
 	InitSoundMem();
 
-	// Dx���C�u�����I������
+	// Dxライブラリ終了処理
 	DxLib_End();
 
-	// ����I��
+	// 正常終了
 	return 0;
 }
