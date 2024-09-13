@@ -16,20 +16,22 @@ void GameScene::Initialize()
 	isNextScene_ = false;
 
 	//ブロック情報
-	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
-		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+	for (int i = 0; i < map->GetStageMaxNum(); i++) {
+		for (int y = 0; y < map->GetMapChipSizeMax(); y++) {
+			for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
 
-			if (map->GetBlockNum(0,y, x) != 0)
-			{
-				//位置、サイズ、種類を格納
-				player_->SetBlockPos(Vector2{ map->GetBlockPosition(0,y, x).x_,map->GetBlockPosition(0,y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(0,y, x));
+				if (map->GetBlockNum(0, y, x) != 0)
+				{
+					//位置、サイズ、種類を格納
+					player_->SetBlockPos(Vector2{ map->GetBlockPosition(i,y, x).x_,map->GetBlockPosition(i,y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(i, y, x));
+				}
 			}
 		}
 	}
 
 	//スクロールの最大値格納
-	player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 800);
-}
+		player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 800);
+	}
 
 void GameScene::Update()
 {
@@ -60,7 +62,7 @@ void GameScene::Draw()
 	DrawExtendGraph(0, 0, width, height, backGround_, true);
 
 	//描画
-	//map->Draw();
+	map->Draw();
 
 	player_->Draw();
 }
@@ -77,17 +79,19 @@ void GameScene::Reset()
 	player_->ResetBlock();
 
 	//ブロック情報
-	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
-		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
+	for (int i = 0; i < map->GetStageMaxNum(); i++) {
+		for (int y = 0; y < map->GetMapChipSizeMax(); y++) {
+			for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
 
-			if (map->GetBlockNum(0,y, x) != 0)
-			{
-				//位置、サイズ、種類を格納
-				player_->SetBlockPos(Vector2{ map->GetBlockPosition(0, y, x).x_,map->GetBlockPosition(0, y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(0,y, x));
+				if (map->GetBlockNum(0, y, x) != 0)
+				{
+					//位置、サイズ、種類を格納
+					player_->SetBlockPos(Vector2{ map->GetBlockPosition(i, y, x).x_,map->GetBlockPosition(i, y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(i, y, x));
+				}
 			}
 		}
 	}
 
 	//スクロールの最大値格納
-	player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 800);
-}
+		player_->SetMapChipMoveMax(map->GetMapChipMoveMax() - 800);
+	}

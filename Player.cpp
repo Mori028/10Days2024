@@ -113,16 +113,16 @@ void Player::Draw()
 		playerPng_, true);
 
 	//âºÉuÉçÉbÉNï`âÊ
-	for (size_t i = 0; i < blocks_.size(); i++)
-	{
-		//ï`âÊ
-		DrawExtendGraph(
-			(int)blocks_[i]->GetPos().x_,
-			(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
-			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
-			BLOCK_TEXTURE, true);
-	}
+	//for (size_t i = 0; i < blocks_.size(); i++)
+	//{
+	//	//ï`âÊ
+	//	DrawExtendGraph(
+	//		(int)blocks_[i]->GetPos().x_,
+	//		(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+	//		(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+	//		BLOCK_TEXTURE, true);
+	//}
 }
 
 void Player::Finalize()
