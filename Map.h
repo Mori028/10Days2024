@@ -26,7 +26,7 @@ public:
 		BREAK_BLOCK   // 5
 	};
 
-	// �X�e�[�W�ԍ�
+	// ステージ番号
 	enum Stage
 	{
 		STAGE_1 = 1, // 1
