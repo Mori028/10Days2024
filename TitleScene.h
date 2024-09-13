@@ -32,13 +32,28 @@ public:
 	/// <returns></returns>
 	bool IsNextScene() { return isNextScene_; };
 
+	/// <summary>
+	/// リセット
+	/// </summary>
+	void Reset();
+
 private:
 
+	//シーン遷移
+	int sceneChangeTimer = 0;
+	int sceneChangeCount = 0; //4カウントで暗転する
+
+
 	//次のシーンへ
+	bool isSceneChange_;
 	bool isNextScene_;
 
 	//画像
 	size_t backGround_;
 	size_t title_;
 	size_t space_;
+	size_t sceneChange1Png_;
+	size_t sceneChange2Png_;
+	size_t sceneChange3Png_;
+
 };

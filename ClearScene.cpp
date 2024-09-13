@@ -50,3 +50,7 @@ void ClearScene::Draw()
 void ClearScene::Finalize()
 {
 }
+
+void ClearScene::Reset()
+{
+}

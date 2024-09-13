@@ -8,13 +8,13 @@ Map::~Map() {}
 
 void Map::Initialize()
 {
-	// ‰æ‘œ‚ÌŠ„‚è“–‚Ä
+	// ç”»åƒã®å‰²ã‚Šå½“ã¦
 	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 
-	// ƒ}ƒbƒv‚Ì”
+	// ãƒãƒƒãƒ—ã®æ•°
 	mapCountX[0] = sizeof(map1[0]) / sizeof(map1[0][0]);
 	mapCountY[0] = sizeof(map1) / sizeof(map1[0]);
 	mapCountX[1] = sizeof(map2[0]) / sizeof(map2[0][0]);
@@ -26,7 +26,7 @@ void Map::Initialize()
 	mapCountX[4] = sizeof(map5[0]) / sizeof(map5[0][0]);
 	mapCountY[4] = sizeof(map5) / sizeof(map5[0]);
 
-	// ƒ}ƒbƒvƒ`ƒbƒv‚Ì•`‰æ
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æç”»
 	for (int y = 0; y < mapCountY[0]; y++) {
 		for (int x = 0; x < mapCountX[0]; x++) {
 			block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
@@ -73,7 +73,7 @@ void Map::Update()
 
 void Map::Draw()
 {
-	// ƒ}ƒbƒvƒ`ƒbƒv‚Ì•`‰æ
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æç”»
 	switch (stage_) {
 	case STAGE_1:
 
@@ -226,7 +226,7 @@ void Map::Move()
 void Map::Shake()
 {
 	if (isShake_) {
-		// —”‚Ìæ“¾
+		// ä¹±æ•°ã®å–å¾—
 		std::random_device rnd;
 		std::mt19937 mt(rnd());
 		std::uniform_int_distribution<> rand(shakeMin_, shakeMax_);

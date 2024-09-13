@@ -9,13 +9,13 @@
 class Map 
 {
 public:
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Map();
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~Map();
 
 public:
-	// ƒuƒƒbƒN‚Ì”Ô†
+	// ãƒ–ãƒ­ãƒƒã‚¯ã®ç•ªå·
 	enum MapInfo 
 	{
 		NONE,         // 0
@@ -25,7 +25,7 @@ public:
 		GOAL_BLOCK    // 4 
 	};
 
-	// ƒXƒe[ƒW”Ô†
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
 	enum Stage
 	{
 		STAGE_1 = 1, // 1
@@ -37,54 +37,54 @@ public:
 
 public:
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
 	void Initialize();
 
 	/// <summary>
-	/// XV
+	/// æ›´æ–°
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// •`‰æ
+	/// æç”»
 	/// </summary>
 	void Draw();
 
 	/// <summary>
-	/// ˆÚ“®
+	/// ç§»å‹•
 	/// </summary>
 	void Move();
 
 	/// <summary>
-	/// ƒ}ƒbƒvƒ`ƒbƒv‚ÌƒVƒFƒCƒN
+	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ã‚·ã‚§ã‚¤ã‚¯
 	/// </summary>
 	void Shake();
 
 	/// <summary>
-	/// ƒ}ƒbƒvƒ`ƒbƒv‚Ì“–‚½‚è”»’è
+	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®š
 	/// </summary>
 	void MapChipHitCheck();
 
 public:
 	/// <summary>
-	/// ƒuƒƒbƒN‚ÌÀ•W‚Ìæ“¾
+	/// ãƒ–ãƒ­ãƒƒã‚¯ã®åº§æ¨™ã®å–å¾—
 	/// </summary>
 	const Vector2& GetBlockPosition(int mapNum, int y,int x) const { return blockPosition[mapNum][y][x]; }
 
 	/// <summary>
-	/// ƒ}ƒbƒvƒ`ƒbƒv‚Ì”Ô†‚Ìæ“¾
+	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ç•ªå·ã®å–å¾—
 	/// </summary>
 	int GetBlockNum(int y, int x) { return map1[y][x]; }
 
 	/// <summary>
-	/// ƒuƒƒbƒN‚ÌƒVƒFƒCƒNƒtƒ‰ƒO‚Ìæ“¾‚Æİ’è
+	/// ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚·ã‚§ã‚¤ã‚¯ãƒ•ãƒ©ã‚°ã®å–å¾—ã¨è¨­å®š
 	/// </summary>
 	bool GetIsShake() { return isShake_; }
 	void SetIsShake(bool isShake) { isShake_ = isShake; }
 
 	/// <summary>
-	/// ƒ}ƒbƒvƒ`ƒbƒv‚ÌƒXƒNƒ[ƒ‹•Ï”‚ÆÅ‘å’l‚Ìæ“¾Eİ’è
+	/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¤‰æ•°ã¨æœ€å¤§å€¤ã®å–å¾—ãƒ»è¨­å®š
 	/// </summary>
 	/// <returns></returns>
 	float GetMapChipMove() { return mapChipMoveY_; }
@@ -93,17 +93,17 @@ public:
 	void SetMapChipMoveMax(float mapChipMoveMax) { mapChipMoveMax_ = mapChipMoveMax; }
 
 	/// <summary>
-	/// Œ»İ‚ÌƒXƒe[ƒW”Ô†‚Ìæ“¾‚Æİ’è
+	/// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã®å–å¾—ã¨è¨­å®š
 	/// </summary>
 	int GetStageNum() { return stage_; }
 	void SetStageNum(int stage) { stage_ = stage; }
 
 private:
-	// °‚Ìƒtƒ‰ƒO‚âƒ^ƒCƒ}[etc.
+	// åºŠã®ãƒ•ãƒ©ã‚°ã‚„ã‚¿ã‚¤ãƒãƒ¼etc.
 	bool isFloorMove_ = false;
 	int floorMoveTime_ = 0;
 
-	// ƒuƒƒbƒN‚ÌƒVƒFƒCƒN
+	// ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚·ã‚§ã‚¤ã‚¯
 	bool isShake_ = false;
 	int shakeTime_ = 0;
 	float addShakeX_ = 0.0f;
@@ -119,13 +119,13 @@ private:
 	const float shakeMdX_ = 2.5f;
 	const float shakeMdY_ = 20.0f;
 
-	// ‰æ‘œ
+	// ç”»åƒ
 	int BLOCK_TEXTURE;
 	int MOVE_BLOCK_TEXTURE;
 	int DAMAGE_BLOCK_TEXTURE;
 	int GOAL_BLOCK_TEXTURE;
 
-	// ƒ}ƒbƒvƒ`ƒbƒv
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—
 	static const int STAGE1_MAP_SIZE_HEIGHT = 27;
 	static const int STAGE1_MAP_SIZE_WIDTH = 20;
 	static const int STAGE2_MAP_SIZE_HEIGHT = 27;
@@ -142,7 +142,7 @@ private:
 	Vector2 block[5];
 	const int blockSize = 60;
 	float mapChipMoveY_ = 0.0f;
-	float mapChipMoveMax_ = 1600.0f;
+	float mapChipMoveMax_ = 1620.0f;
 	float addSpeed = 0.0f;
 	float screenY_ = 0.0f;
 	int stage_ = 1;
@@ -280,7 +280,7 @@ private:
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0},
+		{0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,4,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
@@ -290,6 +290,7 @@ private:
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+		{0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
@@ -297,8 +298,7 @@ private:
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,1,0},
 		{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0}
 	};

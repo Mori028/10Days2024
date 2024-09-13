@@ -34,6 +34,11 @@ public:
 	/// <returns></returns>
 	bool IsNextScene() { return isNextScene_; };
 
+	/// <summary>
+	/// リセット
+	/// </summary>
+	void Reset();
+
 private:
 
 	//次のシーンへ
@@ -41,10 +46,14 @@ private:
 
 	//画像
 	size_t backGround_;
-
 	//player
 	std::unique_ptr<Player> player_;
 
 	//map
 	std::unique_ptr<Map> map = std::make_unique<Map>();
+
+	// マップチップ
+	static const int MAP_SIZE_HEIGHT = 27;
+	static const int MAP_SIZE_WIDTH = 20;
+	const int blockSize = 60;
 };
