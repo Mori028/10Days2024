@@ -5,7 +5,7 @@
 void TitleScene::Initialize()
 {
 	//”wŒi
-	backGround_ = LoadGraph("Resource//BackGround2.png");
+	backGround_ = LoadGraph("Resource//title.png");
 
 	//ƒ^ƒCƒgƒ‹
 	title_ = LoadGraph("Resource//GameTitle.png");

@@ -15,6 +15,21 @@ void ClearScene::Initialize()
 
 	//
 	isNextScene_ = false;
+
+	//
+	result_ = 0;
+
+	//
+	resultGraph_[0] = LoadGraph("Resource//Drop0.png");
+	resultGraph_[1] = LoadGraph("Resource//Drop1.png");
+	resultGraph_[2] = LoadGraph("Resource//Drop2.png");
+	resultGraph_[3] = LoadGraph("Resource//Drop3.png");
+	resultGraph_[4] = LoadGraph("Resource//Drop4.png");
+	resultGraph_[5] = LoadGraph("Resource//Drop5.png");
+	resultGraph_[6] = LoadGraph("Resource//Drop6.png");
+	resultGraph_[7] = LoadGraph("Resource//Drop7.png");
+	resultGraph_[8] = LoadGraph("Resource//Drop8.png");
+	resultGraph_[9] = LoadGraph("Resource//Drop9.png");
 }
 
 void ClearScene::Update()
@@ -37,8 +52,56 @@ void ClearScene::Draw()
 	int width = 1200;
 	int height = 800;
 
+	//ˆÊ’uî•ñ
+	int x = 450;
+	int y = 400;
+	int size = 80;
+
 	//”wŒi•`‰æ
 	DrawExtendGraph(0, 0, width, height, backGround_, true);
+
+	//ƒŠƒUƒ‹ƒg
+	//1000•b’´‚¦‚½Žž
+	if (result_ > 999)
+	{
+		result_ = 999;
+	}
+
+	//
+	if (result_ > 99)
+	{
+		int a = result_ / 100;
+		DrawExtendGraph(x, y, x + size, y + size, resultGraph_[a], true);
+	}
+	else
+	{
+		DrawExtendGraph(x, y, x + size, y + size, resultGraph_[0], true);
+	}
+
+	if (result_ > 9)
+	{
+		if (result_ > 99)
+		{
+			int a = result_ - (result_ / 100 * 100);
+			a = a / 10;
+			DrawExtendGraph(x + size, y, x + size + size, y + size, resultGraph_[a], true);
+		}
+		else
+		{
+			int a = result_ / 10;
+			DrawExtendGraph(x + size, y, x + size + size, y + size, resultGraph_[a], true);
+		}
+	}
+	else
+	{
+		DrawExtendGraph(x + size, y, x + size + size, y + size, resultGraph_[0], true);
+	}
+
+
+	//
+	int a = result_ - (result_ / 10 * 10);
+	DrawExtendGraph(x + size + size, y, x + size + size + size, y + size, resultGraph_[a], true);
+
 
 	//ƒ^ƒCƒgƒ‹
 	DrawGraph(300, 200, clear_, true);

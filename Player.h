@@ -97,6 +97,17 @@ public:
 	/// </summary>
 	void Reset();
 
+	/// <summary>
+	/// 当たった処理
+	/// </summary>
+	void OnCollision();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	bool AddTime();
+
 private:
 
 	//ブロック情報
@@ -153,7 +164,12 @@ private:
 
 	//画像
 	size_t playerPng_;
+	int playersPng_[4];
 	size_t BLOCK_TEXTURE;
+	size_t MOVE_BLOCK_TEXTURE;
+	size_t DAMAGE_BLOCK_TEXTURE;
+	size_t GOAL_BLOCK_TEXTURE;
+	size_t NONBREAK_BLOCK_TEXTURE;
 
 	//スクロール値
 	float mapChipMoveY_ = 0;
@@ -165,4 +181,8 @@ private:
 
 	//次のシーンに行く用
 	bool nextFlag_ = false;
+
+	//ダメージブロックに触れたか
+	bool hitFlag_;
+	size_t hitEffect_ = 0;
 };

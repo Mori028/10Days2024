@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include "Player.h"
 #include "Map.h"
+#include "Time.h"
 
 class GameScene : public BaseScene
 {
@@ -39,6 +40,12 @@ public:
 	/// </summary>
 	void Reset();
 
+	/// <summary>
+	/// ŠÔ‚ğ•Ô‚·
+	/// </summary>
+	/// <returns></returns>
+	size_t GetTime() { return time_->GetTime(); };
+
 private:
 
 	//Ÿ‚ÌƒV[ƒ“‚Ö
@@ -48,6 +55,7 @@ private:
 	size_t backGround_;
 	//player
 	std::unique_ptr<Player> player_;
+	std::unique_ptr<Time> time_;
 
 	//map
 	std::unique_ptr<Map> map = std::make_unique<Map>();

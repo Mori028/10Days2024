@@ -6,7 +6,7 @@
 #include <memory>
 #include <DirectXMath.h>
 
-class Map 
+class Map
 {
 public:
 	// コンストラクタ
@@ -16,7 +16,7 @@ public:
 
 public:
 	// ブロックの番号
-	enum MapInfo 
+	enum MapInfo
 	{
 		NONE,         // 0
 		BLOCK,        // 1
@@ -71,7 +71,7 @@ public:
 	/// <summary>
 	/// ブロックの座標の取得
 	/// </summary>
-	const Vector2& GetBlockPosition(int mapNum, int y,int x) const { return blockPosition[mapNum][y][x]; }
+	const Vector2& GetBlockPosition(int mapNum, int y, int x) const { return blockPosition[mapNum][y][x]; }
 
 	/// <summary>
 	/// マップチップの番号の取得
@@ -129,8 +129,8 @@ private:
 	int GOAL_BLOCK_TEXTURE;
 	int BREAK_BLOCK_TEXTURE;
 
-	// マップチップ
 	static const int STAGE_MAP_SIZE_HEIGHT = 200;
+	// マップチップ
 	static const int STAGE_MAP_SIZE_WIDTH = 20;
 	float stageSize = 200;
 	Vector2 mapCount[5];
@@ -144,7 +144,7 @@ private:
 	int stage_ = 1;
 	int maxStage_ = 5;
 
-	int map[5][STAGE_MAP_SIZE_HEIGHT][STAGE_MAP_SIZE_WIDTH] = 
+	int map[5][STAGE_MAP_SIZE_HEIGHT][STAGE_MAP_SIZE_WIDTH] =
 	{
 		{
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
