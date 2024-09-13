@@ -52,3 +52,7 @@ void TitleScene::Finalize()
 {
 
 }
+
+void TitleScene::Reset()
+{
+}

@@ -50,15 +50,10 @@ void GameScene::Update()
 	map->Update();
 
 	//判定
-	if (Input::GetInstance()->KeyTrigger(KEY_INPUT_N))
+	if (player_->GetNextSceneFlag())
 	{
 		isNextScene_ = true;
 	}
-
-	//Dubug
-	SetFontSize(24);
-	DrawFormatString(500, 128, GetColor(200, 200, 200), "Nキーで次のシーンへ", true);
-	SetFontSize(16);
 }
 
 void GameScene::Draw()
@@ -79,4 +74,9 @@ void GameScene::Draw()
 void GameScene::Finalize()
 {
 
+}
+
+void GameScene::Reset()
+{
+	player_->Reset();
 }

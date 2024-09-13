@@ -34,6 +34,11 @@ public:
 	/// <returns></returns>
 	bool IsNextScene() { return isNextScene_; };
 
+	/// <summary>
+	/// リセット
+	/// </summary>
+	void Reset();
+
 private:
 
 	//次のシーンへ

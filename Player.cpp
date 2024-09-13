@@ -73,6 +73,8 @@ void Player::Initialize()
 	//スクロール値
 	mapChipMoveY_ = 0;
 	mapChipMoveMax_ = 0;
+
+	nextFlag = false;
 }
 
 void Player::Draw()
@@ -123,6 +125,44 @@ void Player::Finalize()
 
 }
 
+void Player::Reset()
+{
+	//初期位置
+	pos_ = { 250,50 };
+
+	//初期カラー
+	color_ = { 200,0,0 };
+
+	//直径
+	size_.x_ = 20;
+	size_.y_ = 40;
+
+	//重力あり
+	gravityFlag_ = true;
+
+	//重力
+	gravityPower_ = 10;
+
+	//ジャンプ関係
+	jumpFlags_ = false;
+	jumpPower_ = 0;
+
+	//ヒップドロップフラグoff
+	hipDropF_ = false;
+
+	//
+	move_ = { 0,0 };
+
+	//
+	blockF_ = false;
+
+	//スクロール値
+	mapChipMoveY_ = 0;
+	mapChipMoveMax_ = 0;
+
+	nextFlag = false;
+}
+
 void Player::Move()
 {
 	//速度
@@ -166,8 +206,12 @@ void Player::Move()
 		//
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
+			if (blocks_[i]->GetKind() == GOAL_BLOCK)
+			{
+				nextFlag = true;
+			}
 			//横修正
-			if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
+			else if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
 			{
 				while (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 				{
@@ -200,7 +244,12 @@ void Player::Move()
 		//ステージに当たったら壊す
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
-			if (hipDropF_)
+			if (blocks_[i]->GetKind() == GOAL_BLOCK)
+			{
+				nextFlag = true;
+			}
+			//横修正
+			else if (hipDropF_)
 			{
 				blocks_[i]->SetPos({ -100, -100 });
 			}

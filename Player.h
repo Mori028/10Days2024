@@ -2,6 +2,16 @@
 #include "Math.h"
 #include <thread>
 
+// マップの定義
+enum MapInfo
+{
+	NONE,         // 0
+	BLOCK,        // 1
+	MOVE_BLOCK,   // 2
+	DAMAGE_BLOCK, // 3
+	GOAL_BLOCK    // 4 
+};
+
 class Block
 {
 private:
@@ -75,6 +85,17 @@ public:
 	float GetMapChipMove() { return mapChipMoveY_; }
 	void SetMapChipMoveMax(float mapChipMoveMax) { mapChipMoveMax_ = mapChipMoveMax; }
 
+	/// <summary>
+	/// 次のシーンへ行くか
+	/// </summary>
+	/// <returns></returns>
+	bool GetNextSceneFlag() { return nextFlag; };
+
+	/// <summary>
+	/// リセット
+	/// </summary>
+	void Reset();
+
 private:
 
 	//ブロック情報
@@ -136,4 +157,10 @@ private:
 	//スクロール値
 	float mapChipMoveY_ = 0;
 	float mapChipMoveMax_ = 0;
+
+	//最大落下回数
+	size_t MaxHipDrop = 5;
+
+	//次のシーンに行く用
+	bool nextFlag = false;
 };

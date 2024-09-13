@@ -106,6 +106,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (titleScene_->IsNextScene())
 			{
 				nowScene_ = Game;
+				titleScene_->Reset();
 			}
 
 			break;
@@ -119,6 +120,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (gameScene_->IsNextScene())
 			{
 				nowScene_ = Clear;
+				gameScene_->Reset();
 			}
 
 			break;
@@ -132,6 +134,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (clearScene_->IsNextScene())
 			{
 				nowScene_ = Title;
+				clearScene_->Reset();
 			}
 
 			break;
