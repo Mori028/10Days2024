@@ -8,7 +8,7 @@
 #include "ClearScene.h"
 
 // ウィンドウのタイトルに表示する文字列
-const char TITLE[] = "10Days2024";
+const char TITLE[] = "4027_CRush";
 
 // ウィンドウ横幅
 const int WIN_WIDTH = 1200;
@@ -106,6 +106,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (titleScene_->IsNextScene())
 			{
 				nowScene_ = Game;
+				titleScene_->Reset();
 			}
 
 			break;
@@ -119,6 +120,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (gameScene_->IsNextScene())
 			{
 				nowScene_ = Clear;
+				gameScene_->Reset();
 			}
 
 			break;
@@ -132,6 +134,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			if (clearScene_->IsNextScene())
 			{
 				nowScene_ = Title;
+				clearScene_->Reset();
 			}
 
 			break;

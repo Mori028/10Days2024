@@ -16,7 +16,21 @@ void Player::Update()
 	//Collision();
 
 	//画面内に収まる処理
-	FlameIn();
+	//FlameIn();
+
+	//debug
+	if (mapChipMoveY_ <= mapChipMoveMax_ && mapChipMoveY_ >= 0)
+	{
+		mapChipMoveY_ += (Input::GetInstance()->KeyPush(KEY_INPUT_R) - Input::GetInstance()->KeyPush(KEY_INPUT_T));
+	}
+	else if (mapChipMoveY_ > mapChipMoveMax_)
+	{
+		mapChipMoveY_ = mapChipMoveMax_;
+	}
+	else if (mapChipMoveY_ < 0)
+	{
+		mapChipMoveY_ = 0;
+	}
 }
 
 void Player::Initialize()
@@ -55,6 +69,12 @@ void Player::Initialize()
 
 	// 画像の割り当て
 	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+
+	//スクロール値
+	mapChipMoveY_ = 0;
+	mapChipMoveMax_ = 0;
+
+	nextFlag = false;
 }
 
 void Player::Draw()
@@ -62,17 +82,20 @@ void Player::Draw()
 	//代入
 	int color = GetColor((int)color_.x_, (int)color_.y_, (int)color_.z_);
 
-	//Dubug
+	//Debug
 	DrawFormatString(200, 48, GetColor(100, 100, 100), "pos %f,%f", pos_.x_, pos_.y_, true);
 
-	//Dubug
+	//Debug
 	DrawFormatString(200, 32, GetColor(100, 100, 100), "blockF %d", blockF_, true);
+
+	//Debug
+	DrawFormatString(200, 64, GetColor(100, 100, 100), "MoveXXX %f", move_.x_, true);
 
 	int zure = 10;
 
 	//描画
 	DrawBox(
-		(int)pos_.x_+ zure,
+		(int)pos_.x_ + zure,
 		(int)pos_.y_ + 1 - zure,
 		(int)(pos_.x_ + (2 * size_.x_) + zure),
 		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
@@ -85,16 +108,17 @@ void Player::Draw()
 		(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
 		playerPng_, true);
 
-	//for (size_t i = 0; i < blocks_.size(); i++)
-	//{
-	//	//描画
-	//	DrawExtendGraph(
-	//		(int)blocks_[i]->GetPos().x_,
-	//		(int)blocks_[i]->GetPos().y_,
-	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-	//		(int)(blocks_[i]->GetPos().y_  + (blocks_[i]->GetSize().y_ * 2)),
-	//		BLOCK_TEXTURE, true);
-	//}
+	//仮ブロック描画
+	for (size_t i = 0; i < blocks_.size(); i++)
+	{
+		//描画
+		DrawExtendGraph(
+			(int)blocks_[i]->GetPos().x_,
+			(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+			(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+			(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+			BLOCK_TEXTURE, true);
+	}
 }
 
 void Player::Finalize()
@@ -102,17 +126,73 @@ void Player::Finalize()
 
 }
 
+void Player::Reset()
+{
+	//初期位置
+	pos_ = { 250,50 };
+
+	//初期カラー
+	color_ = { 200,0,0 };
+
+	//直径
+	size_.x_ = 20;
+	size_.y_ = 40;
+
+	//重力あり
+	gravityFlag_ = true;
+
+	//重力
+	gravityPower_ = 10;
+
+	//ジャンプ関係
+	jumpFlags_ = false;
+	jumpPower_ = 0;
+
+	//ヒップドロップフラグoff
+	hipDropF_ = false;
+
+	//
+	move_ = { 0,0 };
+
+	//
+	blockF_ = false;
+
+	//スクロール値
+	mapChipMoveY_ = 0;
+	//mapChipMoveMax_ = 0;
+
+	nextFlag = false;
+}
+
 void Player::Move()
 {
 	//速度
-	float speed = 5;
+	const float speed = 2;
+	const float MaxSpeed = 14;
 
 	//移動
-	move_.x_ += Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A);
-	//move_.y_ += Input::GetInstance()->KeyPush(KEY_INPUT_S) - Input::GetInstance()->KeyPush(KEY_INPUT_W);
+	move_.x_ += (Input::GetInstance()->KeyPush(KEY_INPUT_D) - Input::GetInstance()->KeyPush(KEY_INPUT_A)) * speed;
 
-	//速度を掛ける
-	move_.x_ *= speed;
+	//
+	if (!Input::GetInstance()->KeyPush(KEY_INPUT_D) && !Input::GetInstance()->KeyPush(KEY_INPUT_A))
+	{
+		move_.x_ = 0;
+	}
+
+	if (move_.x_ > MaxSpeed)
+	{
+		move_.x_ = MaxSpeed;
+	}
+
+	if (-MaxSpeed > move_.x_)
+	{
+		move_.x_ = -MaxSpeed;
+	}
+
+	if (hipDropF_)
+	{
+		move_.x_ = 0;
+	}
 
 	//移動
 	pos_.x_ += move_.x_;
@@ -124,29 +204,27 @@ void Player::Move()
 	//横判定
 	for (size_t i = 0; i < blocks_.size(); i++)
 	{
+		//
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
-			if (hipDropF_)
+			if (blocks_[i]->GetKind() == GOAL_BLOCK)
 			{
-				blocks_[i]->SetPos({ -100, -100 });
+				nextFlag = true;
 			}
-			else
+			//横修正
+			else if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
 			{
-				//横修正
-				if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
+				while (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 				{
-					while (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
-					{
-						bool X = move_.x_ > 0;
+					bool X = move_.x_ > 0;
 
-						if (X)
-						{
-							pos_.x_ -= 1.0f;
-						}
-						else
-						{
-							pos_.x_ += 1.0f;
-						}
+					if (X)
+					{
+						pos_.x_ -= 1.0f;
+					}
+					else
+					{
+						pos_.x_ += 1.0f;
 					}
 				}
 			}
@@ -157,8 +235,16 @@ void Player::Move()
 		}
 	}
 
-	//移動
-	pos_.y_ += move_.y_;
+	//スクロール
+	if (pos_.y_ > 400 && mapChipMoveY_ < mapChipMoveMax_)
+	{
+		mapChipMoveY_ += move_.y_;
+	}
+	else
+	{
+		//移動
+		pos_.y_ += move_.y_;
+	}
 
 	//判定
 	//縦判定
@@ -167,7 +253,12 @@ void Player::Move()
 		//ステージに当たったら壊す
 		if (CheckHit(blocks_[i]->GetPos(), blocks_[i]->GetSize()))
 		{
-			if (hipDropF_)
+			if (blocks_[i]->GetKind() == GOAL_BLOCK)
+			{
+				nextFlag = true;
+			}
+			//横修正
+			else if (hipDropF_)
 			{
 				blocks_[i]->SetPos({ -100, -100 });
 			}
@@ -200,7 +291,7 @@ void Player::Move()
 void Player::Jump()
 {
 	//移動値
-	move_ = { 0,0 };
+	move_.y_ = 0;
 
 	//仮地面
 	int stageLine = 600;
@@ -331,7 +422,7 @@ bool Player::CheckHit(Vector2 pos, Vector2 size)
 {
 	// 値が0未満ならめり込んでる。
 	bool X = std::abs(pos.x_ - pos_.x_) - (size.x_ + size_.x_) < 0;
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size.y_ + size_.y_) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_ - mapChipMoveY_) - (size.y_ + size_.y_) < 0;
 
 	return X && Y;
 }
@@ -347,7 +438,7 @@ bool Player::CheckHitX(Vector2 pos, float size)
 bool Player::CheckHitY(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_ - mapChipMoveY_) - (size + size_.y_) < 0;
 
 	return Y;
 }

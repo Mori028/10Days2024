@@ -45,16 +45,16 @@ void Map::Draw()
 			blockPosition[y][x] = { block.x_, block.y_ };
 
 			if (map[y][x] == BLOCK) {
-				DrawGraph(block.x_, block.y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+				DrawGraph(block.x_, block.y_ - mapChipMoveY_, BLOCK_TEXTURE, TRUE);
 			}
 			if (map[y][x] == MOVE_BLOCK) {
-				DrawGraph(block.x_, block.y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+				DrawGraph(block.x_, block.y_ + addSpeed - mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
 			}
 			if (map[y][x] == DAMAGE_BLOCK) {
-				DrawGraph(block.x_ + addShakeX_, block.y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+				DrawGraph(block.x_ + addShakeX_, block.y_ + addShakeY_ - mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
 			}
 			if (map[y][x] == GOAL_BLOCK) {
-				DrawGraph(block.x_, block.y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+				DrawGraph(block.x_, block.y_ - mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 			}
 		}
 	}

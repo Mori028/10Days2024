@@ -32,6 +32,11 @@ public:
 	/// <returns></returns>
 	bool IsNextScene() { return isNextScene_; };
 
+	/// <summary>
+	/// リセット
+	/// </summary>
+	void Reset();
+
 private:
 
 	//シーン遷移
