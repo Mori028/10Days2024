@@ -58,6 +58,11 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// UI•`‰æ
+	/// </summary>
+	void UIDraw();
+
+	/// <summary>
 	/// ”jŠü
 	/// </summary>
 	void Finalize();
@@ -189,4 +194,7 @@ private:
 	int jumpSound_;
 	int breakSound_;
 	int damageSound_;
+
+	size_t ui_;
+	size_t hipCount_;
 };

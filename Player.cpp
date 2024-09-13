@@ -67,6 +67,9 @@ void Player::Initialize()
 	//‰æ‘œ“Ç‚Ýž‚Ý
 	playerPng_ = LoadGraph("Resource//player.png");
 
+	ui_ = LoadGraph("Resource//sousa.png");
+	hipCount_ = LoadGraph("Resource//Down.png");
+
 	// ‰æ‘œ‚ÌŠ„‚è“–‚Ä
 	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
@@ -181,6 +184,34 @@ void Player::Draw()
 				(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
 				NONBREAK_BLOCK_TEXTURE, true);
 		}
+	}
+
+	//UI•`‰æ
+	UIDraw();
+}
+
+void Player::UIDraw()
+{
+	int x = 0, y = 800 - 109, size = 48;
+
+	//•`‰æ
+	DrawGraph(
+		x,
+		y,
+		ui_, true);
+
+	x = 1200 - size;
+	y = 800 - size;
+
+	for (size_t i = 0; i < MaxHipDrop_; i++)
+	{
+		//•`‰æ
+		DrawExtendGraph(
+			x - (i * size),
+			y,
+			x - (i * size) + size,
+			y + size,
+			hipCount_, true);
 	}
 }
 
