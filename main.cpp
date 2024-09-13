@@ -126,8 +126,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 					nowScene_ = Game;
 					//ゲームBGM
 					PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
-          titleScene_->Reset();
-				}r
+					titleScene_->Reset();
+				}
 			}
 			break;
 
@@ -149,15 +149,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		case Clear:
 			standTimer++;
 			//クリアBGM
-				if (standTimer >= 0 && standTimer <= 155) {
-					StopSoundMem(sound_);
-						if (CheckSoundMem(clearsound_) == 0) {
-							PlaySoundMem(clearsound_, DX_PLAYTYPE_BACK, true);
-						}
+			if (standTimer >= 0 && standTimer <= 155) {
+				StopSoundMem(sound_);
+				if (CheckSoundMem(clearsound_) == 0) {
+					PlaySoundMem(clearsound_, DX_PLAYTYPE_BACK, true);
 				}
-				else {
-					StopSoundMem(clearsound_);
-				}
+			}
+			else {
+				StopSoundMem(clearsound_);
+			}
 			//
 			clearScene_->Update();
 			//次のシーンへ
