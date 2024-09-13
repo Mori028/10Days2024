@@ -70,8 +70,6 @@ void Player::Initialize()
 	// 画像の割り当て
 	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
-	LoadDivGraph("Resource/playerAnime.png",4,4,1,40,80, playersPng_);
-
 	//スクロール値
 	mapChipMoveY_ = 0;
 	mapChipMoveMax_ = 0;
@@ -139,7 +137,7 @@ void Player::Draw()
 			(int)pos_.y_ + 1 - zure,
 			(int)(pos_.x_ + (2 * size_.x_) + zure),
 			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-			playersPng_[0], true);
+			playerPng_, true);
 	}
 
 	////仮ブロック描画
@@ -338,7 +336,7 @@ void Player::Move()
 			{
 				nextFlag_ = true;
 			}
-			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_)
+			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_ && !(blocks_[i]->GetKind() == DAMAGE_BLOCK))
 			{
 				blocks_[i]->SetPos({ -100, -100 });
 				//ブレイク

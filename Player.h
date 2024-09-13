@@ -164,7 +164,6 @@ private:
 
 	//‰æ‘œ
 	size_t playerPng_;
-	int playersPng_[4];
 	size_t BLOCK_TEXTURE;
 	size_t MOVE_BLOCK_TEXTURE;
 	size_t DAMAGE_BLOCK_TEXTURE;
