@@ -120,4 +120,6 @@ void TitleScene::Finalize()
 
 void TitleScene::Reset()
 {
+	colorTimer = 0;
+	isSceneChange_ = false;
 }
