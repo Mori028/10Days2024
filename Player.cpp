@@ -70,6 +70,8 @@ void Player::Initialize()
 	// 画像の割り当て
 	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
+	LoadDivGraph("Resource/playerAnime.png",4,4,1,40,80, playersPng_);
+
 	//スクロール値
 	mapChipMoveY_ = 0;
 	mapChipMoveMax_ = 0;
@@ -97,15 +99,6 @@ void Player::Draw()
 	//代入
 	int color = GetColor((int)color_.x_, (int)color_.y_, (int)color_.z_);
 
-	//Debug
-	DrawFormatString(200, 48, GetColor(100, 100, 100), "pos %f,%f", pos_.x_, pos_.y_, true);
-
-	//Debug
-	DrawFormatString(200, 32, GetColor(100, 100, 100), "blockF %d", blockF_, true);
-
-	//Debug
-	DrawFormatString(200, 64, GetColor(100, 100, 100), "MoveXXX %f", move_.x_, true);
-
 	int zure = 10;
 
 	if (hitFlag_)
@@ -121,20 +114,20 @@ void Player::Draw()
 
 	if (hitEffect_ % 2 == 0)
 	{
-		//描画
-		DrawBox(
-			(int)pos_.x_ + zure,
-			(int)pos_.y_ + 1 - zure,
-			(int)(pos_.x_ + (2 * size_.x_) + zure),
-			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-			color, true);
+		////描画
+		//DrawBox(
+		//	(int)pos_.x_ + zure,
+		//	(int)pos_.y_ + 1 - zure,
+		//	(int)(pos_.x_ + (2 * size_.x_) + zure),
+		//	(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
+		//	color, true);
 
 		DrawExtendGraph(
 			(int)pos_.x_ + zure,
 			(int)pos_.y_ + 1 - zure,
 			(int)(pos_.x_ + (2 * size_.x_) + zure),
 			(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-			playerPng_, true);
+			playersPng_[0], true);
 	}
 
 	////仮ブロック描画
@@ -463,9 +456,6 @@ void Player::Jump()
 		//重力
 		move_.y_ += gravityPower_ - jumpPower_;
 	}
-
-	//Dubug
-	DrawFormatString(200, 16, GetColor(100, 100, 100), "hipDropF_ %d", hipDropF_, true);
 
 	blockF_ = false;
 
