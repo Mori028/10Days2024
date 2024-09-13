@@ -128,18 +128,10 @@ private:
 	int BREAK_BLOCK_TEXTURE;
 
 	// マップチップ
-	static const int STAGE1_MAP_SIZE_HEIGHT = 27;
-	static const int STAGE1_MAP_SIZE_WIDTH = 20;
-	static const int STAGE2_MAP_SIZE_HEIGHT = 27;
-	static const int STAGE2_MAP_SIZE_WIDTH = 20;
-	static const int STAGE3_MAP_SIZE_HEIGHT = 27;
-	static const int STAGE3_MAP_SIZE_WIDTH = 20;	
-	static const int STAGE4_MAP_SIZE_HEIGHT = 27;
-	static const int STAGE4_MAP_SIZE_WIDTH = 20;
-	static const int STAGE5_MAP_SIZE_HEIGHT = 27;
-	static const int STAGE5_MAP_SIZE_WIDTH = 20;
+	static const int STAGE_MAP_SIZE_HEIGHT = 27;
+	static const int STAGE_MAP_SIZE_WIDTH = 20;
 	Vector2 mapCount[5];
-	Vector2 blockPosition[5][STAGE1_MAP_SIZE_HEIGHT][STAGE1_MAP_SIZE_WIDTH];
+	Vector2 blockPosition[5][STAGE_MAP_SIZE_HEIGHT][STAGE_MAP_SIZE_WIDTH];
 	Vector2 block[5];
 	const int blockSize = 60;
 	float mapChipMoveY_ = 0.0f;
@@ -149,7 +141,7 @@ private:
 	int stage_ = 1;
 	int maxStage_ = 5;
 
-	int map[5][STAGE1_MAP_SIZE_HEIGHT][STAGE1_MAP_SIZE_WIDTH] = 
+	int map[5][STAGE_MAP_SIZE_HEIGHT][STAGE_MAP_SIZE_WIDTH] = 
 	{
 		{
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
