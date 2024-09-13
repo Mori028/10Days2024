@@ -333,7 +333,7 @@ void Player::Move()
 			{
 				nextFlag_ = true;
 			}
-			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_)
+			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_ && !(blocks_[i]->GetKind() == DAMAGE_BLOCK))
 			{
 				blocks_[i]->SetPos({ -100, -100 });
 			}
