@@ -16,7 +16,7 @@ void Map::Initialize()
 	BREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block4.png", TRUE);
 
 	// マップの数
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < maxStage_; i++) {
 		if (i == 0) {
 			mapCount[i].x_ = sizeof(map[0][0]) / sizeof(map[0][0][0]);
 			mapCount[i].y_ = sizeof(map[0]) / sizeof(map[0][0]);
@@ -79,7 +79,7 @@ void Map::Draw()
 					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[0][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -107,7 +107,7 @@ void Map::Draw()
 					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[1][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -135,7 +135,7 @@ void Map::Draw()
 					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[2][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -163,7 +163,7 @@ void Map::Draw()
 					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[3][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
@@ -191,7 +191,7 @@ void Map::Draw()
 					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
 				}
 				if (map[4][y][x] == BREAK_BLOCK) {
-					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, BREAK_BLOCK_TEXTURE, TRUE);
 				}
 			}
 		}
