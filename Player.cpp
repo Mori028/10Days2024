@@ -85,11 +85,11 @@ void Player::Initialize()
 	hitEffect_ = 0;
 
 	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resource/Block3_1.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/Block4.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/goal.png", TRUE);
-	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block3.png", TRUE);
+	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block.png", TRUE);
 
 	//BGM
 	jumpSound_ = LoadSoundMem("Resource//Sound//Jump.wav");
@@ -99,9 +99,6 @@ void Player::Initialize()
 	int Volume = 75;
 	ChangeVolumeSoundMem(Volume, jumpSound_);
 	ChangeVolumeSoundMem(Volume, breakSound_);
-
-	//ループBGM
-	//PlaySoundMem(sound_, DX_PLAYTYPE_LOOP);
 }
 
 void Player::Draw()
@@ -124,14 +121,6 @@ void Player::Draw()
 
 	if (hitEffect_ % 2 == 0)
 	{
-		////描画
-		//DrawBox(
-		//	(int)pos_.x_ + zure,
-		//	(int)pos_.y_ + 1 - zure,
-		//	(int)(pos_.x_ + (2 * size_.x_) + zure),
-		//	(int)(pos_.y_ + 1 + (2 * size_.y_) - zure),
-		//	color, true);
-
 		DrawExtendGraph(
 			(int)pos_.x_ + zure,
 			(int)pos_.y_ + 1 - zure,
@@ -140,31 +129,63 @@ void Player::Draw()
 			playerPng_, true);
 	}
 
-	////仮ブロック描画
-	//for (size_t i = 0; i < blocks_.size(); i++)
-	//{
-	//	size_t graph;
+	//仮ブロック描画
+	for (size_t i = 0; i < blocks_.size(); i++)
+	{
+		size_t graph = BLOCK_TEXTURE;
 
-	//	if (blocks_[i]->GetKind() == BLOCK)
-	//		graph = BLOCK_TEXTURE;
+		if (blocks_[i]->GetKind() == BLOCK)
+		{
+			//描画
+			DrawExtendGraph(
+				(int)blocks_[i]->GetPos().x_,
+				(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+				(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+				(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+				BLOCK_TEXTURE, true);
+		}
 
-	//	if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
-	//		graph = DAMAGE_BLOCK_TEXTURE;
+		if (blocks_[i]->GetKind() == DAMAGE_BLOCK)
+		{
+			//描画
+			DrawExtendGraph(
+				(int)blocks_[i]->GetPos().x_,
+				(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+				(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+				(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+				DAMAGE_BLOCK_TEXTURE, true);
+		}
 
-	//	if (blocks_[i]->GetKind() == GOAL_BLOCK)
-	//		graph = GOAL_BLOCK_TEXTURE;
+		if (blocks_[i]->GetKind() == GOAL_BLOCK)
+		{
+			//描画
+			DrawExtendGraph(
+				(int)blocks_[i]->GetPos().x_,
+				(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+				(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+				(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+				GOAL_BLOCK_TEXTURE, true);
+		}
 
-	//	if (blocks_[i]->GetKind() == NONBREAK_BLOCK)
-	//		graph = NONBREAK_BLOCK_TEXTURE;
+		if (blocks_[i]->GetKind() == NONBREAK_BLOCK)
+		{
+			//描画
+			DrawExtendGraph(
+				(int)blocks_[i]->GetPos().x_,
+				(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+				(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+				(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+				NONBREAK_BLOCK_TEXTURE, true);
+		}
 
-	//	//描画
-	//	DrawExtendGraph(
-	//		(int)blocks_[i]->GetPos().x_,
-	//		(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
-	//		(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
-	//		(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
-	//		graph, true);
-	//}
+		////描画
+		//DrawExtendGraph(
+		//	(int)blocks_[i]->GetPos().x_,
+		//	(int)blocks_[i]->GetPos().y_ - mapChipMoveY_,
+		//	(int)(blocks_[i]->GetPos().x_ + (blocks_[i]->GetSize().x_ * 2)),
+		//	(int)(blocks_[i]->GetPos().y_ + (blocks_[i]->GetSize().y_ * 2) - mapChipMoveY_),
+		//	graph, true);
+	}
 }
 
 void Player::Finalize()
@@ -205,7 +226,6 @@ void Player::Reset()
 
 	//スクロール値
 	mapChipMoveY_ = 0;
-	//mapChipMoveMax_ = 0;
 
 	//次のシーンに行くフラグ
 	nextFlag_ = false;
