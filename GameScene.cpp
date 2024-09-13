@@ -19,10 +19,10 @@ void GameScene::Initialize()
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
 
-			if (map->GetBlockNum(y, x) != 0)
+			if (map->GetBlockNum(0,y, x) != 0)
 			{
 				//位置、サイズ、種類を格納
-				player_->SetBlockPos(Vector2{ map->GetBlockPosition(0,y, x).x_,map->GetBlockPosition(0,y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(y, x));
+				player_->SetBlockPos(Vector2{ map->GetBlockPosition(0,y, x).x_,map->GetBlockPosition(0,y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(0,y, x));
 			}
 		}
 	}
@@ -80,10 +80,10 @@ void GameScene::Reset()
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
 		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
 
-			if (map->GetBlockNum(y, x) != 0)
+			if (map->GetBlockNum(0,y, x) != 0)
 			{
 				//位置、サイズ、種類を格納
-				player_->SetBlockPos(Vector2{ map->GetBlockPosition(0, y, x).x_,map->GetBlockPosition(0, y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(y, x));
+				player_->SetBlockPos(Vector2{ map->GetBlockPosition(0, y, x).x_,map->GetBlockPosition(0, y, x).y_ }, Vector2{ (float)blockSize ,(float)blockSize }, map->GetBlockNum(0,y, x));
 			}
 		}
 	}
