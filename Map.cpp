@@ -8,22 +8,58 @@ Map::~Map() {}
 
 void Map::Initialize()
 {
-	// マップの数
-	int mapCountX = sizeof(map[0]) / sizeof(map[0][0]);
-	int mapCountY = sizeof(map) / sizeof(map[0]);
-
 	// 画像の割り当て
 	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
 
-	// マップチップの描画
-	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
-		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
-			block = { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) };
+	// マップの数
+	mapCountX[0] = sizeof(map1[0]) / sizeof(map1[0][0]);
+	mapCountY[0] = sizeof(map1) / sizeof(map1[0]);
+	mapCountX[1] = sizeof(map2[0]) / sizeof(map2[0][0]);
+	mapCountY[1] = sizeof(map2) / sizeof(map2[0]);
+	mapCountX[2] = sizeof(map3[0]) / sizeof(map3[0][0]);
+	mapCountY[2] = sizeof(map3) / sizeof(map3[0]);
+	mapCountX[3] = sizeof(map4[0]) / sizeof(map4[0][0]);
+	mapCountY[3] = sizeof(map4) / sizeof(map4[0]);
+	mapCountX[4] = sizeof(map5[0]) / sizeof(map5[0][0]);
+	mapCountY[4] = sizeof(map5) / sizeof(map5[0]);
 
-			blockPosition[y][x] = { block.x_, block.y_ };
+	// マップチップの描画
+	for (int y = 0; y < mapCountY[0]; y++) {
+		for (int x = 0; x < mapCountX[0]; x++) {
+			block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+			blockPosition[0][y][x] = { block[0].x_, block[0].y_};
+		}
+	}
+	for (int y = 0; y < mapCountY[1]; y++) {
+		for (int x = 0; x < mapCountX[1]; x++) {
+			block[1] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+			blockPosition[1][y][x] = { block[1].x_, block[1].y_};
+		}
+	}
+	for (int y = 0; y < mapCountY[2]; y++) {
+		for (int x = 0; x < mapCountX[2]; x++) {
+			block[2] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+			blockPosition[2][y][x] = { block[2].x_, block[2].y_};
+		}
+	}
+	for (int y = 0; y < mapCountY[3]; y++) {
+		for (int x = 0; x < mapCountX[3]; x++) {
+			block[3] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+			blockPosition[3][y][x] = { block[3].x_, block[3].y_};
+		}
+	}
+	for (int y = 0; y < mapCountY[4]; y++) {
+		for (int x = 0; x < mapCountX[4]; x++) {
+			block[4] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+			blockPosition[4][y][x] = { block[4].x_, block[4].y_};
 		}
 	}
 }
@@ -38,25 +74,131 @@ void Map::Update()
 void Map::Draw()
 {
 	// マップチップの描画
-	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
-		for (int x = 0; x < MAP_SIZE_WIDTH; x++) {
-			block = { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) };
+	switch (stage_) {
+	case STAGE_1:
 
-			blockPosition[y][x] = { block.x_, block.y_ };
+		for (int y = 0; y < mapCountY[0]; y++) {
+			for (int x = 0; x < mapCountX[0]; x++) {
+				block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
-			if (map[y][x] == BLOCK) {
-				DrawGraph(block.x_, block.y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
-			}
-			if (map[y][x] == MOVE_BLOCK) {
-				DrawGraph(block.x_, block.y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
-			}
-			if (map[y][x] == DAMAGE_BLOCK) {
-				DrawGraph(block.x_ + addShakeX_, block.y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
-			}
-			if (map[y][x] == GOAL_BLOCK) {
-				DrawGraph(block.x_, block.y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+				blockPosition[0][y][x] = { block[0].x_, block[0].y_};
+
+				if (map1[y][x] == BLOCK) {
+					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+				}
+				if (map1[y][x] == MOVE_BLOCK) {
+					DrawGraph(block[0].x_, block[0].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map1[y][x] == DAMAGE_BLOCK) {
+					DrawGraph(block[0].x_ + addShakeX_, block[0].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map1[y][x] == GOAL_BLOCK) {
+					DrawGraph(block[0].x_, block[0].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+				}
 			}
 		}
+
+		break;
+
+	case STAGE_2:
+
+		for (int y = 0; y < mapCountY[1]; y++) {
+			for (int x = 0; x < mapCountX[1]; x++) {
+				block[1] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+				blockPosition[1][y][x] = { block[1].x_, block[1].y_};
+
+				if (map2[y][x] == BLOCK) {
+					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+				}
+				if (map2[y][x] == MOVE_BLOCK) {
+					DrawGraph(block[1].x_, block[1].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map2[y][x] == DAMAGE_BLOCK) {
+					DrawGraph(block[1].x_ + addShakeX_, block[1].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map2[y][x] == GOAL_BLOCK) {
+					DrawGraph(block[1].x_, block[1].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+				}
+			}
+		}
+
+		break;
+
+	case STAGE_3:
+
+		for (int y = 0; y < mapCountY[2]; y++) {
+			for (int x = 0; x < mapCountX[2]; x++) {
+				block[2] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+				blockPosition[2][y][x] = { block[2].x_, block[2].y_};
+
+				if (map3[y][x] == BLOCK) {
+					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+				}
+				if (map3[y][x] == MOVE_BLOCK) {
+					DrawGraph(block[2].x_, block[2].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map3[y][x] == DAMAGE_BLOCK) {
+					DrawGraph(block[2].x_ + addShakeX_, block[2].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map3[y][x] == GOAL_BLOCK) {
+					DrawGraph(block[2].x_, block[2].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+				}
+			}
+		}
+
+		break;
+
+	case STAGE_4:
+
+		for (int y = 0; y < mapCountY[3]; y++) {
+			for (int x = 0; x < mapCountX[3]; x++) {
+				block[3] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+				blockPosition[3][y][x] = { block[3].x_, block[3].y_};
+
+				if (map4[y][x] == BLOCK) {
+					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+				}
+				if (map4[y][x] == MOVE_BLOCK) {
+					DrawGraph(block[3].x_, block[3].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map4[y][x] == DAMAGE_BLOCK) {
+					DrawGraph(block[3].x_ + addShakeX_, block[3].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map4[y][x] == GOAL_BLOCK) {
+					DrawGraph(block[3].x_, block[3].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+				}
+			}
+		}
+
+		break;
+
+	case STAGE_5:
+
+		for (int y = 0; y < mapCountY[4]; y++) {
+			for (int x = 0; x < mapCountX[4]; x++) {
+				block[4] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
+
+				blockPosition[4][y][x] = { block[4].x_, block[4].y_};
+
+				if (map5[y][x] == BLOCK) {
+					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, BLOCK_TEXTURE, TRUE);
+				}
+				if (map5[y][x] == MOVE_BLOCK) {
+					DrawGraph(block[4].x_, block[4].y_ + addSpeed + mapChipMoveY_, MOVE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map5[y][x] == DAMAGE_BLOCK) {
+					DrawGraph(block[4].x_ + addShakeX_, block[4].y_ + addShakeY_ + mapChipMoveY_, DAMAGE_BLOCK_TEXTURE, TRUE);
+				}
+				if (map5[y][x] == GOAL_BLOCK) {
+					DrawGraph(block[4].x_, block[4].y_ + mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+				}
+			}
+		}
+
+		break;
 	}
 }
 
