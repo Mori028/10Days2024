@@ -422,7 +422,7 @@ bool Player::CheckHit(Vector2 pos, Vector2 size)
 {
 	// 値が0未満ならめり込んでる。
 	bool X = std::abs(pos.x_ - pos_.x_) - (size.x_ + size_.x_) < 0;
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size.y_ + size_.y_) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_ - mapChipMoveY_) - (size.y_ + size_.y_) < 0;
 
 	return X && Y;
 }
@@ -438,7 +438,7 @@ bool Player::CheckHitX(Vector2 pos, float size)
 bool Player::CheckHitY(Vector2 pos, float size)
 {
 	// 値が0未満ならめり込んでる。
-	bool Y = std::abs(pos.y_ - pos_.y_) - (size + size_.y_) < 0;
+	bool Y = std::abs(pos.y_ - pos_.y_ - mapChipMoveY_) - (size + size_.y_) < 0;
 
 	return Y;
 }
