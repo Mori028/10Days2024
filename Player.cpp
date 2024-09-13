@@ -155,17 +155,21 @@ void Player::Reset()
 	//ヒップドロップフラグoff
 	hipDropF_ = false;
 
-	//
+	//移動値格納用変数
 	move_ = { 0,0 };
 
-	//
+	//ブロックに触れているか
 	blockF_ = false;
 
 	//スクロール値
 	mapChipMoveY_ = 0;
 	//mapChipMoveMax_ = 0;
 
+	//次のシーンに行くフラグ
 	nextFlag_ = false;
+
+	//回数
+	hipDrop_ = 5;
 }
 
 void Player::Move()
@@ -350,7 +354,6 @@ void Player::Jump()
 					hipDrop_ = 0;
 				}
 			}
-
 			break;
 		}
 	}
