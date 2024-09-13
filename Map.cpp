@@ -17,54 +17,54 @@ void Map::Initialize()
 	// マップの数
 	for (int i = 0; i < 5; i++) {
 		if (i == 0) {
-			mapCountX[i] = sizeof(map[0][0]) / sizeof(map[0][0][0]);
-			mapCountY[i] = sizeof(map[0]) / sizeof(map[0][0]);
+			mapCount[i].x_ = sizeof(map[0][0]) / sizeof(map[0][0][0]);
+			mapCount[i].y_ = sizeof(map[0]) / sizeof(map[0][0]);
 		}else if (i == 1) {
-			mapCountX[i] = sizeof(map[1][0]) / sizeof(map[1][0][0]);
-			mapCountY[i] = sizeof(map[1]) / sizeof(map[1][0]);
+			mapCount[i].x_ = sizeof(map[1][0]) / sizeof(map[1][0][0]);
+			mapCount[i].y_ = sizeof(map[1]) / sizeof(map[1][0]);
 		}else if (i == 2) {
-			mapCountX[i] = sizeof(map[2][0]) / sizeof(map[2][0][0]);
-			mapCountY[i] = sizeof(map[2]) / sizeof(map[2][0]);
+			mapCount[i].x_ = sizeof(map[2][0]) / sizeof(map[2][0][0]);
+			mapCount[i].y_ = sizeof(map[2]) / sizeof(map[2][0]);
 		}else if (i == 3) {
-			mapCountX[i] = sizeof(map[3][0]) / sizeof(map[3][0][0]);
-			mapCountY[i] = sizeof(map[3]) / sizeof(map[3][0]);
+			mapCount[i].x_ = sizeof(map[3][0]) / sizeof(map[3][0][0]);
+			mapCount[i].y_ = sizeof(map[3]) / sizeof(map[3][0]);
 		}else if (i == 4) {
-			mapCountX[i] = sizeof(map[4][0]) / sizeof(map[4][0][0]);
-			mapCountY[i] = sizeof(map[4]) / sizeof(map[4][0]);
+			mapCount[i].x_ = sizeof(map[4][0]) / sizeof(map[4][0][0]);
+			mapCount[i].y_ = sizeof(map[4]) / sizeof(map[4][0]);
 		}
 	}
 
 	// マップチップの描画
-	for (int y = 0; y < mapCountY[0]; y++) {
-		for (int x = 0; x < mapCountX[0]; x++) {
+	for (int y = 0; y < mapCount[0].y_; y++) {
+		for (int x = 0; x < mapCount[0].x_; x++) {
 			block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 			blockPosition[0][y][x] = { block[0].x_, block[0].y_};
 		}
 	}
-	for (int y = 0; y < mapCountY[1]; y++) {
-		for (int x = 0; x < mapCountX[1]; x++) {
+	for (int y = 0; y < mapCount[1].y_; y++) {
+		for (int x = 0; x < mapCount[1].x_; x++) {
 			block[1] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 			blockPosition[1][y][x] = { block[1].x_, block[1].y_};
 		}
 	}
-	for (int y = 0; y < mapCountY[2]; y++) {
-		for (int x = 0; x < mapCountX[2]; x++) {
+	for (int y = 0; y < mapCount[2].y_; y++) {
+		for (int x = 0; x < mapCount[2].x_; x++) {
 			block[2] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 			blockPosition[2][y][x] = { block[2].x_, block[2].y_};
 		}
 	}
-	for (int y = 0; y < mapCountY[3]; y++) {
-		for (int x = 0; x < mapCountX[3]; x++) {
+	for (int y = 0; y < mapCount[3].y_; y++) {
+		for (int x = 0; x < mapCount[3].x_; x++) {
 			block[3] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 			blockPosition[3][y][x] = { block[3].x_, block[3].y_};
 		}
 	}
-	for (int y = 0; y < mapCountY[4]; y++) {
-		for (int x = 0; x < mapCountX[4]; x++) {
+	for (int y = 0; y < mapCount[4].y_; y++) {
+		for (int x = 0; x < mapCount[4].x_; x++) {
 			block[4] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 			blockPosition[4][y][x] = { block[4].x_, block[4].y_};
@@ -85,8 +85,8 @@ void Map::Draw()
 	switch (stage_) {
 	case STAGE_1:
 
-		for (int y = 0; y < mapCountY[0]; y++) {
-			for (int x = 0; x < mapCountX[0]; x++) {
+		for (int y = 0; y < mapCount[0].y_; y++) {
+			for (int x = 0; x < mapCount[0].x_; x++) {
 				block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 				blockPosition[0][y][x] = { block[0].x_, block[0].y_};
@@ -110,8 +110,8 @@ void Map::Draw()
 
 	case STAGE_2:
 
-		for (int y = 0; y < mapCountY[1]; y++) {
-			for (int x = 0; x < mapCountX[1]; x++) {
+		for (int y = 0; y < mapCount[1].y_; y++) {
+			for (int x = 0; x < mapCount[1].x_; x++) {
 				block[1] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 				blockPosition[1][y][x] = { block[1].x_, block[1].y_};
@@ -135,8 +135,8 @@ void Map::Draw()
 
 	case STAGE_3:
 
-		for (int y = 0; y < mapCountY[2]; y++) {
-			for (int x = 0; x < mapCountX[2]; x++) {
+		for (int y = 0; y < mapCount[2].y_; y++) {
+			for (int x = 0; x < mapCount[2].x_; x++) {
 				block[2] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 				blockPosition[2][y][x] = { block[2].x_, block[2].y_};
@@ -160,8 +160,8 @@ void Map::Draw()
 
 	case STAGE_4:
 
-		for (int y = 0; y < mapCountY[3]; y++) {
-			for (int x = 0; x < mapCountX[3]; x++) {
+		for (int y = 0; y < mapCount[3].y_; y++) {
+			for (int x = 0; x < mapCount[3].x_; x++) {
 				block[3] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 				blockPosition[3][y][x] = { block[3].x_, block[3].y_};
@@ -185,8 +185,8 @@ void Map::Draw()
 
 	case STAGE_5:
 
-		for (int y = 0; y < mapCountY[4]; y++) {
-			for (int x = 0; x < mapCountX[4]; x++) {
+		for (int y = 0; y < mapCount[4].y_; y++) {
+			for (int x = 0; x < mapCount[4].x_; x++) {
 				block[4] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
 
 				blockPosition[4][y][x] = { block[4].x_, block[4].y_};

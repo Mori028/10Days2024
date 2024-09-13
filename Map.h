@@ -136,8 +136,7 @@ private:
 	static const int STAGE4_MAP_SIZE_WIDTH = 20;
 	static const int STAGE5_MAP_SIZE_HEIGHT = 27;
 	static const int STAGE5_MAP_SIZE_WIDTH = 20;
-	int mapCountX[5];
-	int mapCountY[5];
+	Vector2 mapCount[5];
 	Vector2 blockPosition[5][STAGE1_MAP_SIZE_HEIGHT][STAGE1_MAP_SIZE_WIDTH];
 	Vector2 block[5];
 	const int blockSize = 60;
