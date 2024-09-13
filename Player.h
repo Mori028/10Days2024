@@ -159,7 +159,7 @@ private:
 	float mapChipMoveMax_ = 0;
 
 	//最大落下回数
-	size_t MaxHipDrop_ = 5;
+	size_t MaxHipDrop_ = 3;
 	float hipDrop_ = 5;
 
 	//次のシーンに行く用

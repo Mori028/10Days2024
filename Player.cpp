@@ -78,7 +78,7 @@ void Player::Initialize()
 	nextFlag_ = false;
 
 	//回数
-	hipDrop_ = 5;
+	MaxHipDrop_ = 3;
 }
 
 void Player::Draw()
@@ -169,7 +169,7 @@ void Player::Reset()
 	nextFlag_ = false;
 
 	//回数
-	hipDrop_ = 5;
+	MaxHipDrop_ = 3;
 }
 
 void Player::Move()
@@ -302,7 +302,7 @@ void Player::Jump()
 	move_.y_ = 0;
 
 	//重力の最大値 
-	const float MaxGravity = 10;
+	const float MaxGravity = 13;
 
 	//ジャンプの最大値
 	const float MaxJump = 30;
@@ -341,16 +341,16 @@ void Player::Jump()
 					//2回以上でないように
 					jumpFlags_ = false;
 
-					//
+					//フラグをONに
 					hipDropF_ = true;
 
-					//
+					//ジャンプ力を0に
 					jumpPower_ = 0;
 
 					//回数を引く
 					MaxHipDrop_--;
 
-					//
+					//値を減らす
 					hipDrop_ = 0;
 				}
 			}
