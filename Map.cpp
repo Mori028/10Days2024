@@ -13,10 +13,11 @@ void Map::Initialize()
 	int mapCountY = sizeof(map) / sizeof(map[0]);
 
 	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/Block3_1.png", TRUE);
 	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
-	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/DamageBlock.png", TRUE);
 	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	NONBREAK_BLOCK_TEXTURE = LoadGraph("Resource/Block3.png", TRUE);
 
 	// マップチップの描画
 	for (int y = 0; y < MAP_SIZE_HEIGHT; y++) {
@@ -55,6 +56,9 @@ void Map::Draw()
 			}
 			if (map[y][x] == GOAL_BLOCK) {
 				DrawGraph(block.x_, block.y_ - mapChipMoveY_, GOAL_BLOCK_TEXTURE, TRUE);
+			}
+			if (map[y][x] == NONBREAK_BLOCK) {
+				DrawGraph(block.x_, block.y_ - mapChipMoveY_, NONBREAK_BLOCK_TEXTURE, TRUE);
 			}
 		}
 	}
