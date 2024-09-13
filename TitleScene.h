@@ -43,6 +43,7 @@ private:
 	int sceneChangeTimer = 0;
 	int sceneChangeCount = 0; //4カウントで暗転する
 	int titleTimer = 0;
+	int colorTimer = 0;
 
 	//次のシーンへ
 	bool isSceneChange_;
@@ -51,7 +52,13 @@ private:
 	//画像
 	size_t backGround_;
 	size_t title_;
+	size_t title1_;
+	size_t title2_;
+	size_t title3_;
+	size_t title4_;
+	size_t title5_;
 	size_t space_;
+	size_t blueSpace_;
 	size_t sceneChange1Png_;
 	size_t sceneChange2Png_;
 	size_t sceneChange3Png_;
