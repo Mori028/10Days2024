@@ -9,23 +9,24 @@
 class Map 
 {
 public:
-	// コンストラクタ
+	// �R���X�g���N�^
 	Map();
-	// デストラクタ
+	// �f�X�g���N�^
 	~Map();
 
 public:
-	// ブロックの番号
+	// �u���b�N�̔ԍ�
 	enum MapInfo 
 	{
 		NONE,         // 0
 		BLOCK,        // 1
 		MOVE_BLOCK,   // 2
 		DAMAGE_BLOCK, // 3
-		GOAL_BLOCK    // 4 
+		GOAL_BLOCK,    // 4 
+		NONBREAK_BLOCK,	//5
 	};
 
-	// ステージ番号
+	// �X�e�[�W�ԍ�
 	enum Stage
 	{
 		STAGE_1 = 1, // 1
@@ -37,54 +38,54 @@ public:
 
 public:
 	/// <summary>
-	/// 初期化
+	/// ������
 	/// </summary>
 	void Initialize();
 
 	/// <summary>
-	/// 更新
+	/// �X�V
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// 描画
+	/// �`��
 	/// </summary>
 	void Draw();
 
 	/// <summary>
-	/// 移動
+	/// �ړ�
 	/// </summary>
 	void Move();
 
 	/// <summary>
-	/// マップチップのシェイク
+	/// �}�b�v�`�b�v�̃V�F�C�N
 	/// </summary>
 	void Shake();
 
 	/// <summary>
-	/// マップチップの当たり判定
+	/// �}�b�v�`�b�v�̓����蔻��
 	/// </summary>
 	void MapChipHitCheck();
 
 public:
 	/// <summary>
-	/// ブロックの座標の取得
+	/// �u���b�N�̍��W�̎擾
 	/// </summary>
 	const Vector2& GetBlockPosition(int mapNum, int y,int x) const { return blockPosition[mapNum][y][x]; }
 
 	/// <summary>
-	/// マップチップの番号の取得
+	/// �}�b�v�`�b�v�̔ԍ��̎擾
 	/// </summary>
 	int GetBlockNum(int mapNum, int y, int x) { return map[mapNum][y][x]; }
 
 	/// <summary>
-	/// ブロックのシェイクフラグの取得と設定
+	/// �u���b�N�̃V�F�C�N�t���O�̎擾�Ɛݒ�
 	/// </summary>
 	bool GetIsShake() { return isShake_; }
 	void SetIsShake(bool isShake) { isShake_ = isShake; }
 
 	/// <summary>
-	/// マップチップのスクロール変数と最大値の取得・設定
+	/// �}�b�v�`�b�v�̃X�N���[���ϐ��ƍő�l�̎擾�E�ݒ�
 	/// </summary>
 	/// <returns></returns>
 	float GetMapChipMove() { return mapChipMoveY_; }
@@ -93,17 +94,17 @@ public:
 	void SetMapChipMoveMax(float mapChipMoveMax) { mapChipMoveMax_ = mapChipMoveMax; }
 
 	/// <summary>
-	/// 現在のステージ番号の取得と設定
+	/// ���݂̃X�e�[�W�ԍ��̎擾�Ɛݒ�
 	/// </summary>
 	int GetStageNum() { return stage_; }
 	void SetStageNum(int stage) { stage_ = stage; }
 
 private:
-	// 床のフラグやタイマーetc.
+	// ���̃t���O��^�C�}�[etc.
 	bool isFloorMove_ = false;
 	int floorMoveTime_ = 0;
 
-	// ブロックのシェイク
+	// �u���b�N�̃V�F�C�N
 	bool isShake_ = false;
 	int shakeTime_ = 0;
 	float addShakeX_ = 0.0f;
@@ -119,13 +120,13 @@ private:
 	const float shakeMdX_ = 2.5f;
 	const float shakeMdY_ = 20.0f;
 
-	// 画像
+	// �摜
 	int BLOCK_TEXTURE;
 	int MOVE_BLOCK_TEXTURE;
 	int DAMAGE_BLOCK_TEXTURE;
 	int GOAL_BLOCK_TEXTURE;
 
-	// マップチップ
+	// �}�b�v�`�b�v
 	static const int STAGE1_MAP_SIZE_HEIGHT = 27;
 	static const int STAGE1_MAP_SIZE_WIDTH = 20;
 	static const int STAGE2_MAP_SIZE_HEIGHT = 27;

@@ -8,13 +8,13 @@ Map::~Map() {}
 
 void Map::Initialize()
 {
-	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	MOVE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
-	GOAL_BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+	// �摜�̊��蓖��
+	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	MOVE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	DAMAGE_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
+	GOAL_BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
-	// マップの数
+	// �}�b�v�̐�
 	for (int i = 0; i < 5; i++) {
 		if (i == 0) {
 			mapCountX[i] = sizeof(map[0][0]) / sizeof(map[0][0][0]);
@@ -34,7 +34,7 @@ void Map::Initialize()
 		}
 	}
 
-	// マップチップの描画
+	// �}�b�v�`�b�v�̕`��
 	for (int y = 0; y < mapCountY[0]; y++) {
 		for (int x = 0; x < mapCountX[0]; x++) {
 			block[0] = {static_cast<float>(x * blockSize), static_cast<float>(y * blockSize)};
@@ -81,7 +81,7 @@ void Map::Update()
 
 void Map::Draw()
 {
-	// マップチップの描画
+	// �}�b�v�`�b�v�̕`��
 	switch (stage_) {
 	case STAGE_1:
 
@@ -234,7 +234,7 @@ void Map::Move()
 void Map::Shake()
 {
 	if (isShake_) {
-		// 乱数の取得
+		// �����̎擾
 		std::random_device rnd;
 		std::mt19937 mt(rnd());
 		std::uniform_int_distribution<> rand(shakeMin_, shakeMax_);

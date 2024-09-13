@@ -58,23 +58,27 @@ void Player::Initialize()
 	//ヒップドロップフラグoff
 	hipDropF_ = false;
 
-	//
+	//移動値格納用変数
 	move_ = { 0,0 };
 
-	//
+	//ブロックに触れているか
 	blockF_ = false;
 
 	//画像読み込み
 	playerPng_ = LoadGraph("Resource//player.png");
 
 	// 画像の割り当て
-	BLOCK_TEXTURE = LoadGraph("Resources/1.png", TRUE);
+	BLOCK_TEXTURE = LoadGraph("Resource/1.png", TRUE);
 
 	//スクロール値
 	mapChipMoveY_ = 0;
 	mapChipMoveMax_ = 0;
 
-	nextFlag = false;
+	//次のシーンに行くフラグ
+	nextFlag_ = false;
+
+	//回数
+	MaxHipDrop_ = 3;
 }
 
 void Player::Draw()
@@ -151,17 +155,21 @@ void Player::Reset()
 	//ヒップドロップフラグoff
 	hipDropF_ = false;
 
-	//
+	//移動値格納用変数
 	move_ = { 0,0 };
 
-	//
+	//ブロックに触れているか
 	blockF_ = false;
 
 	//スクロール値
 	mapChipMoveY_ = 0;
 	//mapChipMoveMax_ = 0;
 
-	nextFlag = false;
+	//次のシーンに行くフラグ
+	nextFlag_ = false;
+
+	//回数
+	MaxHipDrop_ = 3;
 }
 
 void Player::Move()
@@ -209,7 +217,7 @@ void Player::Move()
 		{
 			if (blocks_[i]->GetKind() == GOAL_BLOCK)
 			{
-				nextFlag = true;
+				nextFlag_ = true;
 			}
 			//横修正
 			else if (CheckHitX(blocks_[i]->GetPos(), blocks_[i]->GetSize().x_))
@@ -255,10 +263,9 @@ void Player::Move()
 		{
 			if (blocks_[i]->GetKind() == GOAL_BLOCK)
 			{
-				nextFlag = true;
+				nextFlag_ = true;
 			}
-			//横修正
-			else if (hipDropF_)
+			else if (!(blocks_[i]->GetKind() == NONBREAK_BLOCK) && hipDropF_)
 			{
 				blocks_[i]->SetPos({ -100, -100 });
 			}
@@ -294,7 +301,7 @@ void Player::Jump()
 	move_.y_ = 0;
 
 	//重力の最大値 
-	const float MaxGravity = 5;
+	const float MaxGravity = 13;
 
 	//ジャンプの最大値
 	const float MaxJump = 30;
@@ -327,16 +334,25 @@ void Player::Jump()
 			//一度ジャンプしているか
 			if (jumpFlags_)
 			{
-				//2回以上でないように
-				jumpFlags_ = false;
+				//回数が残っているか
+				if (MaxHipDrop_ > 0)
+				{
+					//2回以上でないように
+					jumpFlags_ = false;
 
-				//
-				hipDropF_ = true;
+					//フラグをONに
+					hipDropF_ = true;
 
-				//
-				jumpPower_ = 0;
+					//ジャンプ力を0に
+					jumpPower_ = 0;
+
+					//回数を引く
+					MaxHipDrop_--;
+
+					//値を減らす
+					hipDrop_ = 0;
+				}
 			}
-
 			break;
 		}
 	}
@@ -357,14 +373,22 @@ void Player::Jump()
 		jumpPower_ = 0;
 	}
 
-	//
+	//直下
 	if (hipDropF_)
 	{
 		//落下速度
-		size_t speed = 10;
+		size_t speed = 5;
 
 		//重力
 		move_.y_ += gravityPower_ * speed;
+
+		//
+		hipDrop_++;
+
+		if (hipDrop_ > 10)
+		{
+			hipDropF_ = false;
+		}
 	}
 	else
 	{
