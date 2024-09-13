@@ -120,7 +120,7 @@ private:
 	const float shakeMdX_ = 2.5f;
 	const float shakeMdY_ = 20.0f;
 
-	// 画像
+	// 画像の読み込み変数
 	int BLOCK_TEXTURE;
 	int MOVE_BLOCK_TEXTURE;
 	int DAMAGE_BLOCK_TEXTURE;
@@ -135,7 +135,7 @@ private:
 	Vector2 block[5];
 	const int blockSize = 60;
 	float mapChipMoveY_ = 0.0f;
-	float mapChipMoveMax_ = 1620.0f;
+	float mapChipMoveMax_ = static_cast<float>(STAGE_MAP_SIZE_HEIGHT * 60.0f);
 	float addSpeed = 0.0f;
 	float screenY_ = 0.0f;
 	int stage_ = 1;
@@ -156,8 +156,8 @@ private:
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+			{0,1,3,3,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,0},
+			{0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0},
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
